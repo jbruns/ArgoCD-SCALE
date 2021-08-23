@@ -1,0 +1,8 @@
+apiVersion: storage.k8s.io/v1
+kind: StorageClass
+metadata:
+  name: argo-zfspv-fast
+parameters:
+  fstype: "zfs"
+  poolname: "luna-dev/argo/pv"
+provisioner: zfs.csi.openebs.io

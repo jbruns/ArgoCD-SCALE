@@ -1,0 +1,9 @@
+[
+    {
+      "name": "vault",
+      "cluster": "in-cluster",
+      "namespace": "vault",
+      "path": "cluster-critical/vault"
+    }
+  ]
+  

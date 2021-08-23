@@ -1,0 +1,8 @@
+apiVersion: storage.k8s.io/v1
+kind: StorageClass
+metadata:
+  name: argo-zfspv-slow
+parameters:
+  fstype: "zfs"
+  poolname: "andromeda-dev/argo/pv"
+provisioner: zfs.csi.openebs.io

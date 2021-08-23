@@ -1,0 +1,9 @@
+[
+    {
+      "name": "cert-manager",
+      "cluster": "in-cluster",
+      "namespace": "cert-manager",
+      "path": "cluster-critical/cert-manager"
+    }
+  ]
+  
