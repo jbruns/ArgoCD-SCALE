@@ -1,0 +1,65 @@
+apiVersion: argoproj.io/v1alpha1
+kind: AppProject
+metadata:
+  name: argocd-scale
+  namespace: argocd
+  # Finalizer that ensures that project is not deleted until it is not referenced by any application
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io
+spec:
+  description: ArgoCD on TrueNAS SCALE
+  clusterResourceWhitelist:
+  - group: '*'
+    kind: '*'
+  destinations:
+  - namespace: '*'
+    server: '*'
+  sourceRepos:
+  - '*'
+---
+apiVersion: argoproj.io/v1alpha1
+kind: ApplicationSet
+metadata:
+  name: argo-critical
+  namespace: argocd
+spec:
+  generators:
+  - git:
+      repoURL: https://github.com/jbruns/ArgoCD-SCALE.git
+      revision: main
+      directories:
+      - path: argo-critical/*
+  template:
+    metadata:
+      name: '{{path.basename}}'
+    spec:
+      project: argo-critical
+      syncPolicy:
+        automated:
+          prune: true
+          selfHeal: true
+      source:
+        repoURL: https://github.com/jbruns/ArgoCD-SCALE.git
+        targetRevision: main
+        path: '{{path}}'
+      destination:
+        server: https://kubernetes.default.svc
+        namespace: argo-critical
+---
+apiVersion: v1
+kind: Secret
+metadata:
+  labels:
+    argocd.argoproj.io/secret-type: cluster
+  name: cluster-local
+  namespace: argocd
+stringData:
+  config: '{"bearerToken":"","tlsClientConfig":{"insecure":false,"caData":""}}'
+  name: in-cluster
+  server: https://kubernetes.default.svc
+type: Opaque
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: argo-critical
