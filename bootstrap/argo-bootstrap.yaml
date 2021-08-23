@@ -1,3 +1,34 @@
+apiVersion: storage.k8s.io/v1
+kind: StorageClass
+metadata:
+  name: argo-zfspv-slow
+parameters:
+  fstype: "zfs"
+  poolname: "andromeda-dev/argo/pv"
+provisioner: zfs.csi.openebs.io
+---
+apiVersion: storage.k8s.io/v1
+kind: StorageClass
+metadata:
+  name: argo-zfspv-fast
+parameters:
+  fstype: "zfs"
+  poolname: "luna-dev/argo/pv"
+provisioner: zfs.csi.openebs.io
+---
+apiVersion: v1
+kind: Secret
+metadata:
+  labels:
+    argocd.argoproj.io/secret-type: cluster
+  name: cluster-local
+  namespace: argocd
+stringData:
+  config: '{"bearerToken":"","tlsClientConfig":{"insecure":false,"caData":""}}'
+  name: in-cluster
+  server: https://kubernetes.default.svc
+type: Opaque
+---
 apiVersion: argoproj.io/v1alpha1
 kind: AppProject
 metadata:
@@ -33,7 +64,7 @@ spec:
     metadata:
       name: '{{path.basename}}'
     spec:
-      project: argo-critical
+      project: argocd-scale
       syncPolicy:
         automated:
           prune: true
@@ -45,19 +76,6 @@ spec:
       destination:
         server: https://kubernetes.default.svc
         namespace: argo-critical
----
-apiVersion: v1
-kind: Secret
-metadata:
-  labels:
-    argocd.argoproj.io/secret-type: cluster
-  name: cluster-local
-  namespace: argocd
-stringData:
-  config: '{"bearerToken":"","tlsClientConfig":{"insecure":false,"caData":""}}'
-  name: in-cluster
-  server: https://kubernetes.default.svc
-type: Opaque
 ---
 apiVersion: v1
 kind: Namespace
