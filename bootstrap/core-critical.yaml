@@ -18,22 +18,25 @@ spec:
   - '*'
 ---
 apiVersion: argoproj.io/v1alpha1
-kind: Application
+kind: ApplicationSet
 metadata:
   name: cluster-critical
-  namespace: argocd
-  finalizers:
-  - resources-finalizer.argocd.argoproj.io
 spec:
-  destination:
-    namespace: argocd
-    server: https://kubernetes.default.svc
-  project: cluster-critical
-  source:
-    path: cluster-critical/
-    repoURL: https://github.com/jbruns/ArgoCD-SCALE.git
-    targetRevision: main
-  syncPolicy:
-    automated:
-      prune: true
-      selfHeal: true
+  generators:
+    - git:
+        repoURL: https://github.com/jbruns/ArgoCD-SCALE.git
+        revision: main
+        directories:
+        - path: cluster-critical/*
+  template:
+    metadata:
+      name: '{{path.basename}}'
+    spec:
+      project: cluster-critical
+      source:
+        path: '{{path}}'
+        targetRevision: main
+        repoURL: https://github.com/jbruns/ArgoCD-SCALE.git
+      destination:
+        server: https://kubernetes.default.svc
+        namespace: '{{path.basename}}'
