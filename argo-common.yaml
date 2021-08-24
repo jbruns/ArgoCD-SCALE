@@ -1,12 +1,12 @@
 apiVersion: v1
 kind: Namespace
 metadata:
-  name: argo-critical
+  name: argo-common
 ---
 apiVersion: argoproj.io/v1alpha1
 kind: ApplicationSet
 metadata:
-  name: argo-critical
+  name: argo-common
   namespace: argocd
 spec:
   generators:
@@ -14,7 +14,7 @@ spec:
       repoURL: https://github.com/jbruns/ArgoCD-SCALE.git
       revision: main
       directories:
-      - path: argo-critical/*
+      - path: argo-common/*
   template:
     metadata:
       name: '{{path.basename}}'
@@ -30,7 +30,7 @@ spec:
         path: '{{path}}'
       destination:
         server: https://kubernetes.default.svc
-        namespace: argo-critical
+        namespace: argo-common
       ignoreDifferences:
       - group: admissionregistration.k8s.io
         kind: MutatingWebhookConfiguration

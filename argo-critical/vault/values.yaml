@@ -1,4 +1,0 @@
-vault:
-  server:
-    dataStorage:
-      storageClass: argo-zfspv-fast
