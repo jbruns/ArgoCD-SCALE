@@ -31,3 +31,8 @@ spec:
       destination:
         server: https://kubernetes.default.svc
         namespace: argo-critical
+      ignoreDifferences:
+      - group: admissionregistration.k8s.io
+        kind: MutatingWebhookConfiguration
+        jsonPointers:
+        - /webhooks
