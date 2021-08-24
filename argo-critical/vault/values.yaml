@@ -1,4 +1,4 @@
 # https://github.com/hashicorp/vault-helm
-server:
+vault:
   dataStorage:
     storageClass: argo-zfspv-fast

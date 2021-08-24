@@ -1,0 +1,33 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: argo-critical
+---
+apiVersion: argoproj.io/v1alpha1
+kind: ApplicationSet
+metadata:
+  name: argo-critical
+  namespace: argocd
+spec:
+  generators:
+  - git:
+      repoURL: https://github.com/jbruns/ArgoCD-SCALE.git
+      revision: main
+      directories:
+      - path: argo-critical/*
+  template:
+    metadata:
+      name: '{{path.basename}}'
+    spec:
+      project: argocd-scale
+      syncPolicy:
+        automated:
+          prune: true
+          selfHeal: true
+      source:
+        repoURL: https://github.com/jbruns/ArgoCD-SCALE.git
+        targetRevision: main
+        path: '{{path}}'
+      destination:
+        server: https://kubernetes.default.svc
+        namespace: argo-critical
