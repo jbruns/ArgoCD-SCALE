@@ -5,7 +5,16 @@ metadata:
 parameters:
   fstype: "zfs"
   poolname: "andromeda-dev/argo/pv"
+  shared: "yes"
 provisioner: zfs.csi.openebs.io
+reclaimPolicy: Retain
+allowVolumeExpansion: true
+volumeBindingMode: WaitForFirstConsumer
+allowedTopologies:
+  - matchLabelExpressions:
+      - key: kubernetes.io/hostname
+        values:
+          - ix-truenas
 ---
 apiVersion: storage.k8s.io/v1
 kind: StorageClass
@@ -14,7 +23,16 @@ metadata:
 parameters:
   fstype: "zfs"
   poolname: "luna-dev/argo/pv"
+  shared: "yes"
 provisioner: zfs.csi.openebs.io
+reclaimPolicy: Retain
+allowVolumeExpansion: true
+volumeBindingMode: WaitForFirstConsumer
+allowedTopologies:
+  - matchLabelExpressions:
+      - key: kubernetes.io/hostname
+        values:
+          - ix-truenas
 ---
 apiVersion: v1
 kind: Secret
