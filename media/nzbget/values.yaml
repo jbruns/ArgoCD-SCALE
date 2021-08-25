@@ -2,7 +2,7 @@
 # https://github.com/k8s-at-home/charts/blob/master/charts/stable/nzbget/values.yaml
 nzbget:
   env:
-    TZ: America/Los_Angeles
+    TZ: "{{ .Values.global.TZ }}"
   
   ingress:
     main:
@@ -12,14 +12,14 @@ nzbget:
         cert-manager.io/cluster-issuer: letsencrypt-production
         traefik.ingress.kubernetes.io/router.entrypoints: websecure
       hosts:
-      - host: "nzbget.wavebe.am"
+      - host: "{{ .Chart.Name }}.{{ .Values.global.domain }}"
         paths:
         - path: /
           pathType: Prefix      
       tls:
-        - secretName: nzbget-tls
+        - secretName: "{{ $.Chart.Name }}-tls"
           hosts:
-            - "nzbget.wavebe.am"
+            - "{{ .Chart.Name }}.{{ .Values.global.domain }}"
 
   persistence:
     config:
@@ -34,8 +34,8 @@ nzbget:
       hostPath: /mnt/andromeda-dev/media/nzbdl
 
   podSecurityContext:
-    runAsUser: 1001
-    runAsGroup: 1002
-    fsGroup: 1002
+    runAsUser: "{{ .Values.global.media.uid }}"
+    runAsGroup: "{{ .Values.global.media.gid }}"
+    fsGroup: "{{ .Values.global.media.gid }}"
     fsGroupChangePolicy: OnRootMismatch
 

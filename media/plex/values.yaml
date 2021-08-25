@@ -38,9 +38,9 @@ plex:
     fsGroup: 1002
     fsGroupChangePolicy: OnRootMismatch
     supplementalGroups:
-    - 44
-    - 107
+    - "{{ .Values.global.media.render }}"
+    - "{{ .Values.global.media.video }}"
   
 #  resources:
-#    requests:
+#    limits:
 #      nvidia.com/gpu: 1

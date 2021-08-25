@@ -1,0 +1,8 @@
+apiVersion: v1
+kind: Secret
+metadata:
+  name: cloudflare-api-token-secret
+  namespace: argo-common
+type: Opaque
+stringData:
+  api-token: <API Token>

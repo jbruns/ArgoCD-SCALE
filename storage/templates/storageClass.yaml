@@ -1,0 +1,20 @@
+{{- range $key, $val := $.Values.global.storage.pools }}
+apiVersion: storage.k8s.io/v1
+kind: StorageClass
+metadata:
+  name: {{ $key }}
+parameters:
+  fstype: "zfs"
+  poolname: {{ $val | quote }}
+  shared: "yes"
+provisioner: zfs.csi.openebs.io
+reclaimPolicy: Retain
+allowVolumeExpansion: true
+volumeBindingMode: WaitForFirstConsumer
+allowedTopologies:
+  - matchLabelExpressions:
+      - key: kubernetes.io/hostname
+        values:
+          - ix-truenas
+---
+{{- end }}

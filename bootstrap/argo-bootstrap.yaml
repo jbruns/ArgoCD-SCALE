@@ -1,39 +1,5 @@
-apiVersion: storage.k8s.io/v1
-kind: StorageClass
-metadata:
-  name: argo-zfspv-slow
-parameters:
-  fstype: "zfs"
-  poolname: "andromeda-dev/argo/pv"
-  shared: "yes"
-provisioner: zfs.csi.openebs.io
-reclaimPolicy: Retain
-allowVolumeExpansion: true
-volumeBindingMode: WaitForFirstConsumer
-allowedTopologies:
-  - matchLabelExpressions:
-      - key: kubernetes.io/hostname
-        values:
-          - ix-truenas
----
-apiVersion: storage.k8s.io/v1
-kind: StorageClass
-metadata:
-  name: argo-zfspv-fast
-parameters:
-  fstype: "zfs"
-  poolname: "luna-dev/argo/pv"
-  shared: "yes"
-provisioner: zfs.csi.openebs.io
-reclaimPolicy: Retain
-allowVolumeExpansion: true
-volumeBindingMode: WaitForFirstConsumer
-allowedTopologies:
-  - matchLabelExpressions:
-      - key: kubernetes.io/hostname
-        values:
-          - ix-truenas
----
+# ArgoCD cluster secret to ensure that the local cluster can be selected by an ApplicationSet.
+# https://github.com/argoproj-labs/applicationset/issues/35
 apiVersion: v1
 kind: Secret
 metadata:
@@ -47,6 +13,7 @@ stringData:
   server: https://kubernetes.default.svc
 type: Opaque
 ---
+# Create a single ArgoCD project to house all applications/ApplicationSets.
 apiVersion: argoproj.io/v1alpha1
 kind: AppProject
 metadata:
@@ -65,3 +32,31 @@ spec:
     server: '*'
   sourceRepos:
   - '*'
+---
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: appsConfigurator
+  finalizers:
+  - resources-finalizer.argocd.argoproj.io
+spec:
+  project: argocd-scale
+  source:
+    repoURL: {{.repository}}
+    targetRevision: {{.version}}
+    path: {{.path}}
+    helm:
+      values: |
+      {{- range $key, $value := .values }}
+        {{ $key }}: {{ $value }}
+      {{- end }}
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: {{.namespace}}
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+    - CreateNamespace=true
+{{- end }}
