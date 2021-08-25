@@ -1,0 +1,67 @@
+# https://github.com/k8s-at-home/library-charts/blob/main/charts/stable/common/values.yaml
+# https://github.com/k8s-at-home/charts/blob/master/charts/stable/sonarr/values.yaml
+sonarr:
+  env:
+    TZ: America/Los_Angeles
+  
+  ingress:
+    main:
+      domainName: "wavebe.am"
+      enabled: true
+      annotations:
+        traefik.ingress.kubernetes.io/router.entrypoints: websecure
+      
+      hosts:
+      - host: "sonarr.wavebe.am"
+      
+      tls:
+      - hosts: "wavebe.am"
+        secretName: "wavebe-am"
+
+  persistence:
+    config:
+      enabled: true
+      storageClass: argo-zfspv-fast
+      size: 10Gi
+      accessMode: ReadWriteOnce
+      retain: true
+    media:
+      enabled: true
+      type: hostPath
+      hostPath: /mnt/andromeda-dev/media
+    nzbdl:
+      enabled: true
+      type: hostPath
+      hostPath: /mnt/andromeda-dev/media/nzbdl
+
+  podSecurityContext:
+    runAsUser: 1001
+    runAsGroup: 1002
+
+  prometheus:
+    podMonitor:
+      enabled: false
+      interval: 3m
+      scrapeTimeout: 1m
+      additionalLabels: {}
+
+  additionalContainers:
+    exportarr:
+      name: exportarr
+      image: ghcr.io/onedr0p/exportarr:v0.6.0
+      imagePullPolicy: IfNotPresent
+      args: ["exportarr", "sonarr"]
+      env:
+      - name: PORT
+        value: "32123"
+      - name: URL
+        value: "http://localhost"
+      - name: CONFIG
+        value: "/config/config.xml"
+      ports:
+      - name: exportarr
+        containerPort: 32123
+      volumeMounts:
+      - name: config
+        mountPath: /config
+        readOnly: true

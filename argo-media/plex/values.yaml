@@ -1,0 +1,43 @@
+# https://github.com/k8s-at-home/charts/blob/master/charts/stable/plex/values.yaml
+plex:
+  env:
+    TZ: America/Los_Angeles
+    NVIDIA_VISIBLE_DEVICES: all
+    NVIDIA_DRIVER_CAPABILITIES: compute,video,utility
+    PLEX_PREFERENCE_1: "FriendlyName=aMMc"
+    PLEX_PREFERENCE_2: "EnableIPv6=0"
+    PLEX_PREFERENCE_3: "logDebug=0"
+    PLEX_PREFERENCE_4: "DisableTLSv1_0=1"
+    PLEX_PREFERENCE_5: "LanNetworksBandwidth=172.16.0.0/16"
+    PLEX_PREFERENCE_6: "TranscoderQuality=2"
+    PLEX_PREFERENCE_7: "TreatWanIpAsLocal=0"
+    PLEX_PREFERENCE_8: "TranscoderH264BackgroundPreset=fast"
+
+  persistence:
+    config:
+      enabled: true
+      storageClass: argo-zfspv-fast
+      size: 100Gi
+      accessMode: ReadWriteOnce
+      retain: true
+    transcode:
+      enabled: true
+      storageClass: argo-zfspv-fast
+      size: 1000Gi
+      accessMode: ReadWriteOnce
+      retain: true
+    data:
+      enabled: true
+      type: hostPath
+      hostPath: /mnt/andromeda-dev/media
+  
+  podSecurityContext:
+    runAsUser: 1001
+    runAsGroup: 1002
+    supplementalGroups:
+    - 44
+    - 107
+  
+#  resources:
+#    requests:
+#      nvidia.com/gpu: 1

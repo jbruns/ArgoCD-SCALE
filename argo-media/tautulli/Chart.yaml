@@ -1,0 +1,7 @@
+name: tautulli
+apiVersion: v2
+version: 1.0.0
+dependencies:
+- name: tautulli
+  repository: https://k8s-at-home.com/charts
+  version: 11.0.0
