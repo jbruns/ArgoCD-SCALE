@@ -28,3 +28,9 @@ tautulli:
       size: 10Gi
       accessMode: ReadWriteOnce
       retain: true
+
+  podSecurityContext:
+    runAsUser: 1001
+    runAsGroup: 1002
+    fsGroup: 1002
+    fsGroupChangePolicy: OnRootMismatch

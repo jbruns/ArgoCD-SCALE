@@ -31,10 +31,12 @@ plex:
       type: hostPath
       hostPath: /mnt/andromeda-dev/media
       readOnly: true
-  
+
   podSecurityContext:
     runAsUser: 1001
     runAsGroup: 1002
+    fsGroup: 1002
+    fsGroupChangePolicy: OnRootMismatch
     supplementalGroups:
     - 44
     - 107
