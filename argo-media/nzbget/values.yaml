@@ -6,17 +6,20 @@ nzbget:
   
   ingress:
     main:
-      domainName: "wavebe.am"
       enabled: true
+      ingressClassName: traefik
       annotations:
+        cert-manager.io/cluster-issuer: letsencrypt-production
         traefik.ingress.kubernetes.io/router.entrypoints: websecure
-      
       hosts:
       - host: "nzbget.wavebe.am"
-      
+        paths:
+        - path: /
+          pathType: Prefix      
       tls:
-      - hosts: ["wavebe.am"]
-        secretName: "wavebe-am"
+        - secretName: nzbget-tls
+          hosts:
+            - "nzbget.wavebe.am"
 
   persistence:
     config:

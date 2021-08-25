@@ -30,6 +30,7 @@ plex:
       enabled: true
       type: hostPath
       hostPath: /mnt/andromeda-dev/media
+      readOnly: true
   
   podSecurityContext:
     runAsUser: 1001
