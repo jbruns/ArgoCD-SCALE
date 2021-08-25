@@ -15,7 +15,7 @@ radarr:
       - host: "radarr.wavebe.am"
       
       tls:
-      - hosts: "wavebe.am"
+      - hosts: ["wavebe.am"]
         secretName: "wavebe-am"
 
   persistence:

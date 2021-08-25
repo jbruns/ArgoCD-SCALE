@@ -15,7 +15,7 @@ sonarr:
       - host: "sonarr.wavebe.am"
       
       tls:
-      - hosts: "wavebe.am"
+      - hosts: ["wavebe.am"]
         secretName: "wavebe-am"
 
   persistence:
