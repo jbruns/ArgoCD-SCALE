@@ -1,0 +1,20 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: appsConfigurator
+  namespace: argocd
+  finalizers:
+  - resources-finalizer.argocd.argoproj.io
+spec:
+  project: argocd-scale
+  source:
+    repoURL: {{ .Values.global.repo }}
+    targetRevision: {{ .Values.global.branch }}
+    path: appsConfigurator
+    helm:
+      valueFiles:
+        - values.yaml
+        - ../globalValues.yaml
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: argocd

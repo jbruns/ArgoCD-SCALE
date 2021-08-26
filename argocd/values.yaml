@@ -1,0 +1,17 @@
+# https://github.com/argoproj/argo-helm/blob/master/charts/argo-cd/values.yaml
+argo-cd:
+  server:
+    extraArgs:
+    - --insecure
+    ingress:
+      enabled: true
+      ingressClassName: traefik
+      annotations:
+        traefik.ingress.kubernetes.io/router.entrypoints: websecure
+        traefik.ingress.kubernetes.io/router.priority: "10"
+        cert-manager.io/cluster-issuer: letsencrypt-production
+      hosts:
+      - "{{ .Chart.Name }}.{{ .Values.global.domain }}"
+      tls:
+      - secretName: "{{ .Chart.Name }}-tls"
+        hosts: ["{{ .Chart.Name }}.{{ .Values.global.domain }}"]

@@ -1,0 +1,31 @@
+{{- range $key, $val := $.Values.global.applicationSets }}
+apiVersion: argoproj.io/v1alpha1
+kind: ApplicationSet
+metadata:
+  name: "argo-{{ $key }}"
+  namespace: argocd
+spec:
+  generators:
+  - git:
+      repoURL: "{{ $.Values.global.repo }}"
+      revision: "{{ $.Values.global.branch }}"
+      directories:
+      - path: "{{ $key }}/*"
+  template:
+    metadata:
+      name: '{{ path.basename }}'
+    spec:
+      project: argocd-scale
+      syncPolicy:
+        automated:
+          prune: true
+          selfHeal: true
+      source:
+        repoURL: https://github.com/jbruns/ArgoCD-SCALE.git
+        targetRevision: main
+        path: '{{ path }}'
+      destination:
+        server: https://kubernetes.default.svc
+        namespace: argo-media
+---
+{{- end}}
