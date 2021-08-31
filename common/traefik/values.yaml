@@ -19,3 +19,4 @@ traefik:
 
   ingressClass:
     enabled: true
+    fallbackApiVersion: v1
