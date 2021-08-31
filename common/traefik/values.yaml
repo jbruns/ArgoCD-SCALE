@@ -1,1 +1,7 @@
 # https://github.com/traefik/traefik-helm-chart/blob/master/traefik/values.yaml
+traefik:
+  logs:
+    general:
+      level: INFO
+    access:
+      enabled: true
