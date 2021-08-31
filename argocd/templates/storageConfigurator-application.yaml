@@ -4,8 +4,6 @@ kind: Application
 metadata:
   name: storageconfigurator
   namespace: argocd
-  finalizers:
-  - resources-finalizer.argocd.argoproj.io
 spec:
   project: argocd-scale
   source:
