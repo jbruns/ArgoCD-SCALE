@@ -2,7 +2,7 @@
 # https://github.com/k8s-at-home/charts/blob/master/charts/stable/nzbget/values.yaml
 nzbget:
   env:
-    TZ: "{{ .Values.global.TZ }}"
+    TZ: '{{ .Values.global.TZ }}'  
   
   ingress:
     main:
@@ -24,18 +24,17 @@ nzbget:
   persistence:
     config:
       enabled: true
-      storageClass: '{{ .Values.global.media.persistentStorageClass }}'
+      storageClass: argo-zfspv-fast
       size: 10Gi
       accessMode: ReadWriteOnce
       retain: true
     nzbdl:
       enabled: true
       type: hostPath
-      hostPath: '{{ .Values.global.media.nzbdl }}'
+      hostPath: /mnt/andromeda-dev/media/nzbdl
 
   podSecurityContext:
     runAsUser: 1001
     runAsGroup: 1002
     fsGroup: 1002
     fsGroupChangePolicy: OnRootMismatch
-

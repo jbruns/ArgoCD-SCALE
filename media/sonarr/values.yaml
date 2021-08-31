@@ -2,7 +2,7 @@
 # https://github.com/k8s-at-home/charts/blob/master/charts/stable/sonarr/values.yaml
 sonarr:
   env:
-    TZ: "{{ .Values.global.TZ }}"
+    TZ: '{{ .Values.global.TZ }}'
   
   ingress:
     main:
@@ -12,19 +12,19 @@ sonarr:
         cert-manager.io/cluster-issuer: letsencrypt-production
         traefik.ingress.kubernetes.io/router.entrypoints: websecure
       hosts:
-      - host: "{{ .Chart.Name }}.{{ .Values.global.domain }}"
+      - host: '{{ .Chart.Name }}.{{ .Values.global.domain }}'
         paths:
         - path: /
           pathType: Prefix      
       tls:
-        - secretName: "{{ $.Chart.Name }}-tls"
+        - secretName: '{{ .Chart.Name }}-tls'
           hosts:
-            - "{{ .Chart.Name }}.{{ .Values.global.domain }}"
+            - '{{ .Chart.Name }}.{{ .Values.global.domain }}'
 
   persistence:
     config:
       enabled: true
-      storageClass: "{{ .Values.global.media.persistentStorageClass }}"
+      storageClass: argo-zfspv-fast
       size: 10Gi
       accessMode: ReadWriteOnce
       retain: true
@@ -35,12 +35,12 @@ sonarr:
     nzbdl:
       enabled: true
       type: hostPath
-      hostPath: "{{ .Values.global.media.nzbgetDownloadsHostPath }}"
+      hostPath: /mnt/andromeda-dev/media/nzbdl
 
   podSecurityContext:
-    runAsUser: "{{ .Values.global.media.uid }}"
-    runAsGroup: "{{ .Values.global.media.gid }}"
-    fsGroup: "{{ .Values.global.media.gid }}"
+    runAsUser: 1001
+    runAsGroup: 1002
+    fsGroup: 1002
     fsGroupChangePolicy: OnRootMismatch
     
   prometheus:

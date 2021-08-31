@@ -1,8 +1,8 @@
-{{- range $key, $val := $.Values.global.applicationSets }}
+{{- range .Values.global.applicationSets }}
 apiVersion: argoproj.io/v1alpha1
 kind: ApplicationSet
 metadata:
-  name: "argo-{{ $key }}"
+  name: "argo-{{ . }}"
   namespace: argocd
 spec:
   generators:
@@ -10,10 +10,10 @@ spec:
       repoURL: "{{ $.Values.global.repo }}"
       revision: "{{ $.Values.global.branch }}"
       directories:
-      - path: "{{ $key }}/*"
+      - path: "{{ . }}/*"
   template:
     metadata:
-      name: '{{ path.basename }}'
+      name: "{{`{{ path.basename }}`}}"
     spec:
       project: argocd-scale
       syncPolicy:
@@ -23,9 +23,9 @@ spec:
       source:
         repoURL: https://github.com/jbruns/ArgoCD-SCALE.git
         targetRevision: main
-        path: '{{ path }}'
+        path: "{{`{{ path }}`}}"
       destination:
         server: https://kubernetes.default.svc
-        namespace: "argo-{{ $key }}"
+        namespace: "argo-{{ . }}"
 ---
 {{- end}}

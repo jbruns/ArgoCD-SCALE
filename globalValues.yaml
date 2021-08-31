@@ -12,13 +12,3 @@ global:
     pools: 
       argo-zfspv-fast: luna-dev/argo/pv
       argo-zfspv-slow: andromeda-dev/argo/pv
-
-  media:
-    uid: 1001
-    gid: 1002
-    render: 107
-    video: 44
-    persistentStorageClass: argo-zfspv-fast
-    nzbdl: /mnt/andromeda-dev/media/nzbdl
-    mediaHostPaths: 
-      - /mnt/andromeda-dev/media

@@ -1,7 +1,7 @@
 # https://github.com/k8s-at-home/charts/blob/master/charts/stable/plex/values.yaml
 plex:
   env:
-    TZ: America/Los_Angeles
+    TZ: '{{ .Values.global.TZ }}'
     NVIDIA_VISIBLE_DEVICES: all
     NVIDIA_DRIVER_CAPABILITIES: compute,video,utility
     PLEX_PREFERENCE_1: "FriendlyName=aMMc"
@@ -33,13 +33,13 @@ plex:
       readOnly: true
 
   podSecurityContext:
-    runAsUser: "{{ .Values.global.media.uid }}"
-    runAsGroup: "{{ .Values.global.media.gid }}"
-    fsGroup: "{{ .Values.global.media.gid }}"
+    runAsUser: 1001
+    runAsGroup: 1002
+    fsGroup: 1002
     fsGroupChangePolicy: OnRootMismatch
     supplementalGroups:
-    - "{{ .Values.global.media.render }}"
-    - "{{ .Values.global.media.video }}"
+    - 107 # render
+    - 44 # video
   
 #  resources:
 #    limits:
