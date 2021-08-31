@@ -5,9 +5,17 @@ traefik:
       level: INFO
     access:
       enabled: true
+
   # Stops ArgoCD from thinking that ingresses never complete successfully
   # https://github.com/argoproj/argo-cd/issues/968#issuecomment-451082913
   providers:
     kubernetesIngress:
       publishedService:
         enabled: true
+
+  ports:
+    web:
+      redirectTo: websecure
+
+  ingressClass:
+    enabled: true
