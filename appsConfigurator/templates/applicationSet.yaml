@@ -24,6 +24,10 @@ spec:
         repoURL: https://github.com/jbruns/ArgoCD-SCALE.git
         targetRevision: main
         path: "{{`{{ path }}`}}"
+        helm:
+          valueFiles:
+            - values.yaml
+            - ../../globalValues.yaml
       destination:
         server: https://kubernetes.default.svc
         namespace: "argo-{{ . }}"
