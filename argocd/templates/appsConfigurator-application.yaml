@@ -6,6 +6,10 @@ metadata:
   namespace: argocd
 spec:
   project: argocd-scale
+  syncPolicy:
+    automated:
+      prune: false
+      selfHeal: true
   source:
     repoURL: {{ $.Values.global.repo }}
     targetRevision: {{ $.Values.global.branch }}
