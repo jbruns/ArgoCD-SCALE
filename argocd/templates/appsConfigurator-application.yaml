@@ -1,3 +1,4 @@
+# Bootstrap the appsConfigurator, which will in turn deploy enabled applicationSets (ArgoCD "app of apps" model)
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
@@ -8,8 +9,8 @@ metadata:
 spec:
   project: argocd-scale
   source:
-    repoURL: {{ .Values.global.repo }}
-    targetRevision: {{ .Values.global.branch }}
+    repoURL: {{ $.Values.global.repo }}
+    targetRevision: {{ $.Values.global.branch }}
     path: appsConfigurator
     helm:
       valueFiles:

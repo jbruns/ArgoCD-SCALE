@@ -33,9 +33,9 @@ plex:
       readOnly: true
 
   podSecurityContext:
-    runAsUser: 1001
-    runAsGroup: 1002
-    fsGroup: 1002
+    runAsUser: "{{ .Values.global.media.uid }}"
+    runAsGroup: "{{ .Values.global.media.gid }}"
+    fsGroup: "{{ .Values.global.media.gid }}"
     fsGroupChangePolicy: OnRootMismatch
     supplementalGroups:
     - "{{ .Values.global.media.render }}"
