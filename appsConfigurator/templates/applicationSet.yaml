@@ -20,6 +20,8 @@ spec:
         automated:
           prune: true
           selfHeal: true
+        syncOptions:
+          - CreateNamespace=true
       source:
         repoURL: https://github.com/jbruns/ArgoCD-SCALE.git
         targetRevision: main
