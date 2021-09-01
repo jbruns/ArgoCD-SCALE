@@ -13,6 +13,76 @@ plex:
     PLEX_PREFERENCE_7: "TreatWanIpAsLocal=0"
     PLEX_PREFERENCE_8: "TranscoderH264BackgroundPreset=fast"
 
+# https://support.plex.tv/articles/201543147-what-network-ports-do-i-need-to-allow-through-my-firewall/
+service:
+  main:
+    ports:
+      http:
+        nodePort: 32400
+  # DLNA UDP: 1900
+  dlna-udp:
+    enabled: true
+    type: NodePort
+    ports:
+      dlna-udp:
+        enabled: true
+        port: 1900
+        protocol: UDP
+        targetPort: 1900
+    externalTrafficPolicy: Local
+  # DLNA TCP: 32469
+  dlna-tcp:
+    enabled: true
+    type: NodePort
+    ports:
+      dlna-tcp:
+        enabled: true
+        port: 32469
+        protocol: TCP
+        targetPort: 32469
+    externalTrafficPolicy: Local
+  # GDM UDP: 32410, 32412, 32413, 32414
+  gdm-udp0:
+    enabled: true
+    type: NodePort
+    ports:
+      gdm-udp0:
+        enabled: true
+        port: 32410
+        protocol: UDP
+        targetPort: 32410
+    externalTrafficPolicy: Local
+  gdm-udp2:
+    enabled: true
+    type: NodePort
+    ports:
+      gdm-udp2:
+        enabled: true
+        port: 32412
+        protocol: UDP
+        targetPort: 32412
+    externalTrafficPolicy: Local
+  gdm-udp3:
+    enabled: true
+    type: NodePort
+    ports:
+      gdm-udp3:
+        enabled: true
+        port: 32413
+        protocol: UDP
+        targetPort: 32413
+    externalTrafficPolicy: Local
+  gdm-udp4:
+    enabled: true
+    type: NodePort
+    ports:
+      gdm-udp0:
+        enabled: true
+        port: 32414
+        protocol: UDP
+        targetPort: 32414
+    externalTrafficPolicy: Local
+
   persistence:
     config:
       enabled: true
