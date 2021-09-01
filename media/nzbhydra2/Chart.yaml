@@ -1,0 +1,7 @@
+name: nzbhydra2
+apiVersion: v2
+version: 1.0.0
+dependencies:
+- name: nzbhydra2
+  repository: https://k8s-at-home.com/charts
+  version: 10.0.0
