@@ -1,0 +1,43 @@
+apiVersion: traefik.containo.us/v1alpha1
+kind: IngressRoute
+metadata:
+  name: traefik-dashboard
+  namespace: {{ .Release.Namespace }}
+spec:
+  entryPoints:
+    - web
+    - websecure
+  routes:
+    - kind: Rule
+      match: Host(`traefik.{{ .Values.global.domain }}`)
+      middlewares:
+        - name: dashboard-auth
+      priority: 10
+      services:
+        - kind: TraefikService
+          name: api@internal
+  tls:
+    secretName: traefik-tls
+---
+apiVersion: traefik.containo.us/v1alpha1
+kind: Middleware
+metadata:
+  name: dashboard-auth
+  namespace: {{ .Release.Namespace }}
+spec:
+  basicAuth:
+    secret: traefik-dashboard
+---
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: traefik
+  namespace: {{ .Release.Namespace }}
+spec:
+  # Secret names are always required.
+  secretName: traefik-tls
+  dnsNames:
+    - traefik.{{ .Values.global.domain }}
+  issuerRef:
+    name: letsencrypt-production
+    kind: ClusterIssuer
