@@ -1,6 +1,9 @@
 # https://github.com/argoproj/argo-helm/blob/master/charts/argo-cd/values.yaml
 argo-cd:
   server:
+    extraArgs:
+      # traefik terminates TLS from edge
+      - --insecure
     ingress:
       enabled: true
       ingressClassName: traefik

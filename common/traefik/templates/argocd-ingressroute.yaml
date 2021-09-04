@@ -1,3 +1,4 @@
+# since Traefik's CRDs were not deployed before ArgoCD was, create an IngressRoute for ArgoCD here, instead.
 apiVersion: traefik.containo.us/v1alpha1
 kind: IngressRoute
 metadata:
@@ -5,13 +6,20 @@ metadata:
   namespace: argocd
 spec:
   entryPoints:
-    - web
     - websecure
   routes:
-    - match: Host(`argocd.{{ .Values.global.domain }}`)
-      kind: Rule
+    - kind: Rule 
+      match: Host(`argocd.{{ .Values.global.domain }}`)
+      priority: 10
       services:
         - name: argocd-server
           port: 80
+    - kind: Rule
+      match: Host(`argocd.{{ .Values.global.domain }}`) && Headers(`Content-Type`, `application/grpc`)
+      priority: 11
+      services:
+        - name: argocd-server
+          port: 80
+          scheme: h2c
   tls:
     secretName: argocd-tls
