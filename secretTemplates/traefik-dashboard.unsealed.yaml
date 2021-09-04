@@ -2,7 +2,7 @@ apiVersion: v1
 kind: Secret
 metadata:
   name: traefik-dashboard
-  namespace: {{ .Release.Namespace }}
+  namespace: argo-common
 data:
   # Default - traefik:traefik
   users: |
