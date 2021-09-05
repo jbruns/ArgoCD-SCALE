@@ -7,7 +7,8 @@ global:
   applicationSets:
   - common
   - media
-
+  - home
+  
   storage:
     pools: 
       argo-zfspv-fast: luna-dev/argo/pv

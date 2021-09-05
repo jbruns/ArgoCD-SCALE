@@ -23,8 +23,8 @@ spec:
         syncOptions:
           - CreateNamespace=true
       source:
-        repoURL: https://github.com/jbruns/ArgoCD-SCALE.git
-        targetRevision: main
+        repoURL: "{{ $.Values.global.repo }}"
+        targetRevision: "{{ $.Values.global.branch }}"
         path: "{{`{{ path }}`}}"
         helm:
           valueFiles:

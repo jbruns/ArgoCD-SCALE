@@ -1,0 +1,55 @@
+# https://github.com/nextcloud/helm/blob/master/charts/nextcloud/values.yaml
+nextcloud:
+  ingress:
+    enabled: true
+    className: traefik
+    annotations:
+      cert-manager.io/cluster-issuer: letsencrypt-production
+      traefik.ingress.kubernetes.io/router.entrypoints: websecure
+    hosts:
+    - host: '{{ .Chart.Name }}.{{ .Values.global.domain }}'
+      paths:
+      - path: /
+        pathType: Prefix      
+    tls:
+      - secretName: '{{ .Chart.Name }}-tls'
+        hosts:
+          - '{{ .Chart.Name }}.{{ .Values.global.domain }}'
+    
+  nextcloud:
+    host: '{{ .Chart.Name }}.{{ .Values.global.domain }}'
+    existingSecret:
+      enabled: true
+      secretName: nextcloud-admin
+    phpConfigs:
+      zzz-custom.ini: |-
+        upload_max_filesize=512M
+        post_max_size=550M
+        memory_limit=1G
+  
+  mariadb:
+    enabled: true
+    db:
+      name: nextclouddb
+      user: nextclouduser
+    master:
+      persistence:
+        enabled: true
+        storageClass: argo-zfspv-fast
+        size: 24Gi
+  
+  redis:
+    enabled: true
+    usePassword: false
+
+  cronjob:
+    enabled: true
+
+  persistence:
+    enabled: true
+    storageClass: argo-zfspv-slow
+    size: 4Ti
+
+  metrics:
+    enabled: true
+    https: true
