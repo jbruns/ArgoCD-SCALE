@@ -22,7 +22,7 @@ plex:
         http:
           port: 32400
           protocol: TCP
-          targetPort: 32400
+          nodePort: 32400
       externalTrafficPolicy: Local
     # DLNA UDP: 1900, TCP: 32469
     dlna:
@@ -33,12 +33,12 @@ plex:
           enabled: true
           port: 1900
           protocol: UDP
-          targetPort: 1900
+          nodePort: 1900
         dlna-tcp:
           enabled: true
           port: 32469
           protocol: TCP
-          targetPort: 32469
+          nodePort: 32469
       externalTrafficPolicy: Local
     # Roku/Plex Companion: TCP 8324
     roku:
@@ -49,7 +49,7 @@ plex:
           enabled: true
           port: 8324
           protocol: TCP
-          targetPort: 8324
+          nodePort: 8324
       externalTrafficPolicy: Local
     # GDM UDP: 32410, 32412, 32413, 32414
     gdm:
@@ -60,22 +60,22 @@ plex:
           enabled: true
           port: 32410
           protocol: UDP
-          targetPort: 32410
+          nodePort: 32410
         gdm-udp2:
           enabled: true
           port: 32412
           protocol: UDP
-          targetPort: 32412
+          nodePort: 32412
         gdm-udp3:
           enabled: true
           port: 32413
           protocol: UDP
-          targetPort: 32413
+          nodePort: 32413
         gdm-udp4:
           enabled: true
           port: 32414
           protocol: UDP
-          targetPort: 32414
+          nodePort: 32414
       externalTrafficPolicy: Local
 
   persistence:
