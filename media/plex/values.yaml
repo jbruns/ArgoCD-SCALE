@@ -116,5 +116,10 @@ plex:
     - 44 # video
   
 #  resources:
+#    requests:
+#      nvidia.com/gpu: 1
+#      cpu: 200m
+#      memory: 1024Mi
 #    limits:
 #      nvidia.com/gpu: 1
+#      memory: 16384Mi
