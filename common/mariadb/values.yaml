@@ -1,0 +1,10 @@
+# https://artifacthub.io/packages/helm/bitnami/mariadb
+mariadb:
+  architecture: standalone
+  auth:
+    existingSecret: mariadb-auth
+    username: nextclouduser
+    database: nextclouddb
+  primary:
+    persistence:
+      storageClass: argo-zfspv-fast
