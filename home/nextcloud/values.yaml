@@ -1,5 +1,8 @@
 # https://github.com/nextcloud/helm/blob/master/charts/nextcloud/values.yaml
 nextcloud:
+  image:
+    tag: stable
+    
   ingress:
     enabled: true
     className: traefik
@@ -7,40 +10,37 @@ nextcloud:
       cert-manager.io/cluster-issuer: letsencrypt-production
       traefik.ingress.kubernetes.io/router.entrypoints: websecure
     hosts:
-    - host: '{{ .Chart.Name }}.{{ .Values.global.domain }}'
+    - host: nextcloud.bruns.house
       paths:
       - path: /
         pathType: Prefix      
     tls:
-      - secretName: '{{ .Chart.Name }}-tls'
+      - secretName: nextcloud-tls
         hosts:
-          - '{{ .Chart.Name }}.{{ .Values.global.domain }}'
+          - nextcloud.bruns.house
     
   nextcloud:
-    host: '{{ .Chart.Name }}.{{ .Values.global.domain }}'
+    host: nextcloud.bruns.house
     existingSecret:
       enabled: true
       secretName: nextcloud-admin
+      usernameKey: nextcloud-username
+      passwordKey: nextcloud-password
     phpConfigs:
-      zzz-custom.ini: |-
+      zzz-maximums.ini: |-
         upload_max_filesize=512M
         post_max_size=550M
         memory_limit=1G
   
-  mariadb:
+  externalDatabase:
     enabled: true
-    db:
-      name: nextclouddb
-      user: nextclouduser
-    master:
-      persistence:
-        enabled: true
-        storageClass: argo-zfspv-fast
-        size: 24Gi
-  
-  redis:
-    enabled: true
-    usePassword: false
+    host: "mariadb:3306"
+    database: nextclouddb
+    existingSecret:
+      enabled: true
+      secretName: nextcloud-database
+      usernameKey: nextcloud-username
+      passwordKey: nextcloud-password
 
   cronjob:
     enabled: true
