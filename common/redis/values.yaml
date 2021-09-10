@@ -1,0 +1,8 @@
+# https://artifacthub.io/packages/helm/bitnami/redis
+redis:
+  architecture: standalone
+  auth:
+    enabled: false
+  master:
+    persistence:
+      storageClass: argo-zfspv-fast
