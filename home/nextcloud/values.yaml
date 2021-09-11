@@ -38,13 +38,13 @@ nextcloud:
         secure: ''
     extraEnv:
       - name: REDIS_HOST
-        value: "redis.argo-common.cluster.local"
+        value: redis-master.argo-common
       - name: OVERWRITEHOST
-        value: "nextcloud.bruns.house"
+        value: nextcloud.bruns.house
       - name: OVERWRITEPROTOCOL
-        value: "https"
+        value: https
       - name: TRUSTED_PROXIES
-        value: "172.17.0.0/16"
+        value: 172.17.0.0/16
     phpConfigs:
       zzz-maximums.ini: |-
         upload_max_filesize=512M
@@ -56,7 +56,7 @@ nextcloud:
   
   externalDatabase:
     enabled: true
-    host: mariadb.argo-common.cluster.local
+    host: mariadb.argo-common
     database: nextclouddb
     existingSecret:
       enabled: true
