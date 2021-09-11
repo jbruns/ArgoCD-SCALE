@@ -38,7 +38,7 @@ nextcloud:
         secure: ''
     extraEnv:
       - name: REDIS_HOST
-        value: "redis"
+        value: "redis.argo-common.cluster.local"
       - name: OVERWRITEHOST
         value: "nextcloud.bruns.house"
       - name: OVERWRITEPROTOCOL
@@ -56,7 +56,7 @@ nextcloud:
   
   externalDatabase:
     enabled: true
-    host: mariadb
+    host: mariadb.argo-common.cluster.local
     database: nextclouddb
     existingSecret:
       enabled: true
