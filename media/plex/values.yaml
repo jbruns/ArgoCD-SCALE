@@ -103,7 +103,7 @@ plex:
     data:
       enabled: true
       type: hostPath
-      hostPath: /mnt/andromeda-dev/media
+      hostPath: /mnt/andromeda/media
       readOnly: true
 
   podSecurityContext:
@@ -115,11 +115,11 @@ plex:
     - 107 # render
     - 44 # video
   
-#  resources:
-#    requests:
-#      nvidia.com/gpu: 1
-#      cpu: 200m
-#      memory: 1024Mi
-#    limits:
-#      nvidia.com/gpu: 1
-#      memory: 16384Mi
+  resources:
+    requests:
+      nvidia.com/gpu: 1
+      cpu: 200m
+      memory: 1024Mi
+    limits:
+      nvidia.com/gpu: 1
+      memory: 16384Mi

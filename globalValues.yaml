@@ -11,5 +11,5 @@ global:
   
   storage:
     pools: 
-      argo-zfspv-fast: luna-dev/argo/pv
-      argo-zfspv-slow: andromeda-dev/argo/pv
+      argo-zfspv-fast: luna/argo/pv
+      argo-zfspv-slow: andromeda/argo/pv

@@ -31,11 +31,11 @@ radarr:
     media:
       enabled: true
       type: hostPath
-      hostPath: /mnt/andromeda-dev/media
+      hostPath: /mnt/andromeda/media
     nzbdl:
       enabled: true
       type: hostPath
-      hostPath: /mnt/andromeda-dev/media/nzbdl
+      hostPath: /mnt/andromeda/media/nzbdl
 
   podSecurityContext:
     runAsUser: 1001
