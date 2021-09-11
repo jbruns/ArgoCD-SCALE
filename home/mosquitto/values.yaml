@@ -1,0 +1,37 @@
+# https://github.com/k8s-at-home/library-charts/blob/main/charts/stable/common/values.yaml
+# https://github.com/k8s-at-home/charts/blob/master/charts/stable/mosquitto/values.yaml
+mosquitto:
+  service:
+    mqtt:
+      enabled: true
+      type: NodePort
+      ports:
+        mqtt: 1883
+        protocol: TCP
+        nodePort: 1883
+      externalTrafficPolicy: Local
+    mqtt-ssl:
+      enabled: true
+      type: NodePort
+      ports:
+        mqtt-ssl: 8883
+        protocol: TCP
+        nodePort: 8883
+      externalTrafficPolicy: Local
+  
+  auth:
+    enabled: true
+  
+  persistence:
+    data:
+      enabled: true
+      storageClass: argo-zfspv-fast
+      size: 100Mi
+      accessMode: ReadWriteOnce
+      retain: true
+    configinc:
+      enabled: true
+      storageClass: argo-zfspv-fast
+      size: 100Mi
+      accessMode: ReadWriteOnce
+      retain: true
