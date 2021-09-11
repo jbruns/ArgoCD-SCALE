@@ -8,7 +8,7 @@ spec:
     - web
     - websecure
   routes:
-    - match: Host(`nextcloud.bruns.house`)
+    - match: Host(`{{ .Values.nextcloud.nextcloud.host }}`)
       kind: Rule
       services:
         - name: {{ .Chart.Name }}
