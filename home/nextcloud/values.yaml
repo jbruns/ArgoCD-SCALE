@@ -2,7 +2,7 @@
 nextcloud:
   image:
     tag: stable
-    
+
   ingress:
     enabled: true
     className: traefik
@@ -26,22 +26,44 @@ nextcloud:
       secretName: nextcloud-admin
       usernameKey: nextcloud-username
       passwordKey: nextcloud-password
+      smtpUsernameKey: smtp-username
+      smtpPasswordKey: smtp-password
+    mail:
+      enabled: true
+      fromAddress: nextcloud
+      domain: bruns.house
+      smtp:
+        host: smtp.comcast.net
+        port: 25
+        secure: ''
+    extraEnv:
+      - name: REDIS_HOST
+        value: "redis"
+      - name: OVERWRITEHOST
+        value: "nextcloud.bruns.house"
+      - name: OVERWRITEPROTOCOL
+        value: "https"
+      - name: TRUSTED_PROXIES
+        value: "172.17.0.0/16"
     phpConfigs:
       zzz-maximums.ini: |-
         upload_max_filesize=512M
         post_max_size=550M
         memory_limit=1G
   
+  internalDatabase:
+    enabled: false
+  
   externalDatabase:
     enabled: true
-    host: "mariadb:3306"
+    host: mariadb
     database: nextclouddb
     existingSecret:
       enabled: true
       secretName: nextcloud-database
       usernameKey: nextcloud-username
       passwordKey: nextcloud-password
-
+    
   cronjob:
     enabled: true
 

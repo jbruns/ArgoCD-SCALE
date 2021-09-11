@@ -1,0 +1,11 @@
+apiVersion: v1
+kind: Secret
+metadata:
+  name: nextcloud-admin
+  namespace: argo-home
+type: Opaque
+stringData:
+  nextcloud-username: 
+  nextcloud-password: 
+  smtp-username: 
+  smtp-password: 
