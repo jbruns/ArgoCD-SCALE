@@ -5,4 +5,4 @@ metadata:
   namespace: argo-common
 type: Opaque
 stringData:
-  api-token: <API Token>
+  api-token: 

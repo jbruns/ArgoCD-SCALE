@@ -1,0 +1,17 @@
+apiVersion: bitnami.com/v1alpha1
+kind: SealedSecret
+metadata:
+  creationTimestamp: null
+  name: cloudflare-api-token
+  namespace: argo-common
+spec:
+  encryptedData:
+    api-token: AgCravfPZJxcWI6d5VYPyOGaT0xAZ7cG8PdRb/GBvfKtmDWQ3N/UwBpeccesdzsDk4dF8F9SoOzomlI7KreIAWXbtHPbh6+YVj+BSPGDnkU2Mcrvap1Igom+XxNdYvmy7aaBF4vZzE+QAj+5Y5J2+BGEYWXg3H12CvpQvlJJ/Ww+6eAjKHoFJbrMQL2CaSAEO46/y/bzTaw8idqdsfAJVZm5nr7opyj6ugH9dfTUvrfL428n94kkYLOObrRj6oZ24ty++HZHp5P/+LKjY2otJztw0w4ckGbpZqHJ0hyRh4XhFhnOKLvowWxD5QGhIvhoQbo3cy6IPt82ht9PYHB4nignImVwGbmduITrlk2Yp+OIH9Sj8NqCFODQCLaQW99RY+Ps6aIJVODiuOUHljvnOVlWRZuQ+9w27kHwU3YeQ6IsMe3y6SAnu+VOxHrhPoDHjJRFph5ofA2SuanJvegnwOYSNLPrKCAceCA1d82a7Vdwqo6ML/MqvBtp501lSudxzCc245tcXdnH9kcmn2g4mhoftpBam+0oHb/p7F1TXPNETnJeM4uGAc9Zwn1zTkBnSbEOBfWDigdj1RmRHIr8gogybo2vPqhlBWquk0DxA/KKvhNyN27ASHptlgusVv2i4K6ls93uEZq2yHPjFfh8OZg1NkukLngaSpno5bhgPtU61w0DFis4iQCuLMT6ENNO47jnOT9FmrrMaqiMI1e/fe7XwWvV6tuny/1F22X3DOlkzaRxLmTlkcxP
+  template:
+    data: null
+    metadata:
+      creationTimestamp: null
+      name: cloudflare-api-token
+      namespace: argo-common
+    type: Opaque
+
