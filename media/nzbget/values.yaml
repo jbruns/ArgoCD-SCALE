@@ -32,6 +32,7 @@ nzbget:
       enabled: true
       type: hostPath
       hostPath: /mnt/andromeda/media/nzbdl
+      mountPath: /nzbdl
 
   podSecurityContext:
     runAsUser: 1001
