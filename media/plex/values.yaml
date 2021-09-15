@@ -104,6 +104,7 @@ plex:
       enabled: true
       type: hostPath
       hostPath: /mnt/andromeda/media
+      mountPath: /data
       readOnly: true
 
   podSecurityContext:
