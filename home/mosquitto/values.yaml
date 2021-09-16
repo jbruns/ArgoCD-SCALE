@@ -2,21 +2,20 @@
 # https://github.com/k8s-at-home/charts/blob/master/charts/stable/mosquitto/values.yaml
 mosquitto:
   service:
-    mqtt:
+    main:
       enabled: true
       type: NodePort
       ports:
-        mqtt: 1883
-        protocol: TCP
-        nodePort: 1883
-      externalTrafficPolicy: Local
-    mqtt-ssl:
-      enabled: true
-      type: NodePort
-      ports:
-        mqtt-ssl: 8883
-        protocol: TCP
-        nodePort: 8883
+        mqtt:
+          enabled: true
+          port: 1883
+          protocol: TCP
+          nodePort: 1883
+        mqtt-ssl:
+          enabled: true
+          port: 8883
+          protocol: TCP
+          nodePort: 8883
       externalTrafficPolicy: Local
   
   auth:
