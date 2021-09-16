@@ -1,0 +1,30 @@
+# https://github.com/k8s-at-home/library-charts/blob/main/charts/stable/common/values.yaml
+# https://github.com/k8s-at-home/charts/blob/master/charts/stable/home-assistant/values.yaml
+home-assistant:
+  env:
+    TZ: '{{ .Values.global.TZ }}' 
+
+  ingress:
+    main:
+      enabled: true
+      ingressClassName: traefik
+      annotations:
+        cert-manager.io/cluster-issuer: letsencrypt-production
+        traefik.ingress.kubernetes.io/router.entrypoints: websecure
+      hosts:
+      - host: '{{ .Chart.Name }}.{{ .Values.global.altDomainHome }}'
+        paths:
+        - path: /
+          pathType: Prefix      
+      tls:
+        - secretName: '{{ .Chart.Name }}-tls'
+          hosts:
+            - '{{ .Chart.Name }}.{{ .Values.global.altDomainHome }}'
+
+  persistence:
+    config:
+      enabled: true
+      storageClass: argo-zfspv-fast
+      size: 32Gi
+      accessMode: ReadWriteOnce
+      retain: true
