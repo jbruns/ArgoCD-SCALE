@@ -1,0 +1,10 @@
+# https://doc.traefik.io/traefik/middlewares/http/headers/#using-security-headers
+apiVersion: traefik.containo.us/v1alpha1
+kind: Middleware
+metadata:
+  name: {{ .Chart.Name }}-secheaders
+  namespace: {{ .Release.Namespace }}
+spec:
+  headers:
+    stsSeconds: 15552000
+    stsIncludeSubdomains: true

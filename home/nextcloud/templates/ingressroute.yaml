@@ -10,6 +10,11 @@ spec:
   routes:
     - match: Host(`{{ .Values.nextcloud.nextcloud.host }}`)
       kind: Rule
+      middlewares:
+        - name: {{ .Chart.Name }}-well-known
+          namespace: {{ .Release.Namespace }}
+        - name: {{ .Chart.Name }}-secheaders
+          namespace: {{ .Release.Namespace }}
       services:
         - name: {{ .Chart.Name }}
           port: http

@@ -1,0 +1,11 @@
+# https://docs.nextcloud.com/server/21/go.php?to=admin-setup-well-known-URL
+apiVersion: traefik.containo.us/v1alpha1
+kind: Middleware
+metadata:
+  name: {{ .Chart.Name }}-well-known
+  namespace: {{ .Release.Namespace }}
+spec:
+  redirectRegex:
+    regex: https://(.*)/.well-known/(card|cal)dav
+    replacement: https://$$1/remote.php/dav/
+    permanent: true
