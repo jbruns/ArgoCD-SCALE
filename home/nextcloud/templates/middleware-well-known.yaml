@@ -7,5 +7,5 @@ metadata:
 spec:
   redirectRegex:
     regex: https://(.*)/.well-known/(card|cal)dav
-    replacement: https://$$1/remote.php/dav/
+    replacement: https://{{ .Values.nextcloud.nextcloud.host }}/remote.php/dav/
     permanent: true
