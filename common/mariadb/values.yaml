@@ -8,3 +8,5 @@ mariadb:
   primary:
     persistence:
       storageClass: argo-zfspv-fast
+    service:
+      nodePort: 12306
