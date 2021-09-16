@@ -2,6 +2,7 @@ global:
   repo: https://github.com/jbruns/ArgoCD-SCALE.git
   branch: main
   domain: wavebe.am
+  altDomainHome: bruns.house
   TZ: America/Los_Angeles
 
   applicationSets:
