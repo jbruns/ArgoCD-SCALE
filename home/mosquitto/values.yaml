@@ -7,15 +7,7 @@ mosquitto:
       type: NodePort
       ports:
         mqtt:
-          enabled: true
-          port: 1883
-          protocol: TCP
           nodePort: 10883
-        mqtt-ssl:
-          enabled: true
-          port: 8883
-          protocol: TCP
-          nodePort: 17883
       externalTrafficPolicy: Local
   
   auth:
