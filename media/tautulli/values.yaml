@@ -2,7 +2,7 @@
 # https://github.com/k8s-at-home/charts/blob/master/charts/stable/tautulli/values.yaml
 tautulli:
   image:
-    tag: v2.7.5
+    tag: v2.7.6
 
   env:
     TZ: '{{ .Values.global.TZ }}'
