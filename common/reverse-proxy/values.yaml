@@ -1,0 +1,20 @@
+# https://github.com/k8s-at-home/charts/blob/master/charts/stable/reverse-proxy/values.yaml
+reverse-proxy:
+  instances:
+    - name: home-assistant
+      enabled: true
+      ip: 172.16.4.61
+      port: 8123
+      ingress:
+        annotations:
+          cert-manager.io/cluster-issuer: letsencrypt-production
+          traefik.ingress.kubernetes.io/router.entrypoints: websecure
+        hosts:
+          - host: 'ha.bruns.house'
+        paths:
+          - path: /
+            pathType: Prefix      
+        tls:
+          - secretName: 'home-assistant-tls'
+            hosts:
+              - 'ha.bruns.house'
