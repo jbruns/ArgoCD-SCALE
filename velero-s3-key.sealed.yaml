@@ -1,0 +1,16 @@
+apiVersion: bitnami.com/v1alpha1
+kind: SealedSecret
+metadata:
+  creationTimestamp: null
+  name: velero-s3-key
+  namespace: argo-common
+spec:
+  encryptedData:
+    cloud: AgCmT4q+nExGVwRTjiw1rDmtdEaTIoF6e4AtFlhPra+eoLQWDj3aYKOJZQ/b6hzQJ6wNnCrg+y5NKUZ4NXL1Gtf1HH1/xaoNAmEUoZqJjxU/PwGpqFMQkAYZ8xqI7Vxn6E4EY5VQ7ZCt/nHMgPS3c4X7YJhi7KRTm81PMXdjHzTNktgCOWgOCrJjXf2YsevPYXsYytrg1dpqxHkhn9YtESzufhu5gpIW22DYhi1BofHpqFv5dWliVRgW6qxqqvhaGy5ol49gaI0cQxsEN9Vx18rSbQeqT6tFxPxyNZpdwMDki2Gg6KhnShAH42ph2IMJJhqF6Cz5Tbr3jbsZwNlso6FoKF68dPWcXJ87+zP7QU5MdT2QBXT9q2VhX/enBUjoqJbPtGEB91io419+79MTeG7mtFw9od4R4C+FYDNEWh9q4K8EepY8W3c2dTn6HEBXECFMW90QV0lpBdWA5imd0z/oY4u3cJlSL9TZZbJq8lI91YCkwEe7PC9c7UlO6HNtoD7lO7QX2oZqPKKmpQmRiqTDQKrvvyioXUnDy2ihQbnJStBnuw/QaYbpE16Zc0/d/BlQ0mlw+2EQHbGZJOXZOThjngKsrBBN2bxymm9pTXMwzqzkmku9DOVxO+Mk/vxSZVUFYj9wCwEMLWlR6IDUegqHEyIEYgn5fGBQcu11Fv3TVayMn3LAyPNqSDhuq+2/SfagautDGRXk5wbpTkqHp83K5pkqcK3uDoCVEOW9fiKOxwAjrsAvMY5u1ozPS91aSO0frriZIxu2kWFUEEu0qYxuHB8iAfVJP2kDuSGVUVpIbA3eGDqUhybhpMV4n2aiZEod3fbYeB1JhC1sBeo=
+  template:
+    data: null
+    metadata:
+      creationTimestamp: null
+      name: velero-s3-key
+      namespace: argo-common
+

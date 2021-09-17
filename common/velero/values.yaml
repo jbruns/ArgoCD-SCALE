@@ -1,0 +1,44 @@
+# https://github.com/vmware-tanzu/helm-charts/blob/main/charts/velero/values.yaml
+velero:
+  initContainers:
+    - name: velero-plugin-for-aws
+      image: openebs/velero-plugin-for-aws:v1.2.1
+      imagePullPolicy: IfNotPresent
+      volumeMounts:
+        - mountPath: /target
+          name: plugins
+  
+  configuration:
+    provider: aws
+    backupStorageLocation:
+      name: default
+      bucket: kD03AWyKaZ3t
+      prefix: velero
+      config:
+        region: us-west-002
+        s3ForcePathStyle: true
+        s3Url: https://s3.us-west-002.backblazeb2.com
+        publicUrl: https://s3.us-west-002.backblazeb2.com
+    volumeSnapshotLocation:
+      name: aws
+      config:
+        region: us-west-002
+
+  credentials:
+    existingSecret: velero-s3-key
+
+  schedules:
+    daily-backup:
+      # backup every day at 0400
+      schedule: "0 4 * * *"
+      template:
+        # expire backups after 1 week
+        ttl: "168h"
+        excludedNamespaces:
+          # skip namespaces managed by TrueNAS SCALE
+          - default
+          - kube-system
+          - kube-public
+          - kube-node-lease
+          - openebs
+          - ix-*
