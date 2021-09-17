@@ -7,8 +7,9 @@ velero:
       volumeMounts:
         - mountPath: /target
           name: plugins
+    # https://github.com/openebs/zfs-localpv/blob/master/docs/backup-restore.md
     - name: openebs-velero-plugin
-      image: openebs/velero-plugin:1.11.0
+      image: openebs/velero-plugin:2.12.0
       imagePullPolicy: IfNotPresent
       volumeMounts:
         - mountPath: /target
@@ -26,9 +27,10 @@ velero:
         publicUrl: https://s3.us-west-002.backblazeb2.com
     volumeSnapshotLocation:
       name: default
-      provider: openebs.io/cstor-blockstore
+      provider: openebs.io/zfspv-blockstore
       config:
-        prefix: cstor
+        prefix: zfs
+        namespace: openebs
         provider: aws
         region: us-west-002
         s3ForcePathStyle: true
