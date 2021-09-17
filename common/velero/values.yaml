@@ -7,7 +7,12 @@ velero:
       volumeMounts:
         - mountPath: /target
           name: plugins
-  
+    - name: openebs-velero-plugin
+      image: openebs/velero-plugin:1.11.0
+      imagePullPolicy: IfNotPresent
+      volumeMounts:
+        - mountPath: /target
+          name: plugins
   configuration:
     provider: aws
     backupStorageLocation:
@@ -20,9 +25,15 @@ velero:
         s3Url: https://s3.us-west-002.backblazeb2.com
         publicUrl: https://s3.us-west-002.backblazeb2.com
     volumeSnapshotLocation:
-      name: aws
+      name: default
+      provider: openebs.io/cstor-blockstore
       config:
+        prefix: cstor
+        provider: aws
         region: us-west-002
+        s3ForcePathStyle: true
+        s3Url: https://s3.us-west-002.backblazeb2.com
+        bucket: kD03AWyKaZ3t
 
   credentials:
     existingSecret: velero-s3-key
