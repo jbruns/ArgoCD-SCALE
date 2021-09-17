@@ -1,6 +1,9 @@
 # https://github.com/k8s-at-home/library-charts/blob/main/charts/stable/common/values.yaml
 # https://github.com/k8s-at-home/charts/blob/master/charts/stable/tautulli/values.yaml
 tautulli:
+  image:
+    tag: v2.7.5
+
   env:
     TZ: '{{ .Values.global.TZ }}'
   
