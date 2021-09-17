@@ -3,10 +3,6 @@ mariadb:
   architecture: standalone
   auth:
     existingSecret: mariadb-auth
-    username: nextclouduser
-    database: nextclouddb
   primary:
     persistence:
       storageClass: argo-zfspv-fast
-    service:
-      nodePort: 12306
