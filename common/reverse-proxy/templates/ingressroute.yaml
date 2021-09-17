@@ -1,10 +1,11 @@
 {{- range (index .Values "reverse-proxy" "instances") }}
 {{- $svcName := printf "%s-%s" (include "common.names.fullname" $) .name }}
+{{- $svcPort := .port -}}
 ---
 apiVersion: traefik.containo.us/v1alpha1
 kind: IngressRoute
 metadata:
-  name: {{ $svcName }}-http
+  name: "{{ $svcName }}-{{ $svcPort }}"
   namespace: {{ $.Release.Namespace }}
 spec:
   entryPoints:
@@ -15,7 +16,7 @@ spec:
       kind: Rule
       services:
         - name: {{ $svcName }}
-          port: http
+          port: {{ $svcPort }}
     {{- end }}
   tls:
     secretName: {{ $svcName }}-tls
