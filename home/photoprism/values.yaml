@@ -1,0 +1,59 @@
+# https://github.com/k8s-at-home/library-charts/tree/main/charts/stable/common/values.yaml
+# https://github.com/k8s-at-home/charts/blob/master/charts/stable/photoprism/values.yaml
+photoprism:
+  env:
+    # https://docs.photoprism.org/getting-started/config-options/
+    TZ: '{{ .Values.global.TZ }}'
+    PHOTOPRISM_DATABASE_DRIVER: mysql
+    PHOTOPRISM_DATABASE_SERVER: mariadb.argo-common
+    PHOTOPRISM_SITE_URL: 'photos.{{ .Values.global.altDomainHome }}'
+    PHOTOPRISM_CACHE_PATH: /photoprism/cache
+    UID: 1003
+    GID: 1003
+  envFrom:
+    - secretRef:
+        name: photoprism-env
+
+  ingress:
+    main:
+      enabled: true
+      ingressClassName: traefik
+      annotations:
+        cert-manager.io/cluster-issuer: letsencrypt-production
+        traefik.ingress.kubernetes.io/router.entrypoints: websecure
+      hosts:
+      - host: 'photos.{{ .Values.global.altDomainHome }}'
+        paths:
+        - path: /
+          pathType: Prefix      
+      tls:
+        - secretName: '{{ .Chart.Name }}-tls'
+          hosts:
+            - 'photos.{{ .Values.global.altDomainHome }}'
+  
+  persistence:
+    config:
+      enabled: true
+      storageClass: argo-zfspv-slow
+      size: 4Ti
+      accessMode: ReadWriteOnce
+      retain: true
+    originals:
+      enabled: true
+      storageClass: argo-zfspv-slow
+      size: 4Ti
+      accessMode: ReadWriteOnce
+      retain: true
+    cache:
+      enabled: true
+      storageClass: argo-zfspv-fast
+      size: 200Gi
+      accessMode: ReadWriteOnce
+      retain: true
+      mountPath: /photoprism/cache
+
+  podSecurityContext:
+    runAsUser: 1003
+    runAsGroup: 1003
+    fsGroup: 1003
+    fsGroupChangePolicy: OnRootMismatch

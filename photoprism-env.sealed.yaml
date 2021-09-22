@@ -1,0 +1,18 @@
+apiVersion: bitnami.com/v1alpha1
+kind: SealedSecret
+metadata:
+  creationTimestamp: null
+  name: photoprism-env
+  namespace: argo-home
+spec:
+  encryptedData:
+    PHOTOPRISM_DATABASE_PASSWORD: AgCPwVEy5o1Bf18+sJpsGk2G1ddiyiC6S0jI9BitSJqv4APA+PQQTtLWKlJKagdLB4sscj+JASCxZtyejEPTHYuqdddu049YdRFYyfXUJEWREqrTecLBVS86yRciG9XP2NVb0+8fi483z1oP2Pd0nP1lBCeNR+95IHKW2Pg5xntet6B8I4O7u2K17aAN5xwepNcHFsb6LOjh4xHyapfGaaCslM7JJ2Dbn8/HIPHsDotG9v5qHL3oYVDnSz4/FgturPm1/bVT6qg6JOUGcGnJxvtLW0NLSg6MCErAeuyREtv11RUbargYcIucyGVMkFWE/Nhhc9NrYwwEldJHVtMD16gltdscZSTkzWlExInEBbJqr/3JQ+XSLCaPLqqSht/uzT1O/RaPznEQo402MXhK35ZBcKf4DhBmKT/QFYG22apBZFV3TZVrBbbDDaoUhOr6aPJQ3anrxEpvdC99LzhM/DxXYAHDACI31ppeS70gsLe5S8GjdpEhwuA3ke6MTp7JPah1do9t6+D2KD09yP7QmNrGkYxkGo01mQQE3qliiRBEi70YQO+Cpnf+28dS85W2A5HA19xCGZGggKUQSut1IbzO5MPDKLGI/XzgB+CPGUaJIfExFGYBCcHy7dNmEC/ROG8r0N8ig+XxtVbKlUfsVvuCL7mjld2prZaFrQT9aUPB4rOO4FR2NbMwoSt4daIh9KjnApyg0A6u9si/rs4=
+    PHOTOPRISM_DATABASE_USER: AgCH2eSnyjIuh6UUjNlcDY0lulRnOrx/r/tuwXCiT2cCJgw+5HwIxUTThofAtg99xHePRCoVBLpJMf2PJuzNuYz5FClLC6bbwFlfy+gDDfQ0lAoozjCD7EKTUBZn1Qjs1RfcBZT9zcx+c4CTMEUeVthNRfQa5TLqkF1foNoyqbQX9nCc//JYcyCbJLyYreObzD8v10CfIHF5Bz+F3A6LHL2FM4Vdu2ok2wE7/7wyRj5gmlNyWZ4eJocnhbfE+O8vXR7iJTQajDw/buwmZ1T5PIQJs4z8DJo+TaaQ5Lp2myMRkm/5hiLKIn6TCiookMpceFxATW/iho/UtqvE2d5egUV5XjdWxYWXJ94LoLwozXcFL+NOtJm2LmPiTX+ZN3xYveRYkWgB4QUMfrG74VQY3FtMYPC1oiRML5RM+ARp8MC7vWPH/mIMlNfW4fhoghpCqNcagjbByoqblidpgrzljdDWH+c836+kIf6+8it2LCC8+jbYv65s5OTvyM+qSMtcGD83Bt1WJPUhLXpZwoFU8mMg6j+tisYjAkNoaP7je0le0h+cEnE35ebjsEjc8E0vEMLewZ131Lgu1UTq6OqCrKjWqfKgJ/kL8naVuYyQU2WrSIzGoweAyT0wtK0HxXQxxPgqkYOwam/MomCtXkst4Mgq0BmcoqKWLmt0ooTdVDsf5iyDLw073F2EZuaW/n7WVyM2HjPREuo52RDY5yvf8w==
+  template:
+    data: null
+    metadata:
+      creationTimestamp: null
+      name: photoprism-env
+      namespace: argo-home
+    type: Opaque
+
