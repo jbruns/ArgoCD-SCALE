@@ -29,6 +29,7 @@ velero:
       name: default
       provider: openebs.io/zfspv-blockstore
       config:
+        backupPathPrefix: velero
         prefix: zfs
         namespace: openebs
         provider: aws
