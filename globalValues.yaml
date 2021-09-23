@@ -9,6 +9,7 @@ global:
   - common
   - media
   - home
+  - monitoring
   
   storage:
     pools: 
