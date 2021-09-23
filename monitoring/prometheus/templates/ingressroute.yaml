@@ -1,3 +1,4 @@
+{{- $kpsFullName := (include "kube-prometheus-stack.fullname" $) -}}
 {{- range $svcName := tuple "alertmanager" "prometheus" "grafana" }}
 {{- if index $.Values "kube-prometheus-stack" $svcName "ingress" "enabled"}}
 {{- with index $.Values "kube-prometheus-stack" $svcName }}
@@ -16,10 +17,15 @@ spec:
     - match: Host(`{{ tpl . $ }}`)
       kind: Rule
       services:
-        - name: {{ $svcName }}
+        {{- if eq $svcName "grafana"}}
+        - name: "{{ $.Release.Name }}-{{ $svcName }}"
+        {{- else }}
+        - name: "{{ $kpsFullName }}-{{ $svcName }}"
+        {{- end}}
           port: {{ $svcPort }}
     {{- end }}
-
+  tls:
+    secretName: {{ $svcName }}-tls
 {{- end }}
 {{- end }}
 {{- end }}
