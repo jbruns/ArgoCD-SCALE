@@ -1,0 +1,25 @@
+{{- range $svcName := tuple "alertmanager" "prometheus" "grafana" }}
+{{- if index $.Values "kube-prometheus-stack" $svcName "ingress" "enabled"}}
+{{- with index $.Values "kube-prometheus-stack" $svcName }}
+{{- $svcPort := .service.port }}
+---
+apiVersion: traefik.containo.us/v1alpha1
+kind: IngressRoute
+metadata: 
+  name: "{{ $svcName }}-{{ $svcPort }}"
+  namespace: {{ $.Release.Namespace }}
+spec:
+  entryPoints:
+    - websecure
+  routes:
+    {{- range .ingress.hosts }}
+    - match: Host(`{{ tpl . $ }}`)
+      kind: Rule
+      services:
+        - name: {{ $svcName }}
+          port: {{ $svcPort }}
+    {{- end }}
+
+{{- end }}
+{{- end }}
+{{- end }}
