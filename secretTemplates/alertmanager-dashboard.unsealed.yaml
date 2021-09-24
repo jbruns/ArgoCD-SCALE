@@ -1,0 +1,10 @@
+apiVersion: v1
+kind: Secret
+metadata:
+  name: alertmanager-dashboard
+  namespace: argo-monitoring
+data:
+  # Default - traefik:traefik 
+  # htpasswd -nb username password | openssl base64
+  users: |
+    dHJhZWZpazokYXByMSQuVEhDTjUuNCRhSDdtR1dPMGxDUXU0Qi80Tkw0MGQxCg==

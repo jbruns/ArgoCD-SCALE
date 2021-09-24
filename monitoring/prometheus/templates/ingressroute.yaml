@@ -34,16 +34,31 @@ spec:
     {{- range .ingress.hosts }}
     - match: Host(`{{ tpl . $ }}`)
       kind: Rule
+      {{- if ne $svcName "grafana" }}
+      middlewares:
+        - name: "{{ $svcName }}-auth"
+      {{- end }}
       services:
         {{- if eq $svcName "grafana"}}
         - name: "{{ $.Release.Name }}-{{ $svcName }}"
         {{- else }}
         - name: "{{ $kpsFullName }}-{{ $svcName }}"
-        {{- end}}
+        {{- end }}
           port: {{ $svcPort }}
     {{- end }}
   tls:
     secretName: {{ $svcName }}-tls
+{{- end }}
+{{- if ne $svcName "grafana"}}
+---
+apiVersion: traefik.containo.us/v1alpha1
+kind: Middleware
+metadata:
+  name: {{ $svcName }}-auth
+  namespace: {{ $.Release.Namespace }}
+spec:
+  basicAuth:
+    secret: {{ $svcName }}-dashboard
 {{- end }}
 {{- end }}
 {{- end }}
