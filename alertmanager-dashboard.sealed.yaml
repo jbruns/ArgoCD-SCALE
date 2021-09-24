@@ -1,0 +1,16 @@
+apiVersion: bitnami.com/v1alpha1
+kind: SealedSecret
+metadata:
+  creationTimestamp: null
+  name: alertmanager-dashboard
+  namespace: argo-monitoring
+spec:
+  encryptedData:
+    users: AgB95aW3cAMwhMK8s0A/QpzvaE1sYhxohBTlpPYwI9TNUknA+ch1z1uzY61h06/qVCchP1RJn5ljhcdJLwEBqrWqWhWITPI/HCOcBLk3cO2AoCPMOHKUuVUZ3z+DHIAa7k0kmjSO3gXJfzllHaxnuDAVuTo+34vERNqHfLhBN70xyDcWkL89HuBict3LCQLFvzBqajeNqFfS1IfHFTD/XXwriX4eZDTpOEGyRbkEXq48iG1g5iLZC5uyKXAJUZHZxBdd0MTOT7VXFlucsC+wtC/QemTuHNlz7U2Jhd7gtRcOGMagRdSeQb8TNFhrQzoOS6rj8lIC78h820pmcTKgQA1xUUx3RR5rOIfRmq4fgQusq+qxWEFDzuT7tsSAXA6+1xAZAJseU56jKkjWiBLpB9EM3FnUCQ9UuePBEqytYuflqZ7MuAl/tEd9hg4TU6cFsYiSA+E8bW9a9eUlZs0TPNa+w380TPqX2A7G6aK+k0Ktm6Mr6OZCHXSkn+vZUbIN/U2d6ZncwCaNSQZYh126jt7dKXPh3YyJMLrkQmvcQyCWPm0ZK0sIE3IK9+8lsEeGzP4Yp6jlcTD3aBQQN0RAmvUMgdgxRJ+qgZvN288arPxtLXWUGfNQCC6uZgIzi2VkmvWX3AYIzjNrjTTl60R6h1qty3DuswTrCySgH9q8qWHb0Vrz4O011T5JZZDIJTc633JkFXUJiHD7IvlWWcJJGOjQlKdecm2AdEDNFwnGSuU2dmDXAJQassdvDSZwqlo=
+  template:
+    data: null
+    metadata:
+      creationTimestamp: null
+      name: alertmanager-dashboard
+      namespace: argo-monitoring
+
