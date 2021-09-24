@@ -1,8 +1,26 @@
-{{- $kpsFullName := (include "kube-prometheus-stack.fullname" $) -}}
-{{- range $svcName := tuple "alertmanager" "prometheus" "grafana" }}
-{{- if index $.Values "kube-prometheus-stack" $svcName "ingress" "enabled"}}
-{{- with index $.Values "kube-prometheus-stack" $svcName }}
-{{- $svcPort := .service.port }}
+{{/*
+NOTE: This utility template is needed until https://git.io/JvuGN is resolved.
+
+Call a template from the context of a subchart.
+
+Usage:
+  {{ include "call-nested" (list . "<subchart_name>" "<subchart_template_name>") }}
+*/}}
+{{- define "call-nested" }}
+{{- $dot := index . 0 }}
+{{- $subchart := index . 1 | splitList "." }}
+{{- $template := index . 2 }}
+{{- $values := $dot.Values }}
+{{- range $subchart }}
+{{- $values = index $values . }}
+{{- end }}
+{{- include $template (dict "Chart" (dict "Name" (last $subchart)) "Values" $values "Release" $dot.Release "Capabilities" $dot.Capabilities) }}
+{{- end }}
+{{- $kpsFullName := include "call-nested" (list . "kube-prometheus-stack" "kube-prometheus-stack.fullname") -}}
+{{- range $svcName := tuple "alertmanager" "prometheus" "grafana" -}}
+{{- if index $.Values "kube-prometheus-stack" $svcName "ingress" "enabled" -}}
+{{- with index $.Values "kube-prometheus-stack" $svcName -}}
+{{- $svcPort := .service.port -}}
 ---
 apiVersion: traefik.containo.us/v1alpha1
 kind: IngressRoute
