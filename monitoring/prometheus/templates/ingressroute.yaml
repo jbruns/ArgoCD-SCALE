@@ -20,7 +20,7 @@ Usage:
 {{- range $svcName := tuple "alertmanager" "prometheus" "grafana" -}}
 {{- if index $.Values "kube-prometheus-stack" $svcName "ingress" "enabled" -}}
 {{- with index $.Values "kube-prometheus-stack" $svcName -}}
-{{- $svcPort := .service.port -}}
+{{- $svcPort := .service.port }}
 ---
 apiVersion: traefik.containo.us/v1alpha1
 kind: IngressRoute
