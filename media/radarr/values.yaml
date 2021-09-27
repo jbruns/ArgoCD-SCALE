@@ -53,7 +53,7 @@ radarr:
       args: ["exportarr", "radarr"]
       env:
         - name: URL
-          value: "http://localhost"
+          value: "http://localhost:7878"
         - name: PORT
           value: "9793"
         - name: ENABLE_ADDITIONAL_METRICS

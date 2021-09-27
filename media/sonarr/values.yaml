@@ -53,7 +53,7 @@ sonarr:
       args: ["exportarr", "sonarr"]
       env:
         - name: URL
-          value: "http://localhost"
+          value: "http://localhost:8989"
         - name: PORT
           value: "9794"
         - name: ENABLE_ADDITIONAL_METRICS
