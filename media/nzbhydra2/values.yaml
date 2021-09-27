@@ -1,6 +1,10 @@
 # https://github.com/k8s-at-home/library-charts/blob/main/charts/stable/common/values.yaml
 # https://github.com/k8s-at-home/charts/blob/master/charts/stable/nzbhydra2/values.yaml
 nzbhydra2:
+  # https://github.com/k8s-at-home/container-images/pkgs/container/nzbhydra2
+  image:
+    tag: v3.16.2
+
   env:
     TZ: '{{ .Values.global.TZ }}'  
   
