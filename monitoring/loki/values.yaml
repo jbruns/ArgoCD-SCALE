@@ -1,0 +1,11 @@
+# https://github.com/grafana/helm-charts/blob/main/charts/loki-stack/values.yaml
+loki-stack:
+  promtail:
+    enabled: false
+  
+  fluent-bit:
+    enabled: true
+    volumes:
+      - name: varlibdockercontainers
+        hostPath:
+          path: '/mnt/luna/ix-applications/docker/containers'
