@@ -55,11 +55,11 @@ radarr:
         - name: URL
           value: "http://localhost"
         - name: PORT
-          value: 9793
+          value: "9793"
         - name: ENABLE_ADDITIONAL_METRICS
-          value: true
+          value: "true"
         - name: ENABLE_UNKNOWN_QUEUE_ITEMS
-          value: true
+          value: "true"
       
       envFrom:
         - secretRef:
