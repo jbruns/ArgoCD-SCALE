@@ -56,3 +56,9 @@ radarr:
       env:
         additionalMetrics: true
         unknownQueueItems: true
+
+  additionalContainers:
+    exporter:
+      envFrom:
+        - secretRef:
+            name: radarr-exportarr-env
