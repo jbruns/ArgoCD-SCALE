@@ -6,6 +6,9 @@ loki-stack:
   fluent-bit:
     enabled: true
     volumes:
+      - name: varlog
+        hostPath:
+          path: '/var/log'
       - name: varlibdockercontainers
         hostPath:
           path: '/mnt/luna/ix-applications/docker/containers'
