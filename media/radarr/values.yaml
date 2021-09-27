@@ -45,30 +45,8 @@ radarr:
     fsGroup: 1002
     fsGroupChangePolicy: OnRootMismatch
 
-  prometheus:
-    podMonitor:
-      enabled: false
-      interval: 3m
-      scrapeTimeout: 1m
-      additionalLabels: {}
-
-  additionalContainers:
-    exportarr:
-      name: exportarr
-      image: ghcr.io/onedr0p/exportarr:v0.6.0
-      imagePullPolicy: IfNotPresent
-      args: ["exportarr", "radarr"]
-      env:
-      - name: PORT
-        value: "32123"
-      - name: URL
-        value: "http://localhost"
-      - name: CONFIG
-        value: "/config/config.xml"
-      ports:
-      - name: exportarr
-        containerPort: 32123
-      volumeMounts:
-      - name: config
-        mountPath: /config
-        readOnly: true
+  metrics:
+    enabled: true
+    prometheusRule:
+      # https://github.com/k8s-at-home/charts/blob/master/charts/stable/radarr/templates/prometheusrules.yaml
+      enabled: true

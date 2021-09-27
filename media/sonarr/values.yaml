@@ -45,13 +45,6 @@ sonarr:
     fsGroup: 1002
     fsGroupChangePolicy: OnRootMismatch
     
-  prometheus:
-    podMonitor:
-      enabled: false
-      interval: 3m
-      scrapeTimeout: 1m
-      additionalLabels: {}
-
   metrics:
     enabled: true
     prometheusRule:
