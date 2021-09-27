@@ -48,5 +48,11 @@ radarr:
   metrics:
     enabled: true
     prometheusRule:
-      # https://github.com/k8s-at-home/charts/blob/master/charts/stable/radarr/templates/prometheusrules.yaml
       enabled: true
+    exporter:
+      image:
+        repository: ghcr.io/onedr0p/exportarr
+        tag: v0.6.1
+      env:
+        additionalMetrics: true
+        unknownQueueItems: true
