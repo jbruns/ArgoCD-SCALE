@@ -45,20 +45,40 @@ radarr:
     fsGroup: 1002
     fsGroupChangePolicy: OnRootMismatch
 
-  metrics:
-    enabled: true
-    prometheusRule:
-      enabled: true
-    exporter:
-      image:
-        repository: ghcr.io/onedr0p/exportarr
-        tag: v0.6.1
-      env:
-        additionalMetrics: true
-        unknownQueueItems: true
-
   additionalContainers:
-    exporter:
+    exportarr:
+      name: exportarr
+      image: ghcr.io/onedr0p/exportarr:v0.6.1
+      imagePullPolicy: IfNotPresent
+      args: ["exportarr", "radarr"]
+      env:
+        - name: URL
+          value: "http://localhost"
+        - name: PORT
+          value: 9793
+        - name: ENABLE_ADDITIONAL_METRICS
+          value: true
+        - name: ENABLE_UNKNOWN_QUEUE_ITEMS
+          value: true
+      
       envFrom:
         - secretRef:
             name: radarr-exportarr-env
+
+      ports:
+        - name: metrics
+          containerPort: 9793
+        
+      volumeMounts:
+        - name: config
+          mountPath: /config
+          readOnly: true
+  
+  service:
+    metrics:
+      enabled: true
+      ports:
+        metrics:
+          enabled: true
+          protocol: TCP
+          port: 9793

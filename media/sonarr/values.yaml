@@ -45,8 +45,40 @@ sonarr:
     fsGroup: 1002
     fsGroupChangePolicy: OnRootMismatch
     
-  metrics:
-    enabled: true
-    prometheusRule:
-      # https://github.com/k8s-at-home/charts/blob/master/charts/stable/sonarr/templates/prometheusrules.yaml
+  additionalContainers:
+    exportarr:
+      name: exportarr
+      image: ghcr.io/onedr0p/exportarr:v0.6.1
+      imagePullPolicy: IfNotPresent
+      args: ["exportarr", "sonarr"]
+      env:
+        - name: URL
+          value: "http://localhost"
+        - name: PORT
+          value: 9794
+        - name: ENABLE_ADDITIONAL_METRICS
+          value: true
+        - name: ENABLE_UNKNOWN_QUEUE_ITEMS
+          value: true
+      
+      envFrom:
+        - secretRef:
+            name: sonarr-exportarr-env
+
+      ports:
+        - name: metrics
+          containerPort: 9794
+        
+      volumeMounts:
+        - name: config
+          mountPath: /config
+          readOnly: true
+  
+  service:
+    metrics:
       enabled: true
+      ports:
+        metrics:
+          enabled: true
+          protocol: TCP
+          port: 9794

@@ -1,0 +1,17 @@
+apiVersion: bitnami.com/v1alpha1
+kind: SealedSecret
+metadata:
+  creationTimestamp: null
+  name: radarr-exportarr-env
+  namespace: argo-media
+spec:
+  encryptedData:
+    APIKEY: AgAib+MnapHX2SZG6d+Nzhb3WaLfWN2GDpOCzVyateybiwqn5DjBAthMGB8YAdG2+53gEb7gD4TSlHJ7842jkraFi7M2Z1ADVTCE0kIwKsFS+3YzH26AKVYDB4W94p0bV83tXndJFPCRz++rL4LIQleX++TSJs4lHky3pdmw1ibrSoZUfDMGntuesR/QWnJHQ1tnUu0/CC/VoTEtxmESk+8uITd/aQVueWcVjBZyK9XVoQqIVtsNfa421gt+D4ORhWPKSqEZudDsn4XzunBffZsG5KV/NfTIQWDeIHXofEELz0m+HhQAtOj5qs1+/dg+d2BvIdE/5n309pLo11dsp4GcMjIiP5NOrk24ywWEHFVMbyl64hmRkkUXF6Bghv7WDTOeMmQUhWJuOKDGUiAVUYVqvPR41JsWJws8NK5SNrQhWxSNCJ1+7jpq6qSm4Lbn2AiuC8e1d7s8GwxAvINQm2eqZbUBvaqvIU49ssE9ZAH+hKE/PKJD4WgdauRtjhANEqMWDQHAf0QhiQsMiamdJq+yAvaqOOmP2f4KgpQrxTKQJ8/GGaVaWjQl5mj2a2+yOx5kRoAaNVi0023iqOoQuIZp8esdQ+8kuHixhfiTL4Q+n3RuH1VMOUyU/YETPxx7xPtU1B6ZR54efFIK1GYQdbZ21gfY7yPSKMr8yktWsAOVJzcAyoM/XITp6hzS2H1/AcnrF+ihxGSx7prCkZHlbpZd9eUK6TQwAalOy7FxAq3oeg==
+  template:
+    data: null
+    metadata:
+      creationTimestamp: null
+      name: radarr-exportarr-env
+      namespace: argo-media
+    type: Opaque
+
