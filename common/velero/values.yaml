@@ -39,6 +39,8 @@ velero:
         s3ForcePathStyle: true
         s3Url: http://minio.ix-minio:9000
         bucket: nobesitiatwa
+        # https://github.com/openebs/velero-plugin/pull/55
+        multiPartChunkSize: 100Mi
         restApiTimeout: 90s
     resticTimeout: 4h
 
