@@ -8,6 +8,12 @@ photoprism:
     PHOTOPRISM_DATABASE_SERVER: mariadb.argo-common
     PHOTOPRISM_SITE_URL: 'photos.{{ .Values.global.altDomainHome }}'
     PHOTOPRISM_CACHE_PATH: /photoprism/cache
+    PHOTOPRISM_ORIGINALS_PATH: /assets/originals
+    PHOTOPRISM_IMPORT_PATH: /assets/import
+    PHOTOPRISM_SIDECAR_PATH: /assets/sidecar
+    PHOTOPRISM_TEMP_PATH: /assets/temp
+    PROTOPRISM_BACKUP_PATH: /assets/backup
+    
     UID: 1003
     GID: 1003
   envFrom:
@@ -34,18 +40,27 @@ photoprism:
   persistence:
     config:
       enabled: true
+      storageClass: argo-zfspv-fast
+      size: 20Gi
+      accessMode: ReadWriteOnce
+      retain: true
+      mountPath: /photoprism/storage
+    
+    cache:
+      enabled: true
+      storageClass: argo-zfspv-fast
+      size: 350Gi
+      accessMode: ReadWriteOnce
+      retain: true
+      mountPath: /photoprism/cache
+    
+    assets:
+      enabled: true
       storageClass: argo-zfspv-slow
       size: 4Ti
       accessMode: ReadWriteOnce
       retain: true
-      mountPath: /photoprism
-    cache:
-      enabled: true
-      storageClass: argo-zfspv-fast
-      size: 400Gi
-      accessMode: ReadWriteOnce
-      retain: true
-      mountPath: /photoprism/cache
+      mountPath: /assets
 
   podSecurityContext:
     runAsUser: 1003
