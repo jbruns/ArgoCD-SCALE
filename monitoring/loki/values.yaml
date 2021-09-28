@@ -22,9 +22,6 @@ loki-stack:
       - name: varlog
         hostPath:
           path: /var/log
-      - name: varlogpods
-        hostPath:
-          path: /var/log/pods
       - name: ixappsdockercontainers
         hostPath:
           path: /mnt/luna/ix-applications/docker/containers
@@ -32,8 +29,5 @@ loki-stack:
     volumeMounts:
       - name: varlog
         mountPath: /var/log
-      - name: varlibdockercontainers
-        mountPath: /var/lib/docker/containers
-        readOnly: true
       - name: ixappsdockercontainers
         mountPath: /mnt/luna/ix-applications/docker/containers
