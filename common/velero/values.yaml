@@ -27,7 +27,7 @@ velero:
         s3Url: http://minio.ix-minio:9000
         publicUrl: https://minio.wavebe.am
     volumeSnapshotLocation:
-      name: zfspv
+      name: default
       provider: openebs.io/zfspv-blockstore
       config:
         prefix: zfs
