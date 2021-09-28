@@ -123,4 +123,4 @@ plex:
       memory: 1024Mi
     limits:
       nvidia.com/gpu: 1
-      memory: 16384Mi
+      memory: 3072Mi
