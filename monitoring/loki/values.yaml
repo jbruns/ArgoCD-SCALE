@@ -1,18 +1,30 @@
 # https://github.com/grafana/helm-charts/blob/main/charts/loki-stack/values.yaml
 loki-stack:
+
+  loki:    
+    serviceMonitor:
+      enabled: true
+      
   promtail:
     enabled: false
   
   fluent-bit:
     enabled: true
     
+    serviceMonitor:
+      enabled: true
+    
     volumes:
+      # on SCALE:
+      # /var/log/containers ->
+      # /var/log/pods
+      # Docker containers directory: /mnt/<pool>/ix-applications/docker/containers
       - name: varlog
         hostPath:
           path: /var/log
-      - name: varlibdockercontainers
+      - name: varlogpods
         hostPath:
-          path: /mnt/luna/ix-applications/docker/containers
+          path: /var/log/pods
       - name: ixappsdockercontainers
         hostPath:
           path: /mnt/luna/ix-applications/docker/containers
