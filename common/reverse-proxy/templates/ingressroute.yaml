@@ -20,4 +20,4 @@ spec:
     {{- end }}
   tls:
     secretName: {{ $svcName }}-tls
-{{- end }}
+{{ end }}
