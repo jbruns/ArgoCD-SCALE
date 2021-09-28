@@ -10,15 +10,18 @@ loki-stack:
       - name: varlog
         hostPath:
           path: /var/log
+      - name: varlibdockercontainers
+        hostPath:
+          path: /mnt/luna/ix-applications/docker/containers
       - name: ixappsdockercontainers
         hostPath:
           path: /mnt/luna/ix-applications/docker/containers
 
     volumeMounts:
-    - name: varlog
-      mountPath: /var/log
-    - name: varlibdockercontainers
-      mountPath: /var/lib/docker/containers
-      readOnly: true
-    - name: ixappsdockercontainers
-      mountPath: /mnt/luna/ix-applications/docker/containers
+      - name: varlog
+        mountPath: /var/log
+      - name: varlibdockercontainers
+        mountPath: /var/lib/docker/containers
+        readOnly: true
+      - name: ixappsdockercontainers
+        mountPath: /mnt/luna/ix-applications/docker/containers
