@@ -10,8 +10,7 @@ global:
   - media
   - home
   - monitoring
-  - minio
-  
+    
   storage:
     pools: 
       argo-zfspv-fast: luna/argo/pv
