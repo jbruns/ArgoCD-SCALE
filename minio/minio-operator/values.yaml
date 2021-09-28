@@ -1,0 +1,25 @@
+minio-operator:
+  console:
+    ingress:
+      enabled: true
+      annotations:
+        cert-manager.io/cluster-issuer: letsencrypt-production
+        traefik.ingress.kubernetes.io/router.entrypoints: websecure
+      path: /
+      host: minio.wavebe.am
+      tls:
+        - secretName: 'minio-tls'
+          hosts:
+            - minio.wavebe.am
+    
+  tenants:
+    - name: wavebeam
+      namespace: argo-common
+      pools:
+        - servers: 1
+          volumesPerServer: 1
+          size: 4Ti
+          storageClassName: argo-zfspv-slow
+  
+  metrics:
+    enabled: true
