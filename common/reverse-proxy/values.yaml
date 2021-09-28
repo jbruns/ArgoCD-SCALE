@@ -18,3 +18,39 @@ reverse-proxy:
           - secretName: 'home-assistant-tls'
             hosts:
               - 'ha.bruns.house'
+
+    - name: minio-console
+      enabled: true
+      ip: 172.16.2.5
+      port: 9002
+      ingress:
+        annotations:
+          cert-manager.io/cluster-issuer: letsencrypt-production
+          traefik.ingress.kubernetes.io/router.entrypoints: websecure
+        hosts:
+          - host: 'minio-console.wavebe.am'
+        paths:
+          - path: /
+            pathType: Prefix      
+        tls:
+          - secretName: 'minio-console-tls'
+            hosts:
+              - 'minio-console.wavebe.am'
+
+    - name: minio
+      enabled: true
+      ip: 172.16.2.5
+      port: 9000
+      ingress:
+        annotations:
+          cert-manager.io/cluster-issuer: letsencrypt-production
+          traefik.ingress.kubernetes.io/router.entrypoints: websecure
+        hosts:
+          - host: 'minio.wavebe.am'
+        paths:
+          - path: /
+            pathType: Prefix      
+        tls:
+          - secretName: 'minio-tls'
+            hosts:
+              - 'minio.wavebe.am'
