@@ -38,16 +38,11 @@ photoprism:
       size: 4Ti
       accessMode: ReadWriteOnce
       retain: true
-    originals:
-      enabled: true
-      storageClass: argo-zfspv-slow
-      size: 4Ti
-      accessMode: ReadWriteOnce
-      retain: true
+      mountPath: /photoprism
     cache:
       enabled: true
       storageClass: argo-zfspv-fast
-      size: 200Gi
+      size: 400Gi
       accessMode: ReadWriteOnce
       retain: true
       mountPath: /photoprism/cache
