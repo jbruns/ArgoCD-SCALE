@@ -1,14 +1,13 @@
 # https://github.com/vmware-tanzu/helm-charts/blob/main/charts/velero/values.yaml
 velero:
   # https://velero.io/docs/v1.6/customize-installation/#customize-resource-requests-and-limits
-  # increased limits for zfs pv snapshots
   resources:
     requests:
       cpu: 500m
       memory: 128Mi
     limits:
-      cpu: 4000m
-      memory: 2048Mi
+      cpu: 6000m
+      memory: 3072Mi
   initContainers:
     - name: velero-plugin-for-aws
       image: velero/velero-plugin-for-aws:v1.2.1
@@ -24,8 +23,6 @@ velero:
         - mountPath: /target
           name: plugins
   configuration:
-    extraEnvVars:
-      TZ: "America/Los_Angeles"
     provider: aws
     backupStorageLocation:
       name: default
@@ -56,8 +53,8 @@ velero:
 
   schedules:
     daily:
-      # backup every day at 0700
-      schedule: "0 7 * * *"
+      # UTC. Backup every day at 1400
+      schedule: "0 14 * * *"
       template:
         # expire backups after 1 week
         ttl: "168h"
