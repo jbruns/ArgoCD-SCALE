@@ -30,6 +30,7 @@ velero:
       name: zfspv
       provider: openebs.io/zfspv-blockstore
       config:
+        prefix: zfs
         namespace: openebs
         provider: aws
         region: minio
@@ -45,7 +46,7 @@ velero:
     existingSecret: velero-s3-key
 
   schedules:
-    daily-backup:
+    daily:
       # backup every day at 0700
       schedule: "0 7 * * *"
       template:
