@@ -9,6 +9,6 @@ loki-stack:
       - name: varlog
         hostPath:
           path: '/var/log'
-      - name: varlibdockercontainers
+      - name: ixappsdockercontainers
         hostPath:
           path: '/mnt/luna/ix-applications/docker/containers'
