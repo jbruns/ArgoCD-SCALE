@@ -1,5 +1,14 @@
 # https://github.com/vmware-tanzu/helm-charts/blob/main/charts/velero/values.yaml
 velero:
+  # https://velero.io/docs/v1.6/customize-installation/#customize-resource-requests-and-limits
+  # increased limits for zfs pv snapshots
+  resources:
+    requests:
+      cpu: 500m
+      memory: 128Mi
+    limits:
+      cpu: 4000m
+      memory: 2048Mi
   initContainers:
     - name: velero-plugin-for-aws
       image: velero/velero-plugin-for-aws:v1.2.1
