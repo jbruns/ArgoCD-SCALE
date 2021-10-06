@@ -1,5 +1,8 @@
 # https://github.com/k8s-at-home/charts/blob/master/charts/stable/plex/values.yaml
 plex:
+  image:
+    tag: v1.24.3.5033-757abe6b4
+
   env:
     TZ: '{{ .Values.global.TZ }}'
     NVIDIA_VISIBLE_DEVICES: all
