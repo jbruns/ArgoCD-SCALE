@@ -1,0 +1,7 @@
+name: overseerr
+apiVersion: v2
+version: 1.0.0
+dependencies:
+- name: overseerr
+  repository: https://k8s-at-home.com/charts
+  version: 5.0.1
