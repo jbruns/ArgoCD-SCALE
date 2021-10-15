@@ -94,7 +94,7 @@ plex:
     config:
       enabled: true
       storageClass: argo-zfspv-fast
-      size: 100Gi
+      size: 200Gi
       accessMode: ReadWriteOnce
       retain: true
     transcode:
