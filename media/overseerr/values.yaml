@@ -2,7 +2,7 @@
 # https://github.com/k8s-at-home/charts/blob/master/charts/stable/overseerr/values.yaml
 overseerr:
   image:
-    tag: 1.26.1
+    tag: 1.27.0
 
   env:
     TZ: '{{ .Values.global.TZ }}'
