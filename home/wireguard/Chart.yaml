@@ -1,0 +1,7 @@
+name: wireguard
+apiVersion: v2
+version: 1.0.0
+dependencies:
+- name: wireguard
+  repository: https://k8s-at-home.com/charts
+  version: 1.0.1
