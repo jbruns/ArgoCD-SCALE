@@ -1,0 +1,30 @@
+# https://github.com/k8s-at-home/library-charts/blob/main/charts/stable/common/values.yaml
+# https://github.com/k8s-at-home/charts/blob/master/charts/stable/mosquitto/values.yaml
+mosquitto:
+  ingress:
+    main:
+      enabled: true
+      ingressClassName: traefik
+      annotations:
+        traefik.ingress.kubernetes.io/router.entrypoints: mqtt
+      hosts:
+      - host: 'mqtt.{{ .Values.global.altDomainHome }}'
+        paths:
+        - path: /
+          pathType: Prefix
+
+  persistence:
+    data:
+      enabled: true
+      storageClass: argo-zfspv-fast
+      size: 5Gi
+      mountPath: /mosquitto/data
+      accessMode: ReadWriteOnce
+      retain: true
+    configinc:
+      enabled: true
+      storageClass: argo-zfspv-fast
+      size: 100Mi
+      mountPath: /mosquitto/configinc
+      accessMode: ReadWriteOnce
+      retain: true

@@ -16,6 +16,13 @@ traefik:
   ports:
     web:
       redirectTo: websecure
+    mqtt:
+      port: 8883
+      expose: true
+      exposedPort: 1883
+      protocol: TCP
+      tls:
+        enabled: false
 
   ingressClass:
     enabled: true

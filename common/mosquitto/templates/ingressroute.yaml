@@ -1,0 +1,14 @@
+apiVersion: traefik.containo.us/v1alpha1
+kind: IngressRoute
+metadata:
+  name: {{ .Chart.Name }}-mqtt
+  namespace: {{ .Release.Namespace }}
+spec:
+  entryPoints:
+    - mqtt
+  routes:
+    - match: Host(`mqtt.{{ .Values.global.altDomainHome }}`)
+      kind: Rule
+      services:
+        - name: {{ .Chart.Name }}
+          port: mqtt
