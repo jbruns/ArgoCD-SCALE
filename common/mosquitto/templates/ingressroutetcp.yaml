@@ -8,7 +8,6 @@ spec:
     - mqtt
   routes:
     - match: HostSNI(`*`)
-      kind: Rule
       services:
         - name: {{ .Chart.Name }}
           port: mqtt
