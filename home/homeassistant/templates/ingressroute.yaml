@@ -1,0 +1,17 @@
+apiVersion: traefik.containo.us/v1alpha1
+kind: IngressRoute
+metadata:
+  name: {{ .Chart.Name }}-http
+  namespace: {{ .Release.Namespace }}
+spec:
+  entryPoints:
+    - web
+    - websecure
+  routes:
+    - match: Host(`ha.{{ .Values.global.altDomainHome }}`)
+      kind: Rule
+      services:
+        - name: {{ include "common.names.fullname" . }}
+          port: http
+  tls:
+    secretName: {{ .Chart.Name }}-tls

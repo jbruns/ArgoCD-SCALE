@@ -57,7 +57,7 @@ home-assistant:
           - path: /
             pathType: Prefix      
         tls:
-          - secretName: '{{ .Chart.Name }}-code-server-tls'
+          - secretName: '{{ .Chart.Name }}-codeserver-tls'
             hosts:
               - 'ha-config.{{ .Values.global.altDomainHome }}'
       volumeMounts:
