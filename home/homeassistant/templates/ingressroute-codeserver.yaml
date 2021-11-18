@@ -12,6 +12,6 @@ spec:
       kind: Rule
       services:
         - name: {{ include "common.names.fullname" . }}-codeserver
-          port: http
+          port: codeserver
   tls:
     secretName: {{ .Chart.Name }}-codeserver-tls
