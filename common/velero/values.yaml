@@ -65,4 +65,4 @@ velero:
           - kube-public
           - kube-node-lease
           - openebs
-          - ix*
+          - ix-minio
