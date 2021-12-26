@@ -1,7 +1,7 @@
 # https://github.com/k8s-at-home/charts/blob/master/charts/stable/plex/values.yaml
 plex:
   image:
-    tag: v1.24.3.5033-757abe6b4
+    tag: v1.25.2.5319-c43dc0277
 
   env:
     TZ: '{{ .Values.global.TZ }}'

@@ -2,7 +2,8 @@
 nextcloud:
   image:
     tag: stable
-
+    pullPolicy: Always
+    
   ingress:
     enabled: true
     className: traefik

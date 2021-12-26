@@ -3,7 +3,8 @@
 home-assistant:
   image:
     tag: stable
-
+    pullPolicy: Always
+    
   env:
     TZ: '{{ .Values.global.TZ }}'  
   

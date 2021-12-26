@@ -17,7 +17,7 @@ velero:
           name: plugins
     # https://github.com/openebs/zfs-localpv/blob/master/docs/backup-restore.md
     - name: openebs-velero-plugin
-      image: openebs/velero-plugin:2.12.2
+      image: openebs/velero-plugin:3.0.0
       imagePullPolicy: IfNotPresent
       volumeMounts:
         - mountPath: /target
@@ -65,4 +65,4 @@ velero:
           - kube-public
           - kube-node-lease
           - openebs
-          - ix-*
+          - ix-minio
