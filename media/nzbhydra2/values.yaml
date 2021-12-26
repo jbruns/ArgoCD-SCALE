@@ -3,7 +3,7 @@
 nzbhydra2:
   # https://github.com/k8s-at-home/container-images/pkgs/container/nzbhydra2
   image:
-    tag: v3.17.3
+    tag: v3.18.4
 
   env:
     TZ: '{{ .Values.global.TZ }}'  
