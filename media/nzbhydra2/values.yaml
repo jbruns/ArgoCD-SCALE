@@ -3,7 +3,7 @@
 nzbhydra2:
   # https://github.com/k8s-at-home/container-images/pkgs/container/nzbhydra2
   image:
-    tag: v3.18.4
+    tag: v4.0.0
 
   env:
     TZ: '{{ .Values.global.TZ }}'  
@@ -19,7 +19,7 @@ nzbhydra2:
       - host: 'hydra.brushfi.re'
         paths:
         - path: /
-          pathType: Prefix      
+          pathType: Prefix
       tls:
         - secretName: '{{ .Chart.Name }}-tls'
           hosts:
