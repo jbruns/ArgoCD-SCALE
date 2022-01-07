@@ -9,6 +9,5 @@ kubectl patch secret -n argocd argocd-secret -p '{"stringData": { "admin.passwor
 
 echo "ArgoCD admin password has been set to: ${adminpassword}"
 
-# iptables -D INPUT -p tcp -m tcp --dport 6443 -m comment --comment "iX Custom Rule to drop connection requests to k8s cluster from external sources" -j DROP
 # kubectl port-forward -n argocd svc/argocd-server 8080:80
 # apply secrets: kubeseal --controller-name sealed-secrets --controller-namespace argo-common -o yaml < infile > outfile
