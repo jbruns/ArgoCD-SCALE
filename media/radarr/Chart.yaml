@@ -4,4 +4,4 @@ version: 1.0.0
 dependencies:
 - name: radarr
   repository: https://k8s-at-home.com/charts
-  version: 15.1.1
+  version: 15.2.0
