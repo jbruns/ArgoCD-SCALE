@@ -76,3 +76,6 @@ nextcloud:
   metrics:
     enabled: true
     https: true
+    # bad default tag: https://github.com/nextcloud/helm/pull/194
+    image:
+      tag: 0.5.0
