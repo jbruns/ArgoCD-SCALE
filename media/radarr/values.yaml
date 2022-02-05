@@ -1,6 +1,9 @@
 # https://github.com/k8s-at-home/library-charts/blob/main/charts/stable/common/values.yaml
 # https://github.com/k8s-at-home/charts/blob/master/charts/stable/radarr/values.yaml
 radarr:
+  image:
+    tag: v4.0.4.5922
+
   env:
     TZ: '{{ .Values.global.TZ }}' 
   
