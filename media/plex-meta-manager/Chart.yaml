@@ -1,0 +1,21 @@
+apiVersion: v2
+appVersion: v1.15.1
+description: Dynamic Collections and Library metadata for Plex Media Server 
+name: plex-meta-manager
+version: 1.0.0
+kubeVersion: ">=1.16.0-0"
+keywords:
+  - plex
+  - plex-meta-manager
+home: https://github.com/k8s-at-home/charts/tree/master/charts/stable/plex-meta-manager
+sources:
+  - https://github.com/meisnate12/Plex-Meta-Manager
+maintainers:
+  - name: jbruns
+    email: jbruns@live.com
+dependencies:
+  - name: common
+    repository: https://library-charts.k8s-at-home.com
+    version: 4.3.0
+annotations:
+  artifacthub.io/changes: |
