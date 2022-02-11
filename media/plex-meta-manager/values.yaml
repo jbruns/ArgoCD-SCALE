@@ -18,17 +18,19 @@ service:
   main:
     enabled: false
 
-# Create config volume and mount both the necessary secret to it. This will be copied (via initContainer)
-# to the expected location, which will be writable.
 persistence:
   config:
     enabled: true
-    type: emptyDir
+    storageClass: argo-zfspv-fast
+    size: 1Gi
+    accessMode: ReadWriteOnce
+    retain: true
   plex-meta-manager-config:
     enabled: true
     name: plex-meta-manager-config
     type: secret
     secret:
+      # Configuration file reference: https://github.com/meisnate12/Plex-Meta-Manager/wiki/Configuration-File
       secretName: plex-meta-manager-config
 
 lifecycle:
@@ -37,6 +39,8 @@ lifecycle:
       command:
         - /bin/sh
         - -c
-        - cp /plex-meta-manager-config/config.yml /config/config.yml
+        - |
+          if [ ! -f /config/config.yml ]; then
+            cp /plex-meta-manager-config/config.yml /config/config.yml
+          fi
 
-# Configuration file reference: https://github.com/meisnate12/Plex-Meta-Manager/wiki/Configuration-File
