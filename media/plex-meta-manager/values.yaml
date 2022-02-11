@@ -26,6 +26,7 @@ persistence:
     type: emptyDir
   plex-meta-manager-config:
     enabled: true
+    name: plex-meta-manager-config
     type: secret
     secret:
       secretName: plex-meta-manager-config
