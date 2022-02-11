@@ -1,0 +1,26 @@
+#
+# IMPORTANT NOTE
+#
+# This chart inherits from our common library chart. You can check the default values/options here:
+# https://github.com/k8s-at-home/library-charts/tree/main/charts/stable/common/values.yaml
+#
+
+image:
+  repository: meisnate12/plex-meta-manager
+  tag: v1.15.1
+  pullPolicy: IfNotPresent
+
+env:
+  # https://github.com/meisnate12/Plex-Meta-Manager/wiki/Run-Commands-&-Environmental-Variables
+
+persistence:
+  config:
+    enabled: true
+    type: custom
+    volumeSpec:
+      secret:
+        defaultMode: 0600
+        secretName: plex-meta-manager-config
+    subPath:
+      - path: config.yml
+        mountPath: "/config/config.yml"
