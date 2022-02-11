@@ -12,3 +12,15 @@ image:
 
 env:
   # https://github.com/meisnate12/Plex-Meta-Manager/wiki/Run-Commands-&-Environmental-Variables
+
+persistence:
+  config:
+    enabled: true
+    type: custom
+    volumeSpec:
+      secret:
+        defaultMode: 0600
+        secretName: plex-meta-manager-config
+    subPath:
+      - path: config.yml
+        mountPath: "/config/config.yml"
