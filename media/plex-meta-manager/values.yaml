@@ -5,6 +5,19 @@
 # https://github.com/k8s-at-home/library-charts/tree/main/charts/stable/common/values.yaml
 #
 
+initContainers:
+# -- Configures an initContainer that copies the configmap to the AdGuardHome conf directory
+  merge-config:
+    image: busybox
+    imagePullPolicy: IfNotPresent
+    command:
+    - "sh"
+    - "-c"
+    - "cp /config/plex-meta-manager-secret.yaml /config/config.yml"
+    volumeMounts:
+    - name: config
+      mountPath: /config
+
 image:
   repository: meisnate12/plex-meta-manager
   tag: v1.15.1
@@ -13,10 +26,13 @@ image:
 env:
   # https://github.com/meisnate12/Plex-Meta-Manager/wiki/Run-Commands-&-Environmental-Variables
 
+# No inbound connections are necessary.
 service:
   main:
     enabled: false
 
+# Create config volume and mount both the necessary secret to it. This will be copied (via initContainer)
+# to the expected location, which will be writable.
 persistence:
   config:
     enabled: true
@@ -27,4 +43,6 @@ persistence:
         secretName: plex-meta-manager-config
     subPath:
       - path: config.yml
-        mountPath: "/config/config.yml"
+        mountPath: /config/plex-meta-manager-secret.yaml
+  
+# Configuration file reference: https://github.com/meisnate12/Plex-Meta-Manager/wiki/Configuration-File
