@@ -13,6 +13,10 @@ image:
 env:
   # https://github.com/meisnate12/Plex-Meta-Manager/wiki/Run-Commands-&-Environmental-Variables
 
+service:
+  main:
+    enabled: false
+
 persistence:
   config:
     enabled: true
