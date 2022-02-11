@@ -12,18 +12,3 @@ image:
 
 env:
   # https://github.com/meisnate12/Plex-Meta-Manager/wiki/Run-Commands-&-Environmental-Variables
-
-configmap:
-  config:
-    enabled: true
-    data:
-      # see https://github.com/meisnate12/Plex-Meta-Manager/blob/master/config/config.yml.template
-      config.yml: |-
-        libraries:
-          Movies:
-          TV Shows:
-        plex:
-          url: {{ secret }}
-          token: {{ secret }}
-        tmdb:
-          apikey: {{ secret }}
