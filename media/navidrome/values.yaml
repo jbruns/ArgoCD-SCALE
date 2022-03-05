@@ -1,0 +1,41 @@
+# https://github.com/k8s-at-home/library-charts/blob/main/charts/stable/common/values.yaml
+# https://github.com/k8s-at-home/charts/blob/master/charts/stable/navidrome/values.yaml
+navidrome:
+  env:
+    TZ: '{{ .Values.global.TZ }}'
+  
+  ingress:
+    main:
+      enabled: true
+      ingressClassName: traefik
+      annotations:
+        cert-manager.io/cluster-issuer: letsencrypt-production
+        traefik.ingress.kubernetes.io/router.entrypoints: websecure
+      hosts:
+      - host: '{{ .Chart.Name }}.{{ .Values.global.domain }}'
+        paths:
+        - path: /
+          pathType: Prefix      
+      tls:
+        - secretName: '{{ .Chart.Name }}-tls'
+          hosts:
+            - '{{ .Chart.Name }}.{{ .Values.global.domain }}'
+
+  persistence:
+    config:
+      enabled: true
+      storageClass: argo-zfspv-fast
+      size: 10Gi
+      accessMode: ReadWriteOnce
+      retain: true
+    music:
+      enabled: true
+      type: hostPath
+      hostPath: /mnt/andromeda/media/music
+      mountPath: /music
+
+  podSecurityContext:
+    runAsUser: 1001
+    runAsGroup: 1002
+    fsGroup: 1002
+    fsGroupChangePolicy: OnRootMismatch
