@@ -1,0 +1,11 @@
+apiVersion: v1
+kind: Secret
+metadata:
+  name: navidrome-env
+  namespace: argo-media
+type: Opaque
+stringData:
+  ND_LASTFM_APIKEY: 
+  ND_LASTFM_SECRET: 
+  ND_SPOTIFY_ID: 
+  ND_SPOTIFY_SECRET: 

@@ -1,9 +1,16 @@
 # https://github.com/k8s-at-home/library-charts/blob/main/charts/stable/common/values.yaml
 # https://github.com/k8s-at-home/charts/blob/master/charts/stable/navidrome/values.yaml
 navidrome:
+  image:
+    tag: 0.47.5
+
   env:
     TZ: '{{ .Values.global.TZ }}'
-  
+
+  envFrom:
+    - secretRef:
+        name: navidrome-env
+
   ingress:
     main:
       enabled: true
@@ -31,7 +38,7 @@ navidrome:
     music:
       enabled: true
       type: hostPath
-      hostPath: /mnt/andromeda/media/music
+      hostPath: /mnt/andromeda/media/music/FLAC
       mountPath: /music
 
   podSecurityContext:
