@@ -48,40 +48,31 @@ radarr:
     fsGroup: 1002
     fsGroupChangePolicy: OnRootMismatch
 
-  additionalContainers:
-    exportarr:
-      name: exportarr
-      image: ghcr.io/onedr0p/exportarr:v1.0.0
-      imagePullPolicy: IfNotPresent
-      args: ["exportarr", "radarr"]
-      env:
-        - name: URL
-          value: "http://localhost:7878"
-        - name: PORT
-          value: "9793"
-        - name: ENABLE_ADDITIONAL_METRICS
-          value: "true"
-        - name: ENABLE_UNKNOWN_QUEUE_ITEMS
-          value: "true"
-      
-      envFrom:
-        - secretRef:
-            name: radarr-exportarr-env
-
-      ports:
-        - name: metrics
-          containerPort: 9793
-        
-      volumeMounts:
-        - name: config
-          mountPath: /config
-          readOnly: true
-  
-  service:
-    metrics:
-      enabled: true
-      ports:
-        metrics:
-          enabled: true
-          protocol: TCP
-          port: 9793
+metrics:
+  enabled: true
+  serviceMonitor:
+    interval: 3m
+    scrapeTimeout: 1m
+    labels: {}
+  prometheusRule:
+    enabled: false
+    labels: {}
+    rules: []
+      # - alert: RadarrDown
+      #   annotations:
+      #     description: Radarr service is down.
+      #     summary: Radarr is down.
+      #   expr: |
+      #     radarr_system_status == 0
+      #   for: 5m
+      #   labels:
+      #     severity: critical
+  exporter:
+    image:
+      repository: ghcr.io/onedr0p/exportarr
+      tag: v1.0.0
+      pullPolicy: IfNotPresent
+    env:
+      port: 9793
+      additionalMetrics: false
+      unknownQueueItems: false
