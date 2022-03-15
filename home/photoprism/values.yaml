@@ -1,6 +1,9 @@
 # https://github.com/k8s-at-home/library-charts/tree/main/charts/stable/common/values.yaml
 # https://github.com/k8s-at-home/charts/blob/master/charts/stable/photoprism/values.yaml
 photoprism:
+  image:
+    tag: 20220121
+    
   env:
     # https://docs.photoprism.org/getting-started/config-options/
     TZ: '{{ .Values.global.TZ }}'
