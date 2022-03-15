@@ -9,7 +9,7 @@ photoprism:
     TZ: '{{ .Values.global.TZ }}'
     PHOTOPRISM_DATABASE_DRIVER: mysql
     PHOTOPRISM_DATABASE_SERVER: mariadb.argo-common
-    PHOTOPRISM_SITE_URL: 'photos.{{ .Values.global.altDomainHome }}'
+    PHOTOPRISM_SITE_URL: 'https://photos.{{ .Values.global.altDomainHome }}'
     PHOTOPRISM_CACHE_PATH: /photoprism/cache
     PHOTOPRISM_ORIGINALS_PATH: /assets/originals
     PHOTOPRISM_IMPORT_PATH: /assets/import
