@@ -2,7 +2,7 @@
 # https://github.com/k8s-at-home/charts/blob/master/charts/stable/photoprism/values.yaml
 photoprism:
   image:
-    tag: '20220302'
+    tag: '220302-bullseye'
 
   env:
     # https://docs.photoprism.org/getting-started/config-options/
