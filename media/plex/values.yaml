@@ -84,7 +84,7 @@ plex:
       - host: '{{ .Chart.Name }}.{{ .Values.global.domain }}'
         paths:
         - path: /
-          pathType: Prefix      
+          pathType: Prefix
       tls:
         - secretName: '{{ .Chart.Name }}-tls'
           hosts:
@@ -94,7 +94,7 @@ plex:
     config:
       enabled: true
       storageClass: argo-zfspv-fast
-      size: 200Gi
+      size: 300Gi
       accessMode: ReadWriteOnce
       retain: true
     transcode:
