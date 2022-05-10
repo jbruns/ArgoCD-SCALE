@@ -2,7 +2,7 @@
 # https://github.com/k8s-at-home/charts/blob/master/charts/stable/radarr/values.yaml
 radarr:
   image:
-    tag: v4.0.5.5981
+    tag: v4.1.0.6175
 
   env:
     TZ: '{{ .Values.global.TZ }}' 
