@@ -2,7 +2,7 @@
 # https://github.com/k8s-at-home/charts/blob/master/charts/stable/sonarr/values.yaml
 sonarr:
   image:
-    tag: v3.0.8.1507
+    tag: v3.0.9.1549
   
   env:
     TZ: '{{ .Values.global.TZ }}'
