@@ -4,7 +4,6 @@ plex:
     tag: v1.28.1.6104-788f82488
     
   env:
-    PLEX_CLAIM: 'claim-NUgnbGWaszDoPBM-BHu8'
     TZ: '{{ .Values.global.TZ }}'
     NVIDIA_VISIBLE_DEVICES: all
     NVIDIA_DRIVER_CAPABILITIES: compute,video,utility
