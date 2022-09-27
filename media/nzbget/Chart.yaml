@@ -1,7 +1,8 @@
 name: nzbget
 apiVersion: v2
-version: 1.0.0
+version: 2.0.0
 dependencies:
-- name: nzbget
-  repository: https://k8s-at-home.com/charts
-  version: 12.4.2
+- name: common
+  version: 0.2.1
+  repository: https://bjw-s.github.io/helm-charts/
+  
