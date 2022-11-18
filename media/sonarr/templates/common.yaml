@@ -1,5 +1,5 @@
 {{/* Make sure all variables are set properly */}}
-{{- include "common.values.setup" . }}
+{{- include "bjw-s.common.loader.init" . }}
 
 {{/* Append the hardcoded settings */}}
 {{- define "sonarr.harcodedValues" -}}
@@ -47,4 +47,4 @@ service:
 {{- $_ := mergeOverwrite .Values (include "sonarr.harcodedValues" . | fromYaml) -}}
 
 {{/* Render the templates */}}
-{{ include "common.all" . }}
+{{ include "bjw-s.common.loader.generate" . }}
