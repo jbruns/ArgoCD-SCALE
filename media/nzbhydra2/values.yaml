@@ -1,40 +1,84 @@
-# https://github.com/k8s-at-home/library-charts/blob/main/charts/stable/common/values.yaml
-# https://github.com/k8s-at-home/charts/blob/master/charts/stable/nzbhydra2/values.yaml
-nzbhydra2:
-  # https://github.com/k8s-at-home/container-images/pkgs/container/nzbhydra2
-  image:
-    tag: v4.4.0
+# https://github.com/bjw-s/helm-charts/tree/main/charts/library/common
+image:
+  repository: ghcr.io/onedr0p/nzbhydra2
+  tag: 4.7.1
+  pullPolicy: ifNotPresent
 
-  env:
-    TZ: '{{ .Values.global.TZ }}'  
-  
-  ingress:
-    main:
-      enabled: true
-      ingressClassName: traefik
-      annotations:
-        cert-manager.io/cluster-issuer: letsencrypt-production
-        traefik.ingress.kubernetes.io/router.entrypoints: websecure
-      hosts:
-      - host: 'hydra.brushfi.re'
-        paths:
-        - path: /
-          pathType: Prefix
-      tls:
-        - secretName: '{{ .Chart.Name }}-tls'
-          hosts:
-            - 'hydra.brushfi.re'
+env:
+  TZ: '{{ .Values.global.TZ }}'  
 
-  persistence:
-    config:
-      enabled: true
-      storageClass: argo-zfspv-fast
-      size: 10Gi
-      accessMode: ReadWriteOnce
-      retain: true
+controller:
+  revisionHistoryLimit: 1
 
-  podSecurityContext:
-    runAsUser: 568
-    runAsGroup: 568
-    fsGroup: 568
-    fsGroupChangePolicy: OnRootMismatch
+service:
+  main:
+    ports:
+      http:
+        port: 5076
+
+ingress:
+  main:
+    enabled: true
+    ingressClassName: traefik
+    annotations:
+      cert-manager.io/cluster-issuer: letsencrypt-production
+      cert-manager.io/revision-history-limit: '1'
+      traefik.ingress.kubernetes.io/router.entrypoints: websecure
+    hosts:
+    - host: 'hydra.brushfi.re'
+      paths:
+      - path: /
+        pathType: Prefix
+    tls:
+      - secretName: '{{ .Chart.Name }}-tls'
+        hosts:
+          - 'hydra.brushfi.re'
+
+probes:
+  liveness:
+    custom: true
+    enabled: true
+    spec:
+      failureThreshold: 5
+      httpGet:
+        path: /actuator/health/livenessState
+        port: http
+      initialDelaySeconds: 30
+      periodSeconds: 10
+      timeoutSeconds: 10
+  readiness:
+    custom: true
+    enabled: true
+    spec:
+      failureThreshold: 5
+      httpGet:
+        path: /actuator/health/readinessState
+        port: http
+      initialDelaySeconds: 30
+      periodSeconds: 10
+      timeoutSeconds: 10
+  startup:
+    custom: true
+    enabled: true
+    spec:
+      failureThreshold: 5
+      httpGet:
+        path: /actuator/health/readinessState
+        port: http
+      initialDelaySeconds: 30
+      periodSeconds: 10
+      timeoutSeconds: 10
+
+persistence:
+  config:
+    enabled: true
+    storageClass: argo-zfspv-fast
+    size: 10Gi
+    accessMode: ReadWriteOnce
+    retain: true
+
+podSecurityContext:
+  runAsUser: 568
+  runAsGroup: 568
+  fsGroup: 568
+  fsGroupChangePolicy: OnRootMismatch
