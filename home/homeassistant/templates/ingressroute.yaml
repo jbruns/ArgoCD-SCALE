@@ -11,7 +11,7 @@ spec:
     - match: Host(`ha.{{ .Values.global.altDomainHome }}`)
       kind: Rule
       services:
-        - name: {{ include "common.names.fullname" . }}
+        - name: {{ include "bjw-s.common.lib.chart.names.fullname" . }}
           port: http
   tls:
     secretName: {{ .Chart.Name }}-tls
