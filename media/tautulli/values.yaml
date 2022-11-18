@@ -1,39 +1,49 @@
-# https://github.com/k8s-at-home/library-charts/blob/main/charts/stable/common/values.yaml
-# https://github.com/k8s-at-home/charts/blob/master/charts/stable/tautulli/values.yaml
-tautulli:
-  image:
-    tag: v2.7.6
+# https://github.com/bjw-s/helm-charts/tree/main/charts/library/common
+image:
+  repository: ghcr.io/onedr0p/tautulli
+  tag: 2.10.5
+  pullPolicy: IfNotPresent
 
-  env:
-    TZ: '{{ .Values.global.TZ }}'
-  
-  ingress:
-    main:
-      enabled: true
-      ingressClassName: traefik
-      annotations:
-        cert-manager.io/cluster-issuer: letsencrypt-production
-        traefik.ingress.kubernetes.io/router.entrypoints: websecure
-      hosts:
-      - host: '{{ .Chart.Name }}.{{ .Values.global.domain }}'
-        paths:
-        - path: /
-          pathType: Prefix      
-      tls:
-        - secretName: '{{ .Chart.Name }}-tls'
-          hosts:
-            - '{{ .Chart.Name }}.{{ .Values.global.domain }}'
+env:
+  TZ: '{{ .Values.global.TZ }}'
 
-  persistence:
-    config:
-      enabled: true
-      storageClass: argo-zfspv-fast
-      size: 10Gi
-      accessMode: ReadWriteOnce
-      retain: true
+controller:
+  revisionHistoryLimit: 1
 
-  podSecurityContext:
-    runAsUser: 1001
-    runAsGroup: 1002
-    fsGroup: 1002
-    fsGroupChangePolicy: OnRootMismatch
+service:
+  main:
+    ports:
+      http:
+        port: 8181
+
+ingress:
+  main:
+    enabled: true
+    ingressClassName: traefik
+    annotations:
+      cert-manager.io/cluster-issuer: letsencrypt-production
+      cert-manager.io/revision-history-limit: '1'
+      traefik.ingress.kubernetes.io/router.entrypoints: websecure
+    hosts:
+    - host: '{{ .Chart.Name }}.{{ .Values.global.domain }}'
+      paths:
+      - path: /
+        pathType: Prefix      
+    tls:
+      - secretName: '{{ .Chart.Name }}-tls'
+        hosts:
+          - '{{ .Chart.Name }}.{{ .Values.global.domain }}'
+
+persistence:
+  config:
+    enabled: true
+    storageClass: argo-zfspv-fast
+    size: 10Gi
+    accessMode: ReadWriteOnce
+    retain: true
+
+podSecurityContext:
+  runAsUser: 1001
+  runAsGroup: 1002
+  fsGroup: 1002
+  fsGroupChangePolicy: OnRootMismatch
