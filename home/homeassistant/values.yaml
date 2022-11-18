@@ -1,6 +1,6 @@
 # https://github.com/bjw-s/helm-charts/tree/main/charts/library/common
 image:
-  repository: ghcr.io/homeassistant/home-assistant
+  repository: homeassistant/home-assistant
   tag: 2022.11.3
   pullPolicy: IfNotPresent
   
