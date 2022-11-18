@@ -1,0 +1,27 @@
+{{- include "bjw-s.common.loader.init" . -}}
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ template "bjw-s.common.lib.chart.names.fullname" . }}-config
+  labels:
+    {{- include "bjw-s.common.lib.metadata.allLabels" . | nindent 4 }}
+data:
+  mosquitto.conf: |
+    per_listener_settings {{ .Values.perListenerSettings }}
+    {{- if .Values.addListener }}
+    listener {{ .Values.service.main.ports.mqtt.port }}
+    {{- end}}
+    {{- if .Values.auth.enabled }}
+    allow_anonymous false
+    {{- else }}
+    allow_anonymous true
+    {{- end }}
+    {{- if .Values.persistence.data.enabled }}
+    persistence true
+    persistence_location {{ .Values.persistence.data.mountPath }}
+    autosave_interval 1800
+    {{- end }}
+    {{- if .Values.persistence.configinc.enabled }}
+    include_dir {{ .Values.persistence.configinc.mountPath }}
+    {{- end }}

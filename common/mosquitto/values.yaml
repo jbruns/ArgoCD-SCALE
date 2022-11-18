@@ -42,3 +42,8 @@ persistence:
     mountPath: /mosquitto/configinc
     accessMode: ReadWriteOnce
     retain: true
+
+auth:
+  enabled: true
+addListener: true
+perListenerSettings: false

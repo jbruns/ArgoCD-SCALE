@@ -1,5 +1,18 @@
 {{/* Make sure all variables are set properly */}}
 {{- include "bjw-s.common.loader.init" . }}
 
+{{/* Append the configMap volume to the volumes */}}
+{{- define "mosquitto.configVolume" -}}
+enabled: "true"
+mountPath: "/mosquitto/config/mosquitto.conf"
+subPath: "mosquitto.conf"
+type: "custom"
+volumeSpec:
+  configMap:
+    name: {{ template "bjw-s.common.lib.chart.names.fullname" . }}-config
+{{- end -}}
+{{- $_ := set .Values.persistence "mosquitto-config" (include "mosquitto.configVolume" . | fromYaml) -}}
+
+
 {{/* Render the templates */}}
 {{ include "bjw-s.common.loader.generate" . }}
