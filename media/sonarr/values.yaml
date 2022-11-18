@@ -83,7 +83,7 @@ metrics:
     scrapeTimeout: 1m
     labels: {}
   prometheusRule:
-    enabled: false
+    enabled: true
     labels: {}
     rules: []
       # - alert: SonarrDown
@@ -102,5 +102,5 @@ metrics:
       pullPolicy: IfNotPresent
     env:
       port: 9794
-      additionalMetrics: false
-      unknownQueueItems: false
+      additionalMetrics: true
+      unknownQueueItems: true
