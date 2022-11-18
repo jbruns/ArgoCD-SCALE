@@ -14,7 +14,7 @@ service:
   main:
     ports:
       http:
-        port: 12321
+        port: 8123
 
 ingress:
   main:
