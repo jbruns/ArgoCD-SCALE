@@ -7,6 +7,9 @@ image:
 env:
   TZ: '{{ .Values.global.TZ }}'
 
+controller:
+  revisionHistoryLimit: 1
+
 service:
   main:
     ports:
