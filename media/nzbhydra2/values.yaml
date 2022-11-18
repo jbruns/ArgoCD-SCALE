@@ -2,7 +2,7 @@
 image:
   repository: ghcr.io/onedr0p/nzbhydra2
   tag: 4.7.1
-  pullPolicy: ifNotPresent
+  pullPolicy: IfNotPresent
 
 env:
   TZ: '{{ .Values.global.TZ }}'  
