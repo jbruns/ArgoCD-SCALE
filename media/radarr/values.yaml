@@ -83,7 +83,7 @@ metrics:
     scrapeTimeout: 1m
     labels: {}
   prometheusRule:
-    enabled: false
+    enabled: true
     labels: {}
     rules: []
       # - alert: RadarrDown
