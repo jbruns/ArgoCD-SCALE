@@ -1,14 +1,15 @@
 # https://github.com/nextcloud/helm/blob/master/charts/nextcloud/values.yaml
 nextcloud:
   image:
-    tag: stable
-    pullPolicy: Always
+    tag: 24.0.7
+    pullPolicy: IfNotPresent
     
   ingress:
     enabled: true
     className: traefik
     annotations:
       cert-manager.io/cluster-issuer: letsencrypt-production
+      cert-manager.io/revision-history-limit: '1'
       traefik.ingress.kubernetes.io/router.entrypoints: websecure
     hosts:
     - host: nextcloud.bruns.house
@@ -76,6 +77,3 @@ nextcloud:
   metrics:
     enabled: true
     https: true
-    # bad default tag: https://github.com/nextcloud/helm/pull/194
-    image:
-      tag: 0.5.0
