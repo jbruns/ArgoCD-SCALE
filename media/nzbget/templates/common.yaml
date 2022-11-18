@@ -1,1 +1,2 @@
-{{ include "common.all" . }}
+{{/* Make sure all variables are set properly */}}
+{{- include "bjw-s.common.loader.init" . }}
