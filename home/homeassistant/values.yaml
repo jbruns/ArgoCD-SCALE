@@ -10,6 +10,12 @@ env:
 controller:
   revisionHistoryLimit: 1
 
+service:
+  main:
+    ports:
+      http:
+        port: 12321
+
 ingress:
   main:
     enabled: true
