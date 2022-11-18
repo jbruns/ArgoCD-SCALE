@@ -36,6 +36,7 @@ metadata:
 spec:
   # Secret names are always required.
   secretName: traefik-tls
+  revisionHistoryLimit: 1
   dnsNames:
     - traefik.{{ .Values.global.domain }}
   issuerRef:
