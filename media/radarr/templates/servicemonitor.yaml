@@ -1,19 +1,19 @@
 {{- if .Values.metrics.enabled }}
-{{- include "common.values.setup" . -}}
+{{- include "bjw-s.common.loader.init" . -}}
 ---
 apiVersion: monitoring.coreos.com/v1
 kind: ServiceMonitor
 metadata:
-  name: {{ include "common.names.fullname" . }}
+  name: {{ include "bjw-s.common.lib.chart.names.fullname" . }}
   labels:
-    {{- include "common.labels" . | nindent 4 }}
+    {{- include "bjw-s.common.lib.metadata.allLabels" . | nindent 4 }}
     {{- with .Values.metrics.serviceMonitor.labels }}
     {{- toYaml . | nindent 4 }}
     {{- end }}
 spec:
   selector:
     matchLabels:
-      {{- include "common.labels.selectorLabels" . | nindent 6 }}
+      {{- include "bjw-s.common.lib.metadata.selectorLabels" . | nindent 6 }}
   endpoints:
     - port: metrics
       {{- with .Values.metrics.serviceMonitor.interval }}
