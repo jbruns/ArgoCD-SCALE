@@ -16,7 +16,7 @@ reverse-proxy:
           - path: /
             pathType: Prefix      
         tls:
-          - secretName: 'minio-console-tls'
+          - secretName: 'reverse-proxy-minio-console-tls'
             hosts:
               - 'minio-console.wavebe.am'
 
@@ -35,6 +35,6 @@ reverse-proxy:
           - path: /
             pathType: Prefix      
         tls:
-          - secretName: 'minio-tls'
+          - secretName: 'reverse-proxy-minio-tls'
             hosts:
               - 'minio.wavebe.am'
