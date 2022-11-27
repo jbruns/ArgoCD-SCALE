@@ -2,9 +2,9 @@
 traefik:
   logs:
     general:
-      level: DEBUG
+      level: INFO
     access:
-      enabled: false
+      enabled: true
 
   # Stops ArgoCD from thinking that ingresses never complete successfully
   # https://github.com/argoproj/argo-cd/issues/968#issuecomment-451082913
