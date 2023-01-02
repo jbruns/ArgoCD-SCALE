@@ -5,7 +5,13 @@ traefik:
       level: INFO
     access:
       enabled: true
-
+  
+  service:
+    enabled: true
+    type: LoadBalancer
+    spec:
+      loadBalancerIP: '{{ .Values.global.traefik.loadBalancerIP }}'
+      
   # Stops ArgoCD from thinking that ingresses never complete successfully
   # https://github.com/argoproj/argo-cd/issues/968#issuecomment-451082913
   providers:
