@@ -1,7 +1,7 @@
 # https://github.com/bjw-s/helm-charts/tree/main/charts/library/common
 image:
   repository: homeassistant/home-assistant
-  tag: 2022.12.0
+  tag: 2022.12.8
   pullPolicy: IfNotPresent
   
 env:
