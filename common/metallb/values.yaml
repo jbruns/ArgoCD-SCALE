@@ -1,0 +1,5 @@
+# https://github.com/metallb/metallb/blob/main/charts/metallb/values.yaml
+controller:
+  logLevel: debug
+speaker:
+  logLevel: debug
