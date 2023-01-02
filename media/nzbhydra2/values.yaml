@@ -1,7 +1,7 @@
 # https://github.com/bjw-s/helm-charts/tree/main/charts/library/common
 image:
   repository: ghcr.io/onedr0p/nzbhydra2
-  tag: 4.7.6
+  tag: 4.7.1
   pullPolicy: IfNotPresent
 
 env:
