@@ -3,7 +3,7 @@ apiVersion: metallb.io/v1beta1
 kind: IPAddressPool
 metadata:
   name: default-pool
-  namespace: networking
+  namespace: argo-common
 spec:
   addresses:
     - "{{ .Values.global.metallb.defaultPool }}"
