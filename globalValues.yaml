@@ -20,4 +20,4 @@ global:
     defaultPool: 172.16.20.0-172.16.20.254
 
   traefik:
-    loadBalancerIP: "172.16.20.5"
+    loadBalancerIP: 172.16.20.5
