@@ -17,4 +17,4 @@ global:
       argo-zfspv-slow: andromeda/argo/pv
 
   metallb:
-    defaultPool: 172.18.0.0/16
+    defaultPool: 172.16.20.0-172.16.20.254
