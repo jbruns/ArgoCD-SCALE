@@ -16,25 +16,6 @@ service:
       http:
         port: 5076
 
-ingress:
-  main:
-    enabled: true
-    ingressClassName: traefik
-    annotations:
-      cert-manager.io/cluster-issuer: letsencrypt-production
-      cert-manager.io/revision-history-limit: '1'
-      traefik.ingress.kubernetes.io/router.entrypoints: websecure
-      traefik.ingress.kubernetes.io/router.tls.options: 'nzbhydra2-tlsoption@kubernetescrd'
-    hosts:
-    - host: 'hydra.brushfi.re'
-      paths:
-      - path: /
-        pathType: Prefix
-    tls:
-      - secretName: '{{ .Chart.Name }}-tls'
-        hosts:
-          - 'hydra.brushfi.re'
-
 probes:
   liveness:
     custom: true
