@@ -24,6 +24,7 @@ ingress:
       cert-manager.io/cluster-issuer: letsencrypt-production
       cert-manager.io/revision-history-limit: '1'
       traefik.ingress.kubernetes.io/router.entrypoints: websecure
+      traefik.ingress.kubernetes.io/router.tls.options: 'nzbhydra2ß-tlsoption'
     hosts:
     - host: 'hydra.brushfi.re'
       paths:
