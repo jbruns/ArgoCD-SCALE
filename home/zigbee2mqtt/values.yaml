@@ -1,0 +1,35 @@
+# https://github.com/bjw-s/helm-charts/tree/main/charts/library/common
+image:
+  repository: koenkk/zigbee2mqtt
+  tag: 1.29.2
+  pullPolicy: IfNotPresent
+
+env:
+  TZ: '{{ .Values.global.TZ }}'
+
+controller:
+  revisionHistoryLimit: 1
+
+service:
+  main:
+    type: NodePort
+    ports:
+      http:
+        port: 8080
+        nodePort: 8092
+    externalTrafficPolicy: Local
+
+persistence:
+  config:
+    enabled: true
+    storageClass: argo-zfspv-fast
+    size: 10Gi
+    accessMode: ReadWriteOnce
+    retain: true
+    mountPath: /app/data
+
+  zigbee:
+    enabled: true
+    type: hostPath
+    hostPath: /dev/serial/by-id/usb-1a86_USB_Serial-if00-port0
+    mountPath: /dev/zigbee
