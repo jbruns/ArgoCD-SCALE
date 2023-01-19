@@ -16,7 +16,7 @@ service:
     ports:
       http:
         port: 8080
-        nodePort: 8092
+        nodePort: 18092
     externalTrafficPolicy: Local
 
 persistence:
@@ -33,3 +33,7 @@ persistence:
     type: hostPath
     hostPath: /dev/serial/by-id/usb-1a86_USB_Serial-if00-port0
     mountPath: /dev/zigbee
+
+securityContext:
+  # to allow access to USB device
+  privileged: true
