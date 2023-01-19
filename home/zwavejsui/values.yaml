@@ -1,0 +1,38 @@
+# https://github.com/bjw-s/helm-charts/tree/main/charts/library/common
+image:
+  repository: zwavejs/zwave-js-ui
+  tag: 8.7.0
+  pullPolicy: IfNotPresent
+
+env:
+  TZ: '{{ .Values.global.TZ }}'
+
+controller:
+  revisionHistoryLimit: 1
+
+service:
+  main:
+    type: NodePort
+    ports:
+      http:
+        port: 8091
+        nodePort: 8091
+      websocket:
+        port: 3000
+        nodePort: 3000
+    externalTrafficPolicy: Local
+
+persistence:
+  config:
+    enabled: true
+    storageClass: argo-zfspv-fast
+    size: 10Gi
+    accessMode: ReadWriteOnce
+    retain: true
+    mountPath: /usr/src/app/store
+
+  zwave:
+    enabled: true
+    type: hostPath
+    hostPath: /dev/serial/by-id/usb-Silicon_Labs_HubZ_Smart_Home_Controller_81300379-if00-port0
+    mountPath: /dev/zwave
