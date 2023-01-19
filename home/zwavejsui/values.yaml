@@ -16,10 +16,10 @@ service:
     ports:
       http:
         port: 8091
-        nodePort: 8091
+        nodePort: 18091
       websocket:
         port: 3000
-        nodePort: 3000
+        nodePort: 13000
     externalTrafficPolicy: Local
 
 persistence:
@@ -36,3 +36,7 @@ persistence:
     type: hostPath
     hostPath: /dev/serial/by-id/usb-Silicon_Labs_HubZ_Smart_Home_Controller_81300379-if00-port0
     mountPath: /dev/zwave
+
+securityContext:
+  # to allow access to USB device
+  privileged: true
