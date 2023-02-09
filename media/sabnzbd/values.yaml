@@ -1,7 +1,7 @@
 # https://github.com/bjw-s/helm-charts/tree/main/charts/library/common
 image:
   repository: ghcr.io/onedr0p/sabnzbd
-  tag: 3.7.1
+  tag: 3.7.2
   pullPolicy: IfNotPresent
 
 controller:
