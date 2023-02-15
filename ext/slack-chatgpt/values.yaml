@@ -1,0 +1,7 @@
+image:
+  repository: ghcr.io/emmekappa/slack-chatgpt
+  tag: latest
+
+envFrom:
+  - secretRef:
+      name: slack-chatgpt-env

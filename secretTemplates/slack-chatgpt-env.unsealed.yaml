@@ -1,0 +1,11 @@
+apiVersion: v1
+kind: Secret
+metadata:
+  name: slack-chatgpt-env
+  namespace: argo-ext
+type: Opaque
+stringData:
+  SLACK_BOT_TOKEN:  
+  SLACK_APP_TOKEN: 
+  SLACK_SIGNING_SECRET: 
+  OPENAI_API_KEY:  
