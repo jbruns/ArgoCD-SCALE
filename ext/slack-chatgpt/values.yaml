@@ -1,7 +1,33 @@
 image:
   repository: ghcr.io/emmekappa/slack-chatgpt
-  tag: latest
+  tag: latest-e590d9d
 
 envFrom:
   - secretRef:
       name: slack-chatgpt-env
+
+controller:
+  revisionHistoryLimit: 1
+
+# No need to expose services
+service:
+  main:
+    enabled: false
+
+persistence:
+  data:
+    enabled: true
+    storageClass: argo-zfspv-fast
+    size: 32Mi
+    accessMode: ReadWriteOnce
+    mountPath: /app/data
+    retain: true
+
+# No exposed TCP/UDP service endpoints, so disable probes
+probes:
+  liveness:
+    enabled: false
+  readiness:
+    enabled: false
+  startup:
+    enabled: false
