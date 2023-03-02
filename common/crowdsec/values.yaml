@@ -44,6 +44,11 @@ crowdsec:
       - name: DISABLE_PARSERS
         value: "crowdsecurity/whitelists"
 
+    persistentVolume:
+      config:
+        enabled: true
+        storageClassName: argo-zfspv-fast
+
     metrics:
       enabled: true
       serviceMonitor:
