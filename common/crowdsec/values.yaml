@@ -7,8 +7,6 @@ crowdsec:
     env:
       - name: TZ
         value: '{{ .Values.global.TZ }}'
-      - name: DISABLE_AGENT
-        value: "true"
       - name: ENROLL_KEY
         valueFrom:
           secretKeyRef:
@@ -18,11 +16,6 @@ crowdsec:
         value: "k3s_cluster_prod"
       - name: ENROLL_TAGS
         value: "k3s linux"
-  #    - name: BOUNCER_KEY_TRAEFIK
-  #      valueFrom:
-  #        secretKeyRef:
-  #          name: crowdsec-env
-  #         key: BOUNCER_KEY_TRAEFIK
 
     persistentVolume:
       data:
@@ -48,21 +41,11 @@ crowdsec:
 
     env:
       - name: TZ
-        value: 
-      - name: DISABLE_ONLINE_API
-        value: "false"
-      - name: COLLECTIONS
-        value: >-
-          crowdsecurity/linux
-          crowdsecurity/sshd
-          crowdsecurity/traefik
-          crowdsecurity/base-http-scenarios
-          crowdsecurity/http-cve
-          crowdsecurity/pgsql
+        value: '{{ .Values.global.TZ }}'
       - name: PARSERS
-        # https://hub.crowdsec.net/author/crowdsecurity/configurations/cri-logs
-        # https://hub.crowdsec.net/author/crowdsecurity/configurations/docker-logs
-        value: "crowdsecurity/cri-logs crowdsecurity/docker-logs"
+        value: "crowdsecurity/cri-logs"
+      - name: COLLECTIONS
+        value: "crowdsecurity/traefik"
 
     metrics:
       enabled: true

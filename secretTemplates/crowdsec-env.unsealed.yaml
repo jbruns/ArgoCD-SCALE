@@ -1,0 +1,9 @@
+apiVersion: v1
+kind: Secret
+metadata:
+  name: crowdsec-env
+  namespace: argo-common
+type: Opaque
+stringData:
+  ENROLL_KEY: 
+  BOUNCER_KEY_TRAEFIK: 
