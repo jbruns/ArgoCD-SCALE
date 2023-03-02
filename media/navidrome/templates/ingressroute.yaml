@@ -12,5 +12,7 @@ spec:
       services:
         - name: {{ .Chart.Name }}
           port: http
+    middlewares:
+      - name: argo-common-crowdsec-traefik-bouncer@kubernetescrd
   tls:
     secretName: {{ .Chart.Name }}-tls
