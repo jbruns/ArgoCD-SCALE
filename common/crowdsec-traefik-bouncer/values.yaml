@@ -1,0 +1,22 @@
+image:
+  repository: fbonalair/traefik-crowdsec-bouncer
+  tag: v0.5.0
+  pullPolicy: IfNotPresent
+
+# https://github.com/fbonalair/traefik-crowdsec-bouncer#configuration
+env:
+  CROWDSEC_AGENT_HOST: crowdsec-service.{{ .Release.Namespace }}.svc.cluster.local:8080
+  GIN_MODE: debug
+
+envFrom:
+  - secretRef:
+      name: crowdsec-env
+
+controller:
+  revisionHistoryLimit: 1
+
+service:
+  main:
+    ports:
+      http:
+        port: 80
