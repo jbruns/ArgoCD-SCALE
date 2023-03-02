@@ -1,0 +1,17 @@
+apiVersion: bitnami.com/v1alpha1
+kind: SealedSecret
+metadata:
+  creationTimestamp: null
+  name: crowdsec-env
+  namespace: argo-common
+spec:
+  encryptedData:
+    ENROLL_KEY: AgCdiP22LEqEsuHOb+e1YWVBAu+cv3crJozbrXrQb0VWTlnOT+mP3FXkLO1DE6lB4RPzEL/tboNl4s2lBWAt8t5ThwsXZBj8h69/BFJhfbONwsvkCf2uDyrpG8OVCffOdU+2j2Jd45XTW9HeV8d50O7j3pt1vgJkJMq85/JDMccFbg0b6cSzcz0xWO5XhFl3Y7MuZnYfyaXMFzqJjeR4R/h6OMXO0TmcVGZKrvd229VHw27b5a8tA7BwXRiKSYHwSoR9qqvat0OwESDpVFxNGJ1QJVK57ByZqF1lBv4FtwelxpwZVa/ELvAwk/9bj3TgeBzgRPG1fD6fhVMghNsEjoHTJgSkxVmpxgbK3Fr81V6PuHEomsvSyr8nnlFn4dGtPm7WsVnNwEWG0kfDIFA6+P28/t87ZvgHGfejCTtJbPCfgjMKz9ojBh7SaDeDfHFX3ttV2ppjozRXJGSJI70UMvyoXEH/HuVm28U5nMw/vY6vl8/gHI9WJeYDcJf+88HcaBXbQ2fko9QSFgKfB7S0pYyeBBuRpNUQuE6LeWGDZmvgMwf4klk11SoBzBsfiOu1H0y6FjnkX5bZgQQgPxF14NmwmoEKy7NxSiL0ghS4kbde3lLdiC7hyIcsXWoce2EE+Jm0GTyxEQrWCN1M9DnC8L08MWRLF+9ez3jewtTj5RJSRaG/XHFaInw9oQGSXjFK0MKAr8G3sV0Basu6p1+vRJySny+js4uW8EVp
+  template:
+    data: null
+    metadata:
+      creationTimestamp: null
+      name: crowdsec-env
+      namespace: argo-common
+    type: Opaque
+

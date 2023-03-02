@@ -1,0 +1,70 @@
+# https://github.com/crowdsecurity/helm-charts/blob/main/charts/crowdsec/README.md
+crowdsec:
+  image:
+    tag: v1.4.6
+
+  lapi:
+    env:
+      - name: TZ
+        value: '{{ .Values.global.TZ }}'
+      - name: DISABLE_AGENT
+        value: "true"
+      - name: ENROLL_KEY
+        valueFrom:
+          secretKeyRef:
+            name: crowdsec-env
+            key: ENROLL_KEY
+      - name: ENROLL_INSTANCE_NAME
+        value: "k3s_cluster_prod"
+      - name: ENROLL_TAGS
+        value: "k3s linux"
+  #    - name: BOUNCER_KEY_TRAEFIK
+  #      valueFrom:
+  #        secretKeyRef:
+  #          name: crowdsec-env
+  #         key: BOUNCER_KEY_TRAEFIK
+
+    persistentVolume:
+      data:
+        storageClassName: argo-zfspv-fast
+      config:
+        storageClassName: argo-zfspv-fast
+
+    metrics:
+      enabled: true
+      serviceMonitor:
+        enabled: true
+
+  agent:
+    acquisition:
+      - namespace: argo-common
+        podName: traefik-*
+        program: traefik
+    
+    persistentVolume:
+      config:
+        enabled: true
+      storageClassName: argo-zfspv-fast
+
+    env:
+      - name: TZ
+        value: 
+      - name: DISABLE_ONLINE_API
+        value: "false"
+      - name: COLLECTIONS
+        value: >-
+          crowdsecurity/linux
+          crowdsecurity/sshd
+          crowdsecurity/traefik
+          crowdsecurity/base-http-scenarios
+          crowdsecurity/http-cve
+          crowdsecurity/pgsql
+      - name: PARSERS
+        # https://hub.crowdsec.net/author/crowdsecurity/configurations/cri-logs
+        # https://hub.crowdsec.net/author/crowdsecurity/configurations/docker-logs
+        value: "crowdsecurity/cri-logs crowdsecurity/docker-logs"
+
+    metrics:
+      enabled: true
+      serviceMonitor:
+        enabled: true
