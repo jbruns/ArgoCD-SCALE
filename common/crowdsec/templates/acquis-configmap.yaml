@@ -1,0 +1,23 @@
+# vim: set ft=gotmpl:
+---
+
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: acquis-configmap
+data:
+  acquis.yaml: |-
+    {{- $container_runtime := .Values.container_runtime }}
+    {{- range .Values.agent.acquisition }}
+    ---
+    filenames:
+      - /var/log/containers/{{ .podName }}_{{ .namespace }}_*.log
+    force_inotify: true
+    labels:
+      type: {{ $container_runtime }}
+      program: {{ .program }}
+    {{- end }}
+    {{- range .Values.agent.additionalAcquisition }}
+    ---
+    {{- toYaml . | nindent 4 }}
+    {{- end }}

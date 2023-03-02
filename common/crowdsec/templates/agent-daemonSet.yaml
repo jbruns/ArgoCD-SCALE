@@ -1,0 +1,247 @@
+# vim: set ft=gotmpl:
+---
+
+apiVersion: apps/v1
+kind: DaemonSet
+metadata:
+  name: {{ .Release.Name }}-agent
+  labels:
+    k8s-app: {{ .Release.Name }}
+    type: agent
+    version: v1
+spec:
+  selector:
+    matchLabels:
+      k8s-app: {{ .Release.Name }}
+      type: agent
+  template:
+    metadata:
+      labels:
+        k8s-app: {{ .Release.Name }}
+        type: agent
+        version: v1
+    spec:
+      {{- with .Values.agent.tolerations }}
+      tolerations:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      initContainers:
+      - name: wait-for-lapi
+        image: "{{ .Values.agent.wait_for_lapi.image.repository }}:{{ .Values.agent.wait_for_lapi.image.tag }}"
+        imagePullPolicy: {{ .Values.agent.wait_for_lapi.image.pullPolicy }}
+        command: ['sh', '-c', "until nc {{ .Release.Name }}-service.{{ .Release.Namespace }} 8080; do echo waiting for lapi to start; sleep 5; done"]
+        resources:
+          limits:
+            memory: 50Mi
+          requests:
+            cpu: 1m
+            memory: 10Mi
+        securityContext:
+          allowPrivilegeEscalation: false
+          privileged: false
+      containers:
+      - name: crowdsec-agent
+        image: "{{ .Values.image.repository | default "crowdsecurity/crowdsec" }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
+        imagePullPolicy: {{ .Values.image.pullPolicy }}
+        env:
+          - name: DISABLE_LOCAL_API
+            value: "true"
+          - name: DISABLE_ONLINE_API
+            value: "true"
+
+          # agent - lapi authentication, with TLS or password
+
+          {{- if .Values.tls.enabled }}
+          - name: LOCAL_API_URL
+            value: https://{{ .Release.Name }}-service.{{ .Release.Namespace }}:8080
+          - name: USE_TLS
+            value: "true"
+          {{- if .Values.tls.agent.tlsClientAuth }}
+          - name: CLIENT_CERT_FILE
+            value: /etc/ssl/crowdsec-agent/tls.crt
+          - name: CLIENT_KEY_FILE
+            value: /etc/ssl/crowdsec-agent/tls.key
+          {{- end }}
+          {{- if .Values.tls.caBundle }}
+          - name: CACERT_FILE
+            value: /etc/ssl/crowdsec-agent/ca.crt
+          {{- end }}
+          {{- else }}
+          - name: LOCAL_API_URL
+            value: http://{{ .Release.Name }}-service.{{ .Release.Namespace }}:8080
+          {{- end }}
+          {{- if or (not .Values.tls.enabled) (not .Values.tls.agent.tlsClientAuth) }}
+          - name: AGENT_USERNAME
+            valueFrom:
+              secretKeyRef:
+                name: crowdsec-agent-credentials
+                key: username
+          - name: AGENT_PASSWORD
+            valueFrom:
+              secretKeyRef:
+                name: crowdsec-agent-credentials
+                key: password
+          {{- end }}
+          {{- if .Values.tls.insecureSkipVerify }}
+          - name: INSECURE_SKIP_VERIFY
+            value: {{ quote .Values.tls.insecureSkipVerify }}
+          {{- end }}
+
+        {{- with .Values.agent.env }}
+          {{- toYaml . | nindent 10 }}
+        {{- end }}
+        resources:
+          {{- toYaml .Values.agent.resources | nindent 10 }}
+        {{ if .Values.agent.metrics.enabled }}
+        ports:
+          - name: metrics
+            containerPort: 6060
+            protocol: TCP
+
+        securityContext:
+          allowPrivilegeEscalation: false
+          privileged: false
+
+        {{ end }}
+        {{- if .Values.agent.persistentVolume.config.enabled }}
+        command: ['sh', '-c', 'mv -n /staging/etc/crowdsec/* /etc/crowdsec_data/ && rm -rf /staging/etc/crowdsec && ln -s /etc/crowdsec_data /etc/crowdsec && ./docker_start.sh']
+        {{- end }}
+        volumeMounts:
+          {{- $crowdsecConfig := "/etc/crowdsec" -}}
+          {{- if .Values.agent.persistentVolume.config.enabled -}}
+          {{- $crowdsecConfig = "/etc/crowdsec_data" }}
+          - name: crowdsec-agent-config
+            mountPath: {{ $crowdsecConfig }}
+          {{- end }}
+          {{ if index .Values.config "simulation.yaml" }}
+          - name: crowdsec-simulation-volume
+            mountPath: {{ $crowdsecConfig }}/simulation.yaml
+            subPath: simulation.yaml
+          {{ end }}
+          {{ if (include "parsersIsNotEmpty" .) }}
+          {{- range $stage, $stageConfig := .Values.config.parsers -}}
+          {{- if $stageConfig -}}
+          {{ range $fileName, $content := $stageConfig -}}
+          - name: {{ printf "crowdsec-parsers-%s-%s" $stage (trimSuffix ".yaml" $fileName) }}
+            mountPath: {{ printf "%s/parsers/%s/%s" $crowdsecConfig $stage $fileName }}
+            subPath: {{ $fileName }}
+          {{ end }}
+          {{- end }}
+          {{- end }}
+          {{- end }}
+          {{- if .Values.config.scenarios -}}
+          {{ range $fileName, $content := .Values.config.scenarios -}}
+          - name: {{ printf "crowdsec-scenarios-%s" (trimSuffix ".yaml" $fileName) }}
+            mountPath: {{ printf "%s/scenarios/%s" $crowdsecConfig $fileName }}
+            subPath: {{ $fileName }}
+          {{ end }}
+          {{ end }}
+          {{ if (include "postoverflowsIsNotEmpty" .) }}
+          {{- range $stage, $stageConfig := .Values.config.postoverflows -}}
+          {{- if $stageConfig -}}
+          {{ range $fileName, $content := $stageConfig -}}
+          - name: {{ printf "crowdsec-postoverflows-%s-%s" $stage (trimSuffix ".yaml" $fileName) }}
+            mountPath: {{ printf "%s/postoverflows/%s/%s" $crowdsecConfig $stage $fileName }}
+            subPath: {{ $fileName }}
+          {{ end }}
+          {{- end }}
+          {{- end }}
+          {{- end }}
+          - name: acquis-config-volume
+            mountPath: {{ $crowdsecConfig }}/acquis.yaml
+            subPath: acquis.yaml
+          - name: varlog
+            mountPath: /var/log
+          {{- if (eq "docker" .Values.container_runtime) }}
+          - name: varlibdockercontainers
+            mountPath: /var/lib/docker/containers
+            readOnly: true
+          {{- end }}
+          - name: tnsdockercontainers
+            mountPath: /mnt/luna/ix-applications/docker/containers
+            readOnly: true
+          {{- if .Values.tls.enabled }}
+          - name: crowdsec-agent-tls
+            mountPath: /etc/ssl/crowdsec-agent
+          {{- end }}
+      terminationGracePeriodSeconds: 30
+      volumes:
+      - name: acquis-config-volume
+        configMap:
+          name: acquis-configmap
+      - name: varlog
+        hostPath:
+          path: /var/log
+      {{- if .Values.agent.persistentVolume.config.enabled }}
+      - name: crowdsec-agent-config
+        persistentVolumeClaim:
+          {{ if .Values.agent.persistentVolume.config.existingClaim }}
+          claimName: {{ .Values.agent.persistentVolume.config.existingClaim }}
+          {{ else }}
+          claimName: {{ .Release.Name }}-agent-config-pvc
+          {{ end }}
+      {{- end }}
+      {{ if (include "parsersIsNotEmpty" .) }}
+      {{- range $stage, $stageConfig := .Values.config.parsers -}}
+      {{- if $stageConfig -}}
+      {{ range $fileName, $content := $stageConfig -}}
+      - name: {{ printf "crowdsec-parsers-%s-%s" $stage (trimSuffix ".yaml" $fileName) }}
+        configMap:
+          name: {{ printf "crowdsec-parsers-%s" $stage }}
+          items:
+          - key: {{ $fileName }}
+            path: {{ $fileName }}
+      {{ end }}
+      {{- end }}
+      {{- end }}
+      {{- end }}
+      {{- if .Values.config.scenarios -}}
+      {{ range $fileName, $content := .Values.config.scenarios -}}
+      - name: {{ printf "crowdsec-scenarios-%s" (trimSuffix ".yaml" $fileName) }}
+        configMap:
+          name: "crowdsec-scenarios"
+          items:
+          - key: {{ $fileName }}
+            path: {{ $fileName }}
+      {{ end }}
+      {{ end }}
+      {{ if (include "postoverflowsIsNotEmpty" .) }}
+      {{- range $stage, $stageConfig := .Values.config.postoverflows -}}
+      {{- if $stageConfig -}}
+      {{ range $fileName, $content := $stageConfig -}}
+      - name: {{ printf "crowdsec-postoverflows-%s-%s" $stage (trimSuffix ".yaml" $fileName) }}
+        configMap:
+          name: {{ printf "crowdsec-postoverflows-%s" $stage }}
+          items:
+          - key: {{ $fileName }}
+            path: {{ $fileName }}
+      {{ end }}
+      {{- end }}
+      {{- end }}
+      {{- end }}
+      {{ if index .Values.config "simulation.yaml" }}
+      - name: crowdsec-simulation-volume
+        configMap:
+          name: crowdsec-simulation
+      {{- end }}
+      {{- if (eq "docker" .Values.container_runtime) }}
+      - name: varlibdockercontainers
+        hostPath:
+          path: /var/lib/docker/containers
+      {{- end }}
+      - name: tnsdockercontainers
+        hostPath:
+          path: /mnt/luna/ix-applications/docker/containers
+      {{- if .Values.tls.enabled }}
+      - name: crowdsec-agent-tls
+        secret:
+          secretName: {{ .Release.Name }}-agent-tls
+      {{- end }}
+      {{- with .Values.agent.nodeSelector }}
+      nodeSelector:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.agent.affinity }}
+      affinity:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
