@@ -34,11 +34,6 @@ crowdsec:
         podName: traefik-*
         program: traefik
     
-    persistentVolume:
-      config:
-        enabled: true
-      storageClassName: argo-zfspv-fast
-
     env:
       - name: TZ
         value: '{{ .Values.global.TZ }}'
