@@ -48,12 +48,12 @@ spec:
           - name: AGENT_USERNAME
             valueFrom:
               secretKeyRef:
-                name: agent-credentials
+                name: crowdsec-agent-credentials
                 key: username
           - name: AGENT_PASSWORD
             valueFrom:
               secretKeyRef:
-                name: agent-credentials
+                name: crowdsec-agent-credentials
                 key: password
           {{- end }}
           - name: DISABLE_AGENT
