@@ -1,5 +1,7 @@
 # https://github.com/crowdsecurity/helm-charts/blob/main/charts/crowdsec/README.md
 crowdsec:
+  container_runtime: containerd
+
   image:
     tag: v1.4.6
 
@@ -38,11 +40,14 @@ crowdsec:
       - name: TZ
         value: '{{ .Values.global.TZ }}'
       - name: PARSERS
-        value: "crowdsecurity/docker-logs"
+        value: "crowdsecurity/cri-logs crowdsecurity/docker-logs"
       - name: COLLECTIONS
-        value: "crowdsecurity/traefik"
-      - name: DISABLE_PARSERS
-        value: "crowdsecurity/whitelists"
+        value: >-
+          crowdsecurity/linux
+          crowdsecurity/sshd
+          crowdsecurity/traefik
+          crowdsecurity/base-http-scenarios
+          crowdsecurity/http-cve
 
     persistentVolume:
       config:
