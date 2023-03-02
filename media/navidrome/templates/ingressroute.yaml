@@ -13,7 +13,7 @@ spec:
         - name: {{ .Chart.Name }}
           port: http
       middlewares:
-        - name: argo-common-crowdsec-traefik-bouncer
+        - name: crowdsec-traefik-bouncer
           namespace: argo-common
   tls:
     secretName: {{ .Chart.Name }}-tls
