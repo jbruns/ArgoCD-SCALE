@@ -18,6 +18,8 @@ traefik:
     kubernetesIngress:
       publishedService:
         enabled: true
+    kubernetesCRD:
+      allowCrossNamespace: true
 
   ports:
     web:
