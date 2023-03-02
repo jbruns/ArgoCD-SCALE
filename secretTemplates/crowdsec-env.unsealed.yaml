@@ -6,4 +6,4 @@ metadata:
 type: Opaque
 stringData:
   ENROLL_KEY: 
-  BOUNCER_KEY_TRAEFIK: 
+  CROWDSEC_BOUNCER_API_KEY: 
