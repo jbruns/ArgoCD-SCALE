@@ -38,9 +38,11 @@ crowdsec:
       - name: TZ
         value: '{{ .Values.global.TZ }}'
       - name: PARSERS
-        value: "crowdsecurity/cri-logs"
+        value: "crowdsecurity/docker-logs"
       - name: COLLECTIONS
         value: "crowdsecurity/traefik"
+      - name: DISABLE_PARSERS
+        value: "crowdsecurity/whitelists"
 
     metrics:
       enabled: true
