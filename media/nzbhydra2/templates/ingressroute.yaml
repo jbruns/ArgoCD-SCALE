@@ -12,6 +12,9 @@ spec:
       services:
         - name: {{ .Chart.Name }}
           port: http
+      middlewares:
+        - name: crowdsec-traefik-bouncer
+          namespace: argo-common
   tls:
     secretName: {{ .Chart.Name }}-tls
     options:
