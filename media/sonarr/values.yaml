@@ -1,7 +1,7 @@
 # https://github.com/bjw-s/helm-charts/tree/main/charts/library/common
 image:
   repository: ghcr.io/onedr0p/sonarr
-  tag: 3.0.9.1549
+  tag: 3.0.10.1566
   pullPolicy: IfNotPresent
 
 env:
