@@ -1,0 +1,20 @@
+apiVersion: traefik.containo.us/v1alpha1
+kind: IngressRoute
+metadata:
+  name: {{ .Chart.Name }}-http
+  namespace: {{ .Release.Namespace }}
+spec:
+  entryPoints:
+    - web
+    - websecure
+  routes:
+    - match: Host(`vault.{{ .Values.global.altDomainHome }}`)
+      kind: Rule
+      services:
+        - name: {{ include "bjw-s.common.lib.chart.names.fullname" . }}
+          port: http
+      middlewares:
+        - name: crowdsec-traefik-bouncer
+          namespace: argo-common
+  tls:
+    secretName: {{ .Chart.Name }}-tls

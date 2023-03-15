@@ -1,0 +1,57 @@
+# https://github.com/bjw-s/helm-charts/tree/main/charts/library/common
+image:
+  repository: docker.io/vaultwarden/server
+  tag: 1.27.0
+  pullPolicy: IfNotPresent
+
+controller:
+  revisionHistoryLimit: 1
+
+env:
+  # https://github.com/dani-garcia/vaultwarden/blob/main/.env.template
+  WEBSOCKET_ENABLED: true
+  SIGNUPS_ALLOWED: true
+  SMTP_DEBUG: true
+  DOMAIN: 'https://vault.{{ .Values.global.altDomainHome }}'
+  HELO_NAME: 'vault.{{ .Values.global.altDomainHome }}'
+
+envFrom:
+  - secretRef:
+      name: vaultwarden-env
+
+service:
+  main:
+    ports:
+      http:
+        port: 80
+        targetPort: 8080
+      websocket:
+        enabled: true
+        port: 3012
+
+ingress:
+  main:
+    enabled: true
+    ingressClassName: traefik
+    annotations:
+      cert-manager.io/cluster-issuer: letsencrypt-production
+      cert-manager.io/revision-history-limit: '1'
+      traefik.ingress.kubernetes.io/router.entrypoints: websecure
+      traefik.ingress.kubernetes.io/router.middlewares: argo-common-crowdsec-traefik-bouncer@kubernetescrd
+    hosts:
+    - host: 'vault.{{ .Values.global.altDomainHome }}'
+      paths:
+      - path: /
+        pathType: Prefix      
+    tls:
+      - secretName: '{{ .Chart.Name }}-tls'
+        hosts:
+          - 'vault.{{ .Values.global.altDomainHome }}'
+
+persistence:
+  data:
+    enabled: true
+    storageClass: argo-zfspv-fast
+    size: 100Gi
+    accessMode: ReadWriteOnce
+    retain: true
