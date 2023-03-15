@@ -23,8 +23,8 @@ service:
   main:
     ports:
       http:
-        port: 80
-        targetPort: 8080
+        port: 8080
+        targetPort: 80
       websocket:
         enabled: true
         port: 3012
