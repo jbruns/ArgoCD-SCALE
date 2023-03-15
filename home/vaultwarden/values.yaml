@@ -10,8 +10,6 @@ controller:
 env:
   # https://github.com/dani-garcia/vaultwarden/blob/main/.env.template
   WEBSOCKET_ENABLED: true
-  SIGNUPS_ALLOWED: true
-  SMTP_DEBUG: true
   DOMAIN: 'https://vault.{{ .Values.global.altDomainHome }}'
   HELO_NAME: 'vault.{{ .Values.global.altDomainHome }}'
 
