@@ -1,0 +1,14 @@
+apiVersion: v1
+kind: Secret
+metadata:
+  name: vaultwarden-env
+  namespace: argo-home
+type: Opaque
+stringData:
+  # reference: https://github.com/dani-garcia/vaultwarden/blob/main/.env.template
+  DATABASE_URL:
+  ADMIN_TOKEN: 
+  SMTP_HOST:
+  SMTP_FROM: 
+  SMTP_USERNAME: 
+  SMTP_PASSWORD: 
