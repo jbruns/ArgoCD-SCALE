@@ -10,7 +10,7 @@ spec:
   routes:
     - match: Host(`{{ .Values.nextcloud.nextcloud.host }}`) && PathPrefix(`/s`)
       kind: Rule
-      priority: 10
+      priority: 1
       middlewares:
         - name: {{ .Chart.Name }}-secheaders
           namespace: {{ .Release.Namespace }}
@@ -19,7 +19,7 @@ spec:
           port: http
     - match: Host(`{{ .Values.nextcloud.nextcloud.host }}`)
       kind: Rule
-      priority: 20
+      priority: 2
       middlewares:
         - name: {{ .Chart.Name }}-well-known
           namespace: {{ .Release.Namespace }}
