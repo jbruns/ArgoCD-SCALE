@@ -1,7 +1,7 @@
 # https://github.com/bjw-s/helm-charts/tree/main/charts/library/common
 image:
   repository: zwavejs/zwave-js-ui
-  tag: 8.10.1
+  tag: 8.11.1
   pullPolicy: IfNotPresent
 
 env:
