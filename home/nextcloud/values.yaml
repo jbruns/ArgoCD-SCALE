@@ -12,6 +12,9 @@ nextcloud:
       cert-manager.io/revision-history-limit: '1'
       traefik.ingress.kubernetes.io/router.entrypoints: websecure
       traefik.ingress.kubernetes.io/priority: '99'
+      traefik.ingress.kubernetes.io/router.middlewares: >- 
+        argo-home-nextcloud-secheaders@kubernetescrd,
+        argo-home-nextcloud-well-known@kubernetescrd
     hosts:
     - host: nextcloud.bruns.house
       paths:

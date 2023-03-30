@@ -5,12 +5,11 @@ metadata:
   namespace: {{ .Release.Namespace }}
 spec:
   entryPoints:
-    - web
     - websecure
   routes:
     - match: Host(`{{ .Values.nextcloud.nextcloud.host }}`) && PathPrefix(`/s`)
       kind: Rule
-      priority: 1
+      priority: 10
       middlewares:
         - name: {{ .Chart.Name }}-secheaders
           namespace: {{ .Release.Namespace }}
@@ -19,7 +18,7 @@ spec:
           port: http
     - match: Host(`{{ .Values.nextcloud.nextcloud.host }}`)
       kind: Rule
-      priority: 2
+      priority: 20
       middlewares:
         - name: {{ .Chart.Name }}-well-known
           namespace: {{ .Release.Namespace }}
