@@ -1,7 +1,7 @@
 # https://github.com/bjw-s/helm-charts/tree/main/charts/library/common
 image:
   repository: tsightler/ring-mqtt
-  tag: 5.2.0
+  tag: 5.2.2
   pullPolicy: IfNotPresent
   
 controller:
