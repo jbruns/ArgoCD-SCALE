@@ -4,4 +4,4 @@ version: 2.0.0
 dependencies:
 - name: traefik
   repository: https://helm.traefik.io/traefik
-  version: 21.2.1
+  version: 22.1.0
