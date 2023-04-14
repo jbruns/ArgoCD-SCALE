@@ -1,7 +1,7 @@
 # https://github.com/bjw-s/helm-charts/tree/main/charts/library/common
 image:
   repository: koenkk/zigbee2mqtt
-  tag: 1.30.2
+  tag: 1.30.3
   pullPolicy: IfNotPresent
 
 env:
