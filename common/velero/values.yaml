@@ -23,29 +23,29 @@ velero:
         - mountPath: /target
           name: plugins
   configuration:
-    provider: aws
     backupStorageLocation:
-      name: default
-      bucket: nobesitiatwa
-      config:
-        region: minio
-        s3ForcePathStyle: true
-        s3Url: http://minio.ix-minio:9000
-        publicUrl: https://minio.wavebe.am
-    volumeSnapshotLocation:
-      name: default
-      provider: openebs.io/zfspv-blockstore
-      config:
-        prefix: zfs
-        namespace: openebs
+      - name: default
         provider: aws
-        region: minio
-        s3ForcePathStyle: true
-        s3Url: http://minio.ix-minio:9000
         bucket: nobesitiatwa
-        # https://github.com/openebs/velero-plugin/pull/55
-        multiPartChunkSize: 100Mi
-        restApiTimeout: 90s
+        config:
+          region: minio
+          s3ForcePathStyle: true
+          s3Url: http://minio.ix-minio:9000
+          publicUrl: https://minio.wavebe.am
+    volumeSnapshotLocation:
+      - name: default
+        provider: openebs.io/zfspv-blockstore
+        config:
+          prefix: zfs
+          namespace: openebs
+          provider: aws
+          region: minio
+          s3ForcePathStyle: true
+          s3Url: http://minio.ix-minio:9000
+          bucket: nobesitiatwa
+          # https://github.com/openebs/velero-plugin/pull/55
+          multiPartChunkSize: 100Mi
+          restApiTimeout: 90s
     resticTimeout: 4h
 
   credentials:
