@@ -13,8 +13,5 @@ spec:
       services:
         - name: {{ include "bjw-s.common.lib.chart.names.fullname" . }}
           port: http
-      middlewares:
-        - name: crowdsec-traefik-bouncer
-          namespace: argo-common
   tls:
     secretName: {{ .Chart.Name }}-tls

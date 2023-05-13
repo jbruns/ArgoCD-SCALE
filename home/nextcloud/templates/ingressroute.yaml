@@ -24,8 +24,6 @@ spec:
           namespace: {{ .Release.Namespace }}
         - name: {{ .Chart.Name }}-secheaders
           namespace: {{ .Release.Namespace }}
-        - name: crowdsec-traefik-bouncer
-          namespace: argo-common
       services:
         - name: {{ .Chart.Name }}
           port: http
