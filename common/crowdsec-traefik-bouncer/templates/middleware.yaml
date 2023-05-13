@@ -1,8 +1,0 @@
----
-apiVersion: traefik.io/v1alpha1
-kind: Middleware
-metadata:
-  name: {{ .Release.Name }}
-spec:
-  forwardAuth:
-    address: http://{{ .Release.Name }}.{{ .Release.Namespace }}:8080/api/v1/forwardAuth
