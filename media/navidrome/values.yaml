@@ -5,10 +5,8 @@ image:
   pullPolicy: IfNotPresent
 
 env:
-  TZ: '{{ .Values.global.TZ }}'
-  ND_LOGLEVEL: info
-  ND_SESSIONTIMEOUT: 24h
   ND_ENABLETRANSCODINGCONFIG: "true"
+  ND_DATAFOLDER: /config
   ND_MUSICFOLDER: /music
 
 envFrom:
