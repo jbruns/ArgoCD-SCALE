@@ -1,6 +1,6 @@
 # https://github.com/bjw-s/helm-charts/tree/main/charts/library/common
 image:
-  repository: ghcr.io/onedr0p/navidrome
+  repository: deluan/navidrome
   tag: 0.49.3
   pullPolicy: IfNotPresent
 
