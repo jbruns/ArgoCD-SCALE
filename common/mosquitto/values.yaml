@@ -1,7 +1,7 @@
 # https://github.com/bjw-s/helm-charts/tree/main/charts/library/common
 image:
   repository: eclipse-mosquitto
-  tag: 2.0.15
+  tag: 2.0.16
 
 controller:
   revisionHistoryLimit: 1
