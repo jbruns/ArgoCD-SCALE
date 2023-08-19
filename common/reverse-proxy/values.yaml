@@ -4,7 +4,7 @@ reverse-proxy:
     - name: minio-console
       enabled: true
       ip: 172.16.2.5
-      port: 9002
+      port: 9003
       ingress:
         annotations:
           cert-manager.io/cluster-issuer: letsencrypt-production
@@ -23,7 +23,7 @@ reverse-proxy:
     - name: minio
       enabled: true
       ip: 172.16.2.5
-      port: 9000
+      port: 9001
       ingress:
         annotations:
           cert-manager.io/cluster-issuer: letsencrypt-production
