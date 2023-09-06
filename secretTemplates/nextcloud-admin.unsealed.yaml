@@ -7,5 +7,6 @@ type: Opaque
 stringData:
   nextcloud-username: 
   nextcloud-password: 
+  smtp-host: 
   smtp-username: 
   smtp-password: 

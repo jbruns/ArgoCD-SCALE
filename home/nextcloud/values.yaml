@@ -32,16 +32,13 @@ nextcloud:
       secretName: nextcloud-admin
       usernameKey: nextcloud-username
       passwordKey: nextcloud-password
+      smtpHostKey: smtp-host
       smtpUsernameKey: smtp-username
       smtpPasswordKey: smtp-password
     mail:
       enabled: true
       fromAddress: nextcloud
       domain: bruns.house
-      smtp:
-        host: smtp.comcast.net
-        port: 25
-        secure: ''
     extraEnv:
       - name: REDIS_HOST
         value: redis-master.argo-common
