@@ -1,7 +1,7 @@
 # https://github.com/bjw-s/helm-charts/tree/main/charts/library/common
 image:
-  repository: ghcr.io/dblk/tinshop
-  tag: latest
+  repository: a2ex4/ownfoil
+  tag: 1.2.2
   pullPolicy: IfNotPresent
 
 controller:
@@ -11,7 +11,17 @@ service:
   main:
     ports:
       http:
-        port: 3000
+        port: 8000
+
+env:
+  PUID: 1002
+  PGID: 1004
+  ROOT_DIR: /games
+  SAVE_ENABLED: "false"
+
+envFrom:
+  - secretRef:
+      name: kraid-env
 
 ingress:
   main:
