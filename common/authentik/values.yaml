@@ -1,17 +1,12 @@
+# https://artifacthub.io/packages/helm/goauthentik/authentik
+# https://goauthentik.io/docs/installation/configuration
 authentik:
   error_reporting: false
   redis:
     host: redis-master.argo-common
-
-envValueFrom:
-  AUTHENTIK_SECRET_KEY:
-    secretKeyRef:
-      name: authentik-env
-      key: AUTHENTIK_SECRET_KEY
-  AUTHENTIK_POSTGRESQL__PASSWORD:
-    secretKeyRef:
-      name: authentik-env
-      key: POSTGRES_PASSWORD
+  envFrom:
+    - secretRef:
+        name: authentik-env
 
 ingress:
   main:
@@ -31,9 +26,9 @@ ingress:
         hosts:
           - '{{ .Chart.Name }}.{{ .Values.global.domain }}'
 
+# provided in separate charts.
 redis:
   enabled: false
 
 postgresql:
-  auth:
-    existingSecret: postgresql-auth
+  enabled: false
