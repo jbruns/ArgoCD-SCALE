@@ -53,9 +53,3 @@ persistence:
     type: hostPath
     hostPath: /mnt/sol/switch/nsz
     mountPath: /games
-
-podSecurityContext:
-  runAsUser: 1002
-  runAsGroup: 1004
-  fsGroup: 1004
-  fsGroupChangePolicy: OnRootMismatch
