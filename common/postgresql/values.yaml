@@ -1,0 +1,7 @@
+# https://artifacthub.io/packages/helm/bitnami/postgresql
+postgresql:
+  architecture: standalone
+  auth:
+    existingSecret: postgresql-auth
+
+storageClass: argo-zfspv-fast
