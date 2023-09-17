@@ -1,0 +1,7 @@
+name: kraid
+apiVersion: v2
+version: 2.0.0
+dependencies:
+- name: common
+  version: 1.5.1
+  repository: https://bjw-s.github.io/helm-charts/
