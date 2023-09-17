@@ -1,6 +1,6 @@
 # https://github.com/bjw-s/helm-charts/tree/main/charts/library/common
 image:
-  repository: a2ex4/ownfoil
+  repository: a1ex4/ownfoil
   tag: 1.2.2
   pullPolicy: IfNotPresent
 
