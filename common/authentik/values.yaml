@@ -2,7 +2,6 @@
 # https://goauthentik.io/docs/installation/configuration
 authentik:
   authentik:
-    error_reporting: false
     redis:
       host: redis-master.argo-common
     postgresql:
