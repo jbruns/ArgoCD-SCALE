@@ -5,7 +5,7 @@ authentik:
   redis:
     host: redis-master.argo-common
   postgresql:
-    host: postgresql-0.argo-common
+    host: postgresql.argo-common
   envFrom:
     - secretRef:
         name: authentik-env
