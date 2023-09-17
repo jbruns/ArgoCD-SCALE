@@ -4,6 +4,8 @@ authentik:
   error_reporting: false
   redis:
     host: redis-master.argo-common
+  postgresql:
+    host: postgresql-0.argo-common
   envFrom:
     - secretRef:
         name: authentik-env
