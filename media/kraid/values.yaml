@@ -11,7 +11,7 @@ service:
   main:
     ports:
       http:
-        port: 8000
+        port: 80
 
 env:
   PUID: 1002
