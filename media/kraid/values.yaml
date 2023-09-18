@@ -1,7 +1,7 @@
 # https://github.com/bjw-s/helm-charts/tree/main/charts/library/common
 image:
-  repository: a1ex4/ownfoil
-  tag: 1.2.2
+  repository: ghcr.io/dblk/tinshop
+  tag: master
   pullPolicy: IfNotPresent
 
 controller:
@@ -11,17 +11,7 @@ service:
   main:
     ports:
       http:
-        port: 80
-
-env:
-  PUID: 1002
-  PGID: 1004
-  ROOT_DIR: /games
-  SAVE_ENABLED: "false"
-
-envFrom:
-  - secretRef:
-      name: kraid-env
+        port: 3000
 
 ingress:
   main:
@@ -31,8 +21,6 @@ ingress:
       cert-manager.io/cluster-issuer: letsencrypt-production
       cert-manager.io/revision-history-limit: '1'
       traefik.ingress.kubernetes.io/router.entrypoints: websecure
-      traefik.ingress.kubernetes.io/priority: '99'
-      traefik.ingress.kubernetes.io/router.middlewares: argo-media-kraid-checkheaders@kubernetescrd
     hosts:
     - host: '{{ .Chart.Name }}.{{ .Values.global.domain }}'
       paths:
@@ -46,10 +34,9 @@ ingress:
 persistence:
   config:
     enabled: true
-    storageClass: argo-zfspv-fast
-    size: 4Gi
-    accessMode: ReadWriteOnce
-    retain: true
+    type: hostPath
+    hostPath: /mnt/sol/switch/config.yaml
+    mountPath: /config.yaml
   games:
     enabled: true
     type: hostPath

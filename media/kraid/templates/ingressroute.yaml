@@ -9,10 +9,6 @@ spec:
   routes:
     - match: Host(`{{ .Chart.Name }}.{{ .Values.global.domain }}`)
       kind: Rule
-      priority: 10
-      middlewares:
-        - name: {{ .Chart.Name }}-checkheaders
-          namespace: {{ .Release.Namespace }}
       services:
         - name: {{ .Chart.Name }}
           port: http
