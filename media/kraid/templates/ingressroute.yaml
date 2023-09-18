@@ -7,8 +7,15 @@ spec:
   entryPoints:
     - websecure
   routes:
+    - match: Host(`{{ .Chart.Name }}.{{ .Values.global.domain }}`) && PathPrefix(`/games`)
+      kind: Rule
+      priority: 10
+      services:
+        - name: {{ .Chart.Name }}
+          port: http
     - match: Host(`{{ .Chart.Name }}.{{ .Values.global.domain }}`)
       kind: Rule
+      priority: 20
       middlewares:
         - name: {{ .Chart.Name }}-auth
           namespace: {{ .Release.Namespace }}
