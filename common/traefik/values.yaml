@@ -17,8 +17,10 @@ traefik:
       enabled: true
 
   additionalArguments:
-    - "--experimental.plugins.bouncer.modulename=github.com/dkijkuit/checkheadersplugin"
-    - "--experimental.plugins.bouncer.version=v0.2.6"
+    - "--experimental.plugins.checkheaders.modulename=github.com/dkijkuit/checkheadersplugin"
+    - "--experimental.plugins.checkheaders.version=v0.2.6"
+    - "--experimental.plugins.bouncer.modulename=github.com/maxlerebourg/crowdsec-bouncer-traefik-plugin"
+    - "--experimental.plugins.bouncer.version=v1.1.14"
 
   # Stops ArgoCD from thinking that ingresses never complete successfully
   # https://github.com/argoproj/argo-cd/issues/968#issuecomment-451082913
