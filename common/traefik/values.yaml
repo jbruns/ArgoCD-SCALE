@@ -12,6 +12,12 @@ traefik:
     spec:
       loadBalancerIP: 172.16.20.5
 
+  experimental:
+    plugins:
+      checkheadersplugin:
+        moduleName: "github.com/dkijkuit/checkheadersplugin"
+        version: "v0.2.6"
+        
   # Stops ArgoCD from thinking that ingresses never complete successfully
   # https://github.com/argoproj/argo-cd/issues/968#issuecomment-451082913
   providers:
