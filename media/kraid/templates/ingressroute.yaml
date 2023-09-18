@@ -9,6 +9,9 @@ spec:
   routes:
     - match: Host(`{{ .Chart.Name }}.{{ .Values.global.domain }}`)
       kind: Rule
+      middlewares:
+        - name: {{ .Chart.Name }}-checkheaders
+          namespace: {{ .Release.Namespace }}
       services:
         - name: {{ .Chart.Name }}
           port: http
