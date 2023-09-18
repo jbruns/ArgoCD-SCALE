@@ -1,0 +1,21 @@
+apiVersion: traefik.containo.us/v1alpha1
+kind: Middleware
+metadata:
+  name: {{ .Chart.Name }}-checkheaders
+  namespace: {{ .Release.Namespace }}
+spec:
+  plugin:
+    checkheadersplugin:
+      headers:
+        - matchtype: one
+            name: UID
+            values:
+              - UID
+        - matchtype: one
+            name: HAUTH
+            values:
+              - HAUTH
+        - matchtype: one
+            name: UAUTH
+            values:
+              - UAUTH
