@@ -22,7 +22,7 @@ ingress:
       cert-manager.io/revision-history-limit: '1'
       traefik.ingress.kubernetes.io/router.entrypoints: websecure
       traefik.ingress.kubernetes.io/priority: '99'
-      traefik.ingress.kubernetes.io/router.middlewares: kraid-auth 
+      traefik.ingress.kubernetes.io/router.middlewares: argo-media-kraid-auth@kubernetescrd
     hosts:
     - host: '{{ .Chart.Name }}.{{ .Values.global.domain }}'
       paths:
