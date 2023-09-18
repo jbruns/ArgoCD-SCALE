@@ -7,15 +7,8 @@ spec:
   plugin:
     checkheadersplugin:
       headers:
-        - matchtype: one
-            name: UID
-            values:
-              - UID
-        - matchtype: one
-            name: HAUTH
-            values:
-              - HAUTH
-        - matchtype: one
-            name: UAUTH
-            values:
-              - UAUTH
+        - header:
+          name: UID
+          matchtype: one
+          values:
+            - "UID"
