@@ -5,7 +5,7 @@ metadata:
   namespace: {{ .Release.Namespace }}
 spec:
   plugin:
-    checkheadersplugin:
+    checkheaders:
       headers:
         - header:
           name: UID
