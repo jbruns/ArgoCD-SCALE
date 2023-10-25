@@ -1,7 +1,7 @@
 # https://github.com/bjw-s/helm-charts/tree/main/charts/library/common
 image:
   repository: ghcr.io/onedr0p/plex
-  tag: 1.32.5.7349-8f4248874
+  tag: 1.32.5.7516-8f4248874
   pullPolicy: IfNotPresent
   
 env:
