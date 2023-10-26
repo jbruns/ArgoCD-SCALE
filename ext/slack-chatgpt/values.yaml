@@ -1,6 +1,6 @@
 image:
   repository: ghcr.io/emmekappa/slack-chatgpt
-  tag: latest-8da07ca
+  tag: latest-ca9a12a
 
 envFrom:
   - secretRef:
