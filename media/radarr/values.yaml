@@ -1,7 +1,7 @@
 # https://github.com/bjw-s/helm-charts/tree/main/charts/library/common
 image:
   repository: ghcr.io/onedr0p/radarr
-  tag: 4.7.5.7809
+  tag: 5.0.3.8127
   pullPolicy: IfNotPresent
 
 env:
