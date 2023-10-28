@@ -101,7 +101,7 @@ metrics:
   exporter:
     image:
       repository: ghcr.io/onedr0p/exportarr
-      tag: v1.5.3
+      tag: v1.6.0
       pullPolicy: IfNotPresent
     env:
       port: 9794
