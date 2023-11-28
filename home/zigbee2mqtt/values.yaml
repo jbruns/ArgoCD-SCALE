@@ -1,14 +1,17 @@
 # https://github.com/bjw-s/helm-charts/tree/main/charts/library/common
-image:
-  repository: koenkk/zigbee2mqtt
-  tag: 1.33.2
-  pullPolicy: IfNotPresent
+controllers:
+  main:
+    revisionHistoryLimit: 1
 
-env:
-  TZ: '{{ .Values.global.TZ }}'
+    containers:
+      main:
+        image:
+          repository: koenkk/zigbee2mqtt
+          tag: 1.33.2
+          pullPolicy: IfNotPresent
 
-controller:
-  revisionHistoryLimit: 1
+        env:
+          TZ: '{{ .Values.global.TZ }}'
 
 service:
   main:
