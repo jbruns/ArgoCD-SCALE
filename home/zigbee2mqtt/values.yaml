@@ -33,11 +33,12 @@ persistence:
     size: 10Gi
     accessMode: ReadWriteOnce
     retain: true
-    mountPath: /app/data
+    globalMounts: 
+      - path: /app/data
 
   zigbee:
     enabled: true
     type: hostPath
     hostPath: /dev/serial/by-id/usb-1a86_USB_Serial-if00-port0
-    mountPath: /dev/zigbee
-
+    globalMounts:
+      - path: /dev/zigbee
