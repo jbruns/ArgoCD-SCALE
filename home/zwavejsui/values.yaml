@@ -1,14 +1,21 @@
 # https://github.com/bjw-s/helm-charts/tree/main/charts/library/common
-image:
-  repository: zwavejs/zwave-js-ui
-  tag: 9.4.1
-  pullPolicy: IfNotPresent
+controllers:
+  main:
+    revisionHistoryLimit: 1
+    
+    containers:
+      main:
+        image:
+          repository: zwavejs/zwave-js-ui
+          tag: 9.4.1
+          pullPolicy: IfNotPresent
 
-env:
-  TZ: '{{ .Values.global.TZ }}'
+        env:
+          TZ: '{{ .Values.global.TZ }}'
 
-controller:
-  revisionHistoryLimit: 1
+        securityContext:
+          # to allow access to USB device
+          privileged: true
 
 service:
   main:
@@ -29,14 +36,12 @@ persistence:
     size: 10Gi
     accessMode: ReadWriteOnce
     retain: true
-    mountPath: /usr/src/app/store
+    globalMounts: 
+      - path: /usr/src/app/store
 
   zwave:
     enabled: true
     type: hostPath
     hostPath: /dev/serial/by-id/usb-Silicon_Labs_HubZ_Smart_Home_Controller_81300379-if00-port0
-    mountPath: /dev/zwave
-
-securityContext:
-  # to allow access to USB device
-  privileged: true
+    globalMounts:
+      - path: /dev/zwave
