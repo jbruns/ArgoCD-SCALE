@@ -81,7 +81,7 @@ ingress:
 persistence:
   config:
     enabled: true
-    existingClaim: home-assistant-config
-    globalMounts:
-      - path: /config
- 
+    storageClass: argo-zfspv-fast
+    size: 50Gi
+    accessMode: ReadWriteOnce
+    retain: true
