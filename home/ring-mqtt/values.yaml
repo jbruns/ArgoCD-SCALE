@@ -1,12 +1,15 @@
 # https://github.com/bjw-s/helm-charts/tree/main/charts/library/common
-image:
-  repository: tsightler/ring-mqtt
-  tag: 5.6.3
-  pullPolicy: IfNotPresent
-  
-controller:
-  revisionHistoryLimit: 1
+controllers:
+  main:
+    revisionHistoryLimit: 1
 
+    containers:
+      main:
+        image:
+          repository: tsightler/ring-mqtt
+          tag: 5.6.3
+          pullPolicy: IfNotPresent
+  
 service:
   main:
     ports:
