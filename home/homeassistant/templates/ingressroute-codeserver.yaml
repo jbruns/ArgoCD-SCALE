@@ -11,7 +11,7 @@ spec:
     - match: Host(`ha-config.{{ .Values.global.altDomainHome }}`)
       kind: Rule
       services:
-        - name: {{ include "bjw-s.common.lib.chart.names.fullname" . }}-addon-codeserver
-          port: codeserver
+        - name: {{ include "bjw-s.common.lib.chart.names.fullname" . }}-codeserver
+          port: http
   tls:
     secretName: {{ .Chart.Name }}-codeserver-tls
