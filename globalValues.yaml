@@ -10,7 +10,6 @@ global:
   - media
   - home
   - monitoring
-  - ext
     
   storage:
     pools: 
