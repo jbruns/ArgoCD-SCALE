@@ -1,20 +1,65 @@
 # https://github.com/bjw-s/helm-charts/tree/main/charts/library/common
-image:
-  repository: ghcr.io/onedr0p/radarr
-  tag: 5.1.3
-  pullPolicy: IfNotPresent
+controllers:
+  main:
+    revisionHistoryLimit: 1
 
-env:
-  TZ: '{{ .Values.global.TZ }}' 
+    containers:
+      main:
+        image:
+          repository: ghcr.io/onedr0p/radarr
+          tag: 5.1.3
+          pullPolicy: IfNotPresent
 
-controller:
-  revisionHistoryLimit: 1
+        env:
+          TZ: '{{ .Values.global.TZ }}' 
 
+        probes:
+          liveness:
+            enabled: true
+            ## Set this to true if you wish to specify your own livenessProbe
+            custom: true
+            ## The spec field contains the values for the default livenessProbe.
+            ## If you selected custom: true, this field holds the definition of the livenessProbe.
+            spec:
+              exec:
+                command:
+                - /usr/bin/env
+                - bash
+                - -c
+                - curl --fail localhost:7878/api/v3/system/status?apiKey=`IFS=\> && while
+                  read -d \< E C; do if [[ $E = "ApiKey" ]]; then echo $C; fi; done < /config/config.xml`
+              failureThreshold: 5
+              initialDelaySeconds: 60
+              periodSeconds: 10
+              successThreshold: 1
+              timeoutSeconds: 10
+
+      exporter:
+        image:
+          repository: ghcr.io/onedr0p/exportarr
+          tag: v1.6.0
+          pullPolicy: IfNotPresent
+        
+        args:
+          - radarr
+
+        env:
+          PORT: 8878
+          URL: 'https://{{ .Chart.Name }}.{{ .Values.global.domain }}'
+        
+        envFrom:
+          - secretRef:
+              name: radarr-exportarr-env
 service:
   main:
     ports:
       http:
         port: 7878
+  exporter:
+    controller: main
+    ports:
+       http:
+         port: 8878
 
 ingress:
   main:
@@ -28,32 +73,24 @@ ingress:
     - host: '{{ .Chart.Name }}.{{ .Values.global.domain }}'
       paths:
       - path: /
-        pathType: Prefix      
+        pathType: Prefix
+        service:
+          name: main
     tls:
       - secretName: '{{ .Chart.Name }}-tls'
         hosts:
           - '{{ .Chart.Name }}.{{ .Values.global.domain }}'
 
-probes:
-  liveness:
+serviceMonitor:
+  exporter:
     enabled: true
-    ## Set this to true if you wish to specify your own livenessProbe
-    custom: true
-    ## The spec field contains the values for the default livenessProbe.
-    ## If you selected custom: true, this field holds the definition of the livenessProbe.
-    spec:
-      exec:
-        command:
-        - /usr/bin/env
-        - bash
-        - -c
-        - curl --fail localhost:7878/api/v3/system/status?apiKey=`IFS=\> && while
-          read -d \< E C; do if [[ $E = "ApiKey" ]]; then echo $C; fi; done < /config/config.xml`
-      failureThreshold: 5
-      initialDelaySeconds: 60
-      periodSeconds: 10
-      successThreshold: 1
-      timeoutSeconds: 10
+    serviceName: '{{ .Chart.Name }}-exporter'
+    endpoints:
+      - port: http
+        scheme: http
+        path: /metrics
+        interval: 1m
+        scrapeTimeout: 10s
 
 persistence:
   config:
@@ -66,44 +103,18 @@ persistence:
     enabled: true
     type: hostPath
     hostPath: /mnt/andromeda/media
-    mountPath: /media
+    globalMounts:
+      - path: /media
   nzbdl:
     enabled: true
     type: hostPath
     hostPath: /mnt/andromeda/media/nzbdl
-    mountPath: /nzbdl
+    globalMounts:
+      - path: /nzbdl
 
-podSecurityContext:
-  runAsUser: 1001
-  runAsGroup: 1002
-  fsGroup: 1002
-  fsGroupChangePolicy: OnRootMismatch
-
-metrics:
-  enabled: true
-  serviceMonitor:
-    interval: 3m
-    scrapeTimeout: 1m
-    labels: {}
-  prometheusRule:
-    enabled: true
-    labels: {}
-    rules: []
-      # - alert: RadarrDown
-      #   annotations:
-      #     description: Radarr service is down.
-      #     summary: Radarr is down.
-      #   expr: |
-      #     radarr_system_status == 0
-      #   for: 5m
-      #   labels:
-      #     severity: critical
-  exporter:
-    image:
-      repository: ghcr.io/onedr0p/exportarr
-      tag: v1.6.0
-      pullPolicy: IfNotPresent
-    env:
-      port: 9793
-      additionalMetrics: false
-      unknownQueueItems: false
+defaultPodOptions:
+  securityContext:
+    runAsUser: 1001
+    runAsGroup: 1002
+    fsGroup: 1002
+    fsGroupChangePolicy: "OnRootMismatch"

@@ -1,50 +1,14 @@
-{{/* Make sure all variables are set properly */}}
+---
 {{- include "bjw-s.common.loader.init" . }}
 
-{{/* Append the hardcoded settings */}}
-{{- define "radarr.harcodedValues" -}}
-{{ if .Values.metrics.enabled }}
-additionalContainers:
-  exporter:
-    name: exporter
-    image: "{{ .Values.metrics.exporter.image.repository }}:{{ .Values.metrics.exporter.image.tag }}"
-    imagePullPolicy: {{ .Values.metrics.exporter.image.pullPolicy }}
-    args: ["radarr"]
-    env:
-      - name: URL
-        value: "http://localhost"
-      - name: CONFIG
-        value: "/config/config.xml"
-      - name: PORT
-        value: "{{ .Values.metrics.exporter.env.port }}"
-      - name: ENABLE_ADDITIONAL_METRICS
-        value: "{{ .Values.metrics.exporter.env.additionalMetrics }}"
-      - name: ENABLE_UNKNOWN_QUEUE_ITEMS
-        value: "{{ .Values.metrics.exporter.env.unknownQueueItems }}"
-    ports:
-      - name: metrics
-        containerPort: {{ .Values.metrics.exporter.env.port }}
-    volumeMounts:
-      {{ if .Values.persistence.config.enabled }}
-      - name: config
-        mountPath: /config
-        readOnly: true
-        {{ if .Values.persistence.config.subPath }}
-        subPath: {{ .Values.persistence.config.subPath }}
-        {{ end }}
-      {{ end }}
-
-service:
-  metrics:
-    enabled: true
-    ports:
-      metrics:
-        enabled: true
-        protocol: TCP
-        port: {{ .Values.metrics.exporter.env.port }}
+{{- define "app-template.hardcodedValues" -}}
+# Set the nameOverride based on the release name if no override has been set
+{{ if not .Values.global.nameOverride }}
+global:
+  nameOverride: "{{ .Release.Name }}"
 {{ end }}
 {{- end -}}
-{{- $_ := mergeOverwrite .Values (include "radarr.harcodedValues" . | fromYaml) -}}
+{{- $_ := mergeOverwrite .Values (include "app-template.hardcodedValues" . | fromYaml) -}}
 
 {{/* Render the templates */}}
 {{ include "bjw-s.common.loader.generate" . }}
