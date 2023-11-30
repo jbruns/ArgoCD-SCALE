@@ -19,9 +19,13 @@ data:
     {{- end }}
     {{- if .Values.persistence.data.enabled }}
     persistence true
-    persistence_location {{ .Values.persistence.data.mountPath }}
+    {{- with (index .Values.persistence.data.globalMounts 0) }}
+    persistence_location {{ .path }}
+    {{- end }}
     autosave_interval 1800
     {{- end }}
     {{- if .Values.persistence.configinc.enabled }}
-    include_dir {{ .Values.persistence.configinc.mountPath }}
+    {{- with (index .Values.persistence.configinc.globalMounts 0) }}
+    include_dir {{ .path }}
+    {{- end }}
     {{- end }}
