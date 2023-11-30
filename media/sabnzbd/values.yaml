@@ -1,11 +1,14 @@
 # https://github.com/bjw-s/helm-charts/tree/main/charts/library/common
-image:
-  repository: ghcr.io/onedr0p/sabnzbd
-  tag: 4.1.0
-  pullPolicy: IfNotPresent
+controllers:
+  main:
+    revisionHistoryLimit: 1
 
-controller:
-  revisionHistoryLimit: 1
+    containers:
+      main:
+        image:
+          repository: ghcr.io/onedr0p/sabnzbd
+          tag: 4.1.0
+          pullPolicy: IfNotPresent
 
 service:
   main:
@@ -25,7 +28,9 @@ ingress:
     - host: '{{ .Chart.Name }}.{{ .Values.global.domain }}'
       paths:
       - path: /
-        pathType: Prefix      
+        pathType: Prefix
+        service:
+          name: main
     tls:
       - secretName: '{{ .Chart.Name }}-tls'
         hosts:
@@ -42,10 +47,12 @@ persistence:
     enabled: true
     type: hostPath
     hostPath: /mnt/andromeda/media/nzbdl
-    mountPath: /nzbdl
+    globalMounts:
+      - path: /nzbdl
 
-podSecurityContext:
-  runAsUser: 1001
-  runAsGroup: 1002
-  fsGroup: 1002
-  fsGroupChangePolicy: OnRootMismatch
+defaultPodOptions:
+  securityContext:
+    runAsUser: 1001
+    runAsGroup: 1002
+    fsGroup: 1002
+    fsGroupChangePolicy: "OnRootMismatch"
