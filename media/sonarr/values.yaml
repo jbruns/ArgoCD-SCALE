@@ -44,6 +44,9 @@ controllers:
           tag: v1.6.0
           pullPolicy: IfNotPresent
         
+        args:
+          - sonarr
+
         env:
           PORT: 9989
           URL: 'https://{{ .Chart.Name }}.{{ .Values.global.domain }}'
