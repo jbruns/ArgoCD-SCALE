@@ -52,6 +52,13 @@ persistence:
     retain: true
     globalMounts:
       - path: /mosquitto/configinc
+  
+  config:
+    enabled: true
+    type: configMap
+    name: mosquitto-config
+    globalMounts:
+      - path: /mosquitto/config/mosquitto.conf
 
 auth:
   enabled: true
