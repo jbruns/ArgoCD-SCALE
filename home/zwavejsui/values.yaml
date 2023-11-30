@@ -7,7 +7,7 @@ controllers:
       main:
         image:
           repository: zwavejs/zwave-js-ui
-          tag: 9.4.1
+          tag: 9.5.0
           pullPolicy: IfNotPresent
 
         env:
