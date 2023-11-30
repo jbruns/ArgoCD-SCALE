@@ -1,9 +1,5 @@
 # https://github.com/nextcloud/helm/blob/master/charts/nextcloud/values.yaml
-nextcloud:
-  image:
-    tag: 27.1.4
-    pullPolicy: IfNotPresent
-    
+nextcloud:   
   ingress:
     enabled: true
     className: traefik
