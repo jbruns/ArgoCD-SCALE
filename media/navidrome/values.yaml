@@ -1,20 +1,23 @@
 # https://github.com/bjw-s/helm-charts/tree/main/charts/library/common
-image:
-  repository: deluan/navidrome
-  tag: 0.50.1
-  pullPolicy: IfNotPresent
+controllers:
+  main:
+    revisionHistoryLimit: 1
 
-env:
-  ND_ENABLETRANSCODINGCONFIG: "true"
-  ND_DATAFOLDER: /config
-  ND_MUSICFOLDER: /music
+    containers:
+      main:
+        image:
+          repository: deluan/navidrome
+          tag: 0.50.1
+          pullPolicy: IfNotPresent
 
-envFrom:
-  - secretRef:
-      name: navidrome-env
+        env:
+          ND_ENABLETRANSCODINGCONFIG: "true"
+          ND_DATAFOLDER: /config
+          ND_MUSICFOLDER: /music
 
-controller:
-  revisionHistoryLimit: 1
+        envFrom:
+          - secretRef:
+              name: navidrome-env
 
 service:
   main:
@@ -33,8 +36,10 @@ ingress:
     hosts:
     - host: '{{ .Chart.Name }}.{{ .Values.global.domain }}'
       paths:
-      - path: /
-        pathType: Prefix      
+        - path: /
+          pathType: Prefix
+          service:
+            name: main
     tls:
       - secretName: '{{ .Chart.Name }}-tls'
         hosts:
@@ -51,10 +56,12 @@ persistence:
     enabled: true
     type: hostPath
     hostPath: /mnt/andromeda/media/music/FLAC
-    mountPath: /music
+    globalMounts: 
+      - path: /music
 
-podSecurityContext:
-  runAsUser: 1001
-  runAsGroup: 1002
-  fsGroup: 1002
-  fsGroupChangePolicy: OnRootMismatch
+defaultPodOptions:
+  securityContext:
+    runAsUser: 1001
+    runAsGroup: 1002
+    fsGroup: 1002
+    fsGroupChangePolicy: "OnRootMismatch"
