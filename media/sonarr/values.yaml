@@ -10,6 +10,10 @@ controllers:
           tag: 3.0.10.1567
           pullPolicy: IfNotPresent
 
+        annotations:
+          prometheus.io/scrape: true
+          prometheus.io/port: exporter
+        
         env:
           TZ: '{{ .Values.global.TZ }}'
 
@@ -34,7 +38,7 @@ controllers:
               successThreshold: 1
               timeoutSeconds: 10
       
-      exportarr:
+      exporter:
         image:
           repository: ghcr.io/onedr0p/exportarr
           tag: v1.6.0
@@ -52,7 +56,7 @@ service:
     ports:
       http:
         port: 8989
-  sonarr-exportarr:
+  exporter:
     controller: main
     ports:
        http:
@@ -79,9 +83,9 @@ ingress:
           - '{{ .Chart.Name }}.{{ .Values.global.domain }}'
 
 serviceMonitor:
-  exportarr:
+  exporter:
     enabled: true
-    serviceName: sonarr-exportarr
+    serviceName: '{{ .Chart.Name }}-exporter'
     endpoints:
       - port: http
         scheme: http
