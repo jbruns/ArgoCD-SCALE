@@ -28,10 +28,11 @@ ingress:
     hosts:
     - host: 'mqtt.{{ .Values.global.altDomainHome }}'
       paths:
-      - path: /
-        pathType: Prefix
-        service:
-          name: mqtt
+        - path: /
+          pathType: Prefix
+          service:
+            name: main
+            port: mqtt
 
 persistence:
   data:
