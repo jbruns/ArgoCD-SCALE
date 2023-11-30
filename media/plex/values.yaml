@@ -1,17 +1,29 @@
 # https://github.com/bjw-s/helm-charts/tree/main/charts/library/common
-image:
-  repository: ghcr.io/onedr0p/plex
-  tag: 1.32.6.7557-1cf77d501
-  pullPolicy: IfNotPresent
-  
-env:
-  TZ: '{{ .Values.global.TZ }}'
-  NVIDIA_VISIBLE_DEVICES: all
-  NVIDIA_DRIVER_CAPABILITIES: compute,video,utility
+controllers:
+  main:
+    revisionHistoryLimit: 1
 
-controller:
-  revisionHistoryLimit: 1
+    containers:
+      main:
+        image:
+          repository: ghcr.io/onedr0p/plex
+          tag: 1.32.6.7557-1cf77d501
+          pullPolicy: IfNotPresent
+          
+        env:
+          TZ: '{{ .Values.global.TZ }}'
+          NVIDIA_VISIBLE_DEVICES: all
+          NVIDIA_DRIVER_CAPABILITIES: compute,video,utility
 
+        resources:
+          requests:
+            nvidia.com/gpu: 1
+            cpu: 200m
+            memory: 1024Mi
+          limits:
+            nvidia.com/gpu: 1
+            memory: 3072Mi
+            
 # https://support.plex.tv/articles/201543147-what-network-ports-do-i-need-to-allow-through-my-firewall/
 service:
   main:
@@ -53,6 +65,7 @@ service:
   # GDM UDP: 32410, 32412, 32413, 32414
   gdm:
     enabled: true
+    controller: main
     type: NodePort
     ports:
       gdm-udp0:
@@ -90,6 +103,8 @@ ingress:
       paths:
       - path: /
         pathType: Prefix
+        service:
+          name: main
     tls:
       - secretName: '{{ .Chart.Name }}-tls'
         hosts:
@@ -112,23 +127,16 @@ persistence:
     enabled: true
     type: hostPath
     hostPath: /mnt/andromeda/media
-    mountPath: /data
-    readOnly: true
+    globalMounts:
+      - path: /data
+        readOnly: true
 
-podSecurityContext:
-  runAsUser: 1001
-  runAsGroup: 1002
-  fsGroup: 1002
-  fsGroupChangePolicy: OnRootMismatch
-  supplementalGroups:
-  - 107 # render
-  - 44 # video
-
-resources:
-  requests:
-    nvidia.com/gpu: 1
-    cpu: 200m
-    memory: 1024Mi
-  limits:
-    nvidia.com/gpu: 1
-    memory: 3072Mi
+defaultPodOptions:
+  securityContext:
+    runAsUser: 1001
+    runAsGroup: 1002
+    fsGroup: 1002
+    fsGroupChangePolicy: "OnRootMismatch"
+    supplementalGroups:
+      - 107 # render
+      - 44 # video
