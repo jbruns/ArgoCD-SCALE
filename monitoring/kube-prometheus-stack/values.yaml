@@ -9,7 +9,7 @@ kube-prometheus-stack:
       annotations:
         cert-manager.io/cluster-issuer: letsencrypt-production
         traefik.ingress.kubernetes.io/router.entrypoints: websecure
-        traefik.ingress.kubernetes.io/router.middlewares: argo-common-alertmanager-auth@kubernetescrd
+        traefik.ingress.kubernetes.io/router.middlewares: argo-monitoring-alertmanager-auth@kubernetescrd
       paths:
         - /
       hosts:
@@ -27,7 +27,7 @@ kube-prometheus-stack:
       annotations:
         cert-manager.io/cluster-issuer: letsencrypt-production
         traefik.ingress.kubernetes.io/router.entrypoints: websecure
-        traefik.ingress.kubernetes.io/router.middlewares: argo-common-prometheus-auth@kubernetescrd
+        traefik.ingress.kubernetes.io/router.middlewares: argo-monitoring-prometheus-auth@kubernetescrd
       paths:
         - /
       hosts:
