@@ -1,0 +1,82 @@
+# https://github.com/prometheus-community/helm-charts/blob/main/charts/kube-prometheus-stack/values.yaml
+kube-prometheus-stack:
+
+  alertmanager:
+    ingress:
+      enabled: true
+      pathType: Prefix
+      ingressClassName: traefik
+      annotations:
+        cert-manager.io/cluster-issuer: letsencrypt-production
+        traefik.ingress.kubernetes.io/router.entrypoints: websecure
+        traefik.ingress.kubernetes.io/router.middlewares: argo-common-alertmanager-auth@kubernetescrd
+      paths:
+        - /
+      hosts:
+      - 'alertmanager.{{ .Values.global.domain }}'
+      tls:
+        - secretName: 'alertmanager-tls'
+          hosts:
+            - 'alertmanager.{{ .Values.global.domain }}'
+
+  prometheus:
+    ingress:
+      enabled: true
+      pathType: Prefix
+      ingressClassName: traefik
+      annotations:
+        cert-manager.io/cluster-issuer: letsencrypt-production
+        traefik.ingress.kubernetes.io/router.entrypoints: websecure
+        traefik.ingress.kubernetes.io/router.middlewares: argo-common-prometheus-auth@kubernetescrd
+      paths:
+        - /
+      hosts:
+      - 'prometheus.{{ .Values.global.domain }}'
+      tls:
+        - secretName: 'prometheus-tls'
+          hosts:
+            - 'prometheus.{{ .Values.global.domain }}'
+
+    storageSpec:
+      volumeClaimTemplate:
+        spec:
+          storageClassName: argo-zfspv-fast
+          accessModes: ["ReadWriteOnce"]
+          resources:
+            requests:
+              storage: 50Gi
+
+  # https://github.com/grafana/helm-charts/blob/main/charts/grafana/values.yaml
+  grafana:
+    ingress:
+      enabled: true
+      pathType: Prefix
+      ingressClassName: traefik
+      annotations:
+        cert-manager.io/cluster-issuer: letsencrypt-production
+        traefik.ingress.kubernetes.io/router.entrypoints: websecure
+      paths:
+        - /
+      hosts:
+      - 'grafana.{{ .Values.global.domain }}'
+      tls:
+        - secretName: 'grafana-tls'
+          hosts:
+            - 'grafana.{{ .Values.global.domain }}'
+
+    persistence:
+      enabled: true
+      storageClassName: argo-zfspv-fast
+
+    admin:
+      existingSecret: grafana-admin
+
+    defaultDashboardsTimezone: browser
+
+    plugins:
+      - grafana-piechart-panel
+
+    grafana.ini:
+      server:
+        root_url: 'https://grafana.{{ .Values.global.domain }}'
+  
