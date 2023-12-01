@@ -53,6 +53,10 @@ velero:
 
   schedules:
     daily:
+      # Tell ArgoCD not to automatically prune/delete backups
+      annotations:
+        argocd.argoproj.io/compare-options: IgnoreExtraneous
+        argocd.argoproj.io/sync-options: Delete=false,Prune=false
       # UTC. Backup every day at 1400
       schedule: "0 14 * * *"
       template:
