@@ -1,5 +1,5 @@
-{{- range (index .Values "reverse-proxy" "instances") }}
-{{- $svcName := printf "%s-%s" (include "common.names.fullname" $) .name }}
+{{- range (index .Values "instances") }}
+{{- $svcName := printf "%s-%s" (include "bjw-s.common.lib.chart.names.name" $) .name }}
 {{- $svcPort := .port -}}
 ---
 apiVersion: traefik.io/v1alpha1
@@ -7,6 +7,8 @@ kind: IngressRoute
 metadata:
   name: "{{ $svcName }}-{{ $svcPort }}"
   namespace: {{ $.Release.Namespace }}
+  labels:
+    {{- include "bjw-s.common.lib.metadata.allLabels" $ | nindent 4 }}
 spec:
   entryPoints:
     - websecure

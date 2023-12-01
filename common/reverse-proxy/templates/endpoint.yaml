@@ -1,0 +1,19 @@
+{{- include "bjw-s.common.loader.init" . -}}
+{{- range .Values.instances }}
+{{- if or ( not ( hasKey . "enabled" ) ) .enabled }}
+{{- if .ip }}
+---
+apiVersion: v1
+kind: Endpoints
+metadata:
+  name: {{ include "bjw-s.common.lib.chart.names.name" $ }}-{{ .name }}
+  labels:
+    {{- include "bjw-s.common.lib.metadata.allLabels" $ | nindent 4 }}
+subsets:
+  - addresses:
+      - ip: {{ .ip }}
+    ports:
+      - port: {{ .port | default 80 }}
+{{- end }}
+{{- end }}
+{{- end }}
