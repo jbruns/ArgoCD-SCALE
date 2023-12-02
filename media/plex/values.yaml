@@ -159,6 +159,9 @@ persistence:
     globalMounts:
       - path: /data
         readOnly: true
+  srv:
+    enabled: true
+    type: emptyDir
 
 defaultPodOptions:
   securityContext:
