@@ -1,0 +1,16 @@
+apiVersion: bitnami.com/v1alpha1
+kind: SealedSecret
+metadata:
+  creationTimestamp: null
+  name: sabnzbd-exportarr-env
+  namespace: argo-media
+spec:
+  encryptedData:
+    API_KEY: AgAyKLRmMuH7BqSz0SWO6wkr01m9o8jhEdZPNQzNeDSuhiOFml8yD4+CsCebrrCqiFG18cMzNyygPuRmEq6zz2k4qxsmpWega7Ld78WYWMM+ogk72AkoZ0cijdlsyH+wYEpGZ8+1X9CTK1aCj0vzaULAID3bWUskosi0r10Kv+fPX7/WXDbnO+CS+AEZA7og0qVvM7ZlFReHsMmG+KS0cAcrwHUwqT+pX7nIK0fIPubRKicYiSq8vDIyynNjSkKVjCJgpn9KgBK+11WbIPBPjm5AzKYRYRRIdfo1kfOomMS5Qfua1foDZtplQ3ERJoMwd5JqAQA+l53SwPn4xNdrX1hr1oFjeaRuzzdKLOwCZFKwcB0R3pFSljyLh6ArKmWTDMjqO46FoJrD92wVULVkIorBy+iL4uO88EH0MUfMI/4cPahlOL7qJFX525Z+4eWQLRmi69zBerbDkdJfu2rmsrn2Vod1bwMRYZmOZNUSEykziGs2U+rlnc1qgCl1xdl7qqJfUsMHSU3RY2Bqb9268ZI7zgu697bcsf98DqLIrbf2QVJZCf2AAlhqFbtOd9B1RYX2j9U9arlsi8SX9nJ2JO4sIF6av3nMJs3alASL3vXhAkLcbpRXurxBYCc68ziwRXVBmriAkebZr6Sx7u1RTVEODUGM3EZ7p/BfEtVvFhTkH0oEWRhc01MCFqFkBpp0CHqLODU3VEe4i3DnzYKzfF0e8f6zKFgkWy3gIxyOjpRsSw==
+  template:
+    metadata:
+      creationTimestamp: null
+      name: sabnzbd-exportarr-env
+      namespace: argo-media
+    type: Opaque
+

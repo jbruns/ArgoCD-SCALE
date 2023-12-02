@@ -10,11 +10,32 @@ controllers:
           tag: 4.1.0
           pullPolicy: IfNotPresent
 
+      exporter:
+        image:
+          repository: ghcr.io/onedr0p/exportarr
+          tag: v1.6.0
+          pullPolicy: IfNotPresent
+        
+        args:
+          - sabnzbd
+
+        env:
+          PORT: 9080
+          URL: 'https://{{ .Chart.Name }}.{{ .Values.global.domain }}'
+        
+        envFrom:
+          - secretRef:
+              name: sabnzbd-exportarr-env
 service:
   main:
     ports:
       http:
         port: 8080
+  exporter:
+    controller: main
+    ports:
+       http:
+         port: 9080
 
 ingress:
   main:
@@ -35,6 +56,17 @@ ingress:
       - secretName: '{{ .Chart.Name }}-tls'
         hosts:
           - '{{ .Chart.Name }}.{{ .Values.global.domain }}'
+
+serviceMonitor:
+  exporter:
+    enabled: true
+    serviceName: '{{ .Chart.Name }}-exporter'
+    endpoints:
+      - port: http
+        scheme: http
+        path: /metrics
+        interval: 1m
+        scrapeTimeout: 10s
 
 persistence:
   config:
