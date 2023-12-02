@@ -32,6 +32,10 @@ controllers:
         
         env:
           PLEX_ADDR: 'https://{{ .Chart.Name }}.{{ .Values.global.domain }}'
+
+        securityContext:
+          runAsUser: 568
+          runAsGroup: 568
         
         envFrom:
           - secretRef:
@@ -159,9 +163,6 @@ persistence:
     globalMounts:
       - path: /data
         readOnly: true
-  srv:
-    enabled: true
-    type: emptyDir
 
 defaultPodOptions:
   securityContext:
