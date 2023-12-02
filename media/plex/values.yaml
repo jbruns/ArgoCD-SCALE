@@ -34,8 +34,8 @@ controllers:
           PLEX_ADDR: 'https://{{ .Chart.Name }}.{{ .Values.global.domain }}'
 
         securityContext:
-          runAsUser: 568
-          runAsGroup: 568
+          runAsUser: 0
+          runAsGroup: 0
         
         envFrom:
           - secretRef:
