@@ -1,0 +1,8 @@
+apiVersion: v1
+kind: Secret
+metadata:
+  name: plex-exporter-env
+  namespace: argo-media
+type: Opaque
+stringData:
+  PLEX_TOKEN: 

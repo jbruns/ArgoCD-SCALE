@@ -1,0 +1,17 @@
+apiVersion: bitnami.com/v1alpha1
+kind: SealedSecret
+metadata:
+  creationTimestamp: null
+  name: plex-exporter-env
+  namespace: argo-media
+spec:
+  encryptedData:
+    PLEX_TOKEN: AgAcyIgTzFFE3TA/fXqU175TWXM/HKnwRKUO5DVndAYN4GSA9VKMIwwmkZcLq+XmAOz34miRT7A9l1asMEDpv9RJ19i10OwtCaNI45QNvWC3E4rCDCeke7PpBQypj4cJ1Ku4ZaV1CCmQnyyWEavoVUo65jbJ4VmiNMV8spHt3jkWippAyXb0POq4cDD3tdRBvaPK5nfBeqy2JshgceYVF/bJnKBwmKTLPeLM5v5q6cwqOn1TK7aneD/70esyVsvCJtiDHqkRw1HbkpQNnLxop+5GZBji/1dfRfgNOljdICVi+/j17vffbjU5JgXitKSYoLjB83rvUCt9JL9oG6BQNMk8dgr6JSrRZPJBD7cpUy1mcy6gKHSO1ow9/TK1/EFz0059yogQMXrziiaNZKrS0MOGOf3Q3BNZ0HGqDs9ZLBXpgLkdLigQ+NSrL2ZTOsCWRzUpnraJ2rNiJPNHb2IYs9oB6SL1lpEOMVfWdPFqAbkuRQaGgeKZqTWoFhIoONAn8S4W17n+waEW8PIfCWGgLTUBoZQ3eDEtWy2AWhRGCbgDQ43cw/NvSgZQfPEIzrgcP/V6tkg7WKOHIiTuPHjN22fzrV1QLmiqlwYpJldYTiuu1wfn1pw0VPJPuBRkAZwp/7UEkk4kEFpdLJ/INHnfKei6m7YFsPrILUonrsCnnZKb1ODbuUMwm/tCFwr/fpdNGMhY7IrDqGs6qj/3e40Fker1X9LuEw==
+  template:
+    data: null
+    metadata:
+      creationTimestamp: null
+      name: plex-exporter-env
+      namespace: argo-media
+    type: Opaque
+
