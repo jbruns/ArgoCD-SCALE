@@ -12,6 +12,18 @@ controllers:
 
         env:
           TZ: '{{ .Values.global.TZ }}'
+        
+        # allow time to install dependencies and start xTeVe
+        probes:
+          liveness:
+            spec:
+              initialDelaySeconds: 30
+          readiness:
+            spec:
+              initialDelaySeconds: 30
+          startup:
+            spec:
+              initialDelaySeconds: 30
 
 service:
   main:
@@ -40,13 +52,13 @@ ingress:
           - '{{ .Chart.Name }}.{{ .Values.global.domain }}'
 
 persistence:
-  config:
+  conf:
     enabled: true
     storageClass: argo-zfspv-fast
     size: 10Gi
     accessMode: ReadWriteOnce
     retain: true
-    mountPath: /home/xteve
+    mountPath: /home/xteve/conf
   buffertmp:
     enabled: true
     type: emptyDir
