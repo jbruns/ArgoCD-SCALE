@@ -28,7 +28,7 @@ ingress:
       cert-manager.io/revision-history-limit: '1'
       traefik.ingress.kubernetes.io/router.entrypoints: websecure
     hosts:
-    - host: '{{ .Chart.Name }}.{{ .Values.global.domain }}'
+    - host: '{{ .Chart.Name }}.brush{{ .Values.global.altDomainRe }}'
       paths:
         - path: /
           pathType: Prefix
@@ -37,7 +37,7 @@ ingress:
     tls:
       - secretName: '{{ .Chart.Name }}-tls'
         hosts:
-          - '{{ .Chart.Name }}.{{ .Values.global.domain }}'
+          - '{{ .Chart.Name }}.brush{{ .Values.global.altDomainRe }}'
 
 persistence:
   xtevehome:

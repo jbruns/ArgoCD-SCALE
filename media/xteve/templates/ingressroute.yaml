@@ -7,7 +7,7 @@ spec:
   entryPoints:
     - websecure
   routes:
-    - match: Host(`{{ .Chart.Name }}.{{ .Values.global.domain }}`)
+    - match: Host(`{{ .Chart.Name }}.brush{{ .Values.global.altDomainRe }}`)
       kind: Rule
       services:
         - name: {{ .Chart.Name }}
