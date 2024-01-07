@@ -46,7 +46,8 @@ persistence:
     size: 10Gi
     accessMode: ReadWriteOnce
     retain: true
-    mountPath: /root/.xteve
+    globalMounts:
+      - path: /root/.xteve
   buffertmp:
     enabled: true
     type: emptyDir
