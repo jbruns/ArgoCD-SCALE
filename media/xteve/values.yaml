@@ -48,6 +48,12 @@ persistence:
     retain: true
     globalMounts:
       - path: /root/.xteve
+  config:
+    enabled: true
+    storageClass: argo-zfspv-fast
+    size: 1Gi
+    accessMode: readWriteOnce
+    retain: true
   buffertmp:
     enabled: true
     type: emptyDir
