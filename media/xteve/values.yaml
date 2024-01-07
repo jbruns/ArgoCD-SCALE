@@ -6,25 +6,13 @@ controllers:
     containers:
       main:
         image:
-          repository: dnsforge/xteve
+          repository: alturismo/xteve_guide2go
           tag: latest
           pullPolicy: IfNotPresent
 
         env:
           TZ: '{{ .Values.global.TZ }}'
         
-        # allow time to install dependencies and start xTeVe
-        probes:
-          liveness:
-            spec:
-              initialDelaySeconds: 30
-          readiness:
-            spec:
-              initialDelaySeconds: 30
-          startup:
-            spec:
-              initialDelaySeconds: 30
-
 service:
   main:
     ports:
@@ -52,13 +40,12 @@ ingress:
           - '{{ .Chart.Name }}.{{ .Values.global.domain }}'
 
 persistence:
-  conf:
+  config:
     enabled: true
     storageClass: argo-zfspv-fast
     size: 10Gi
     accessMode: ReadWriteOnce
     retain: true
-    mountPath: /home/xteve/conf
   buffertmp:
     enabled: true
     type: emptyDir
