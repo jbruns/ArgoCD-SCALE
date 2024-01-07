@@ -40,12 +40,13 @@ ingress:
           - '{{ .Chart.Name }}.{{ .Values.global.domain }}'
 
 persistence:
-  config:
+  xtevehome:
     enabled: true
     storageClass: argo-zfspv-fast
     size: 10Gi
     accessMode: ReadWriteOnce
     retain: true
+    mountPath: /root/.xteve
   buffertmp:
     enabled: true
     type: emptyDir
