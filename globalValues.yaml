@@ -3,6 +3,8 @@ global:
   branch: main
   domain: wavebe.am
   altDomainHome: bruns.house
+  altDomainDev: deserialize.net
+  altDomainRe: fi.re
   TZ: America/Los_Angeles
 
   applicationSets:
