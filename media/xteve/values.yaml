@@ -52,7 +52,7 @@ persistence:
     enabled: true
     storageClass: argo-zfspv-fast
     size: 1Gi
-    accessMode: readWriteOnce
+    accessMode: ReadWriteOnce
     retain: true
   buffertmp:
     enabled: true
