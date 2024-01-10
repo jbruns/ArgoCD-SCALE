@@ -38,9 +38,6 @@ kube-prometheus-stack:
             - 'prometheus.{{ .Values.global.domain }}'
 
     prometheusSpec:
-      podMonitorSelectorNilUsesHelmValues: false
-      probeSelectorNilUsesHelmValues: false
-      ruleSelectorNilUsesHelmValues: false
       serviceMonitorSelectorNilUsesHelmValues: false
 
     storageSpec:
