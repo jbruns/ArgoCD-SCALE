@@ -37,6 +37,9 @@ kube-prometheus-stack:
           hosts:
             - 'prometheus.{{ .Values.global.domain }}'
 
+    prometheusSpec:
+      serviceMonitorSelectorNilUsesHelmValues: false
+
     storageSpec:
       volumeClaimTemplate:
         spec:
