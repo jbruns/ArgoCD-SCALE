@@ -11,9 +11,6 @@ controllers:
           pullPolicy: IfNotPresent
           
         env:
-          UID: 1001
-          GID: 1002
-          GIDLIST: 107,44
           NVIDIA_VISIBLE_DEVICES: all
           NVIDIA_DRIVER_CAPABILITIES: compute,video,utility
 
@@ -22,6 +19,8 @@ service:
     ports:
       http:
         port: 8096
+      https:
+        port: 8920
 
 ingress:
   main:
@@ -38,6 +37,7 @@ ingress:
         pathType: Prefix
         service:
           name: main
+          port: http
     tls:
       - secretName: '{{ .Chart.Name }}-tls'
         hosts:
