@@ -11,8 +11,11 @@ controllers:
           pullPolicy: IfNotPresent
           
         env:
+          UID: '1001'
+          GID: '1002'
+          GIDLIST: '107,44'
           NVIDIA_VISIBLE_DEVICES: all
-          NVIDIA_DRIVER_CAPABILITIES: compute,video,utility
+          NVIDIA_DRIVER_CAPABILITIES: 'compute,video,utility'
 
 service:
   main:
@@ -57,13 +60,3 @@ persistence:
     globalMounts:
       - path: /data
         readOnly: true
-
-defaultPodOptions:
-  securityContext:
-    runAsUser: 1001
-    runAsGroup: 1002
-    fsGroup: 1002
-    fsGroupChangePolicy: "OnRootMismatch"
-    supplementalGroups:
-      - 107 # render
-      - 44 # video
