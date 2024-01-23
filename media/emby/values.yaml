@@ -53,6 +53,12 @@ persistence:
     size: 300Gi
     accessMode: ReadWriteOnce
     retain: true
+  transcode:
+    enabled: true
+    storageClass: argo-zfspv-fast
+    size: 100Gi
+    accessMode: ReadWriteOnce
+    retain: true
   data:
     enabled: true
     type: hostPath
@@ -60,3 +66,9 @@ persistence:
     globalMounts:
       - path: /data
         readOnly: true
+  dvr:
+    enabled: true
+    type: hostPath
+    hostPath: /mnt/andromeda/media/dvr
+    globalMounts:
+      - path: /dvr
