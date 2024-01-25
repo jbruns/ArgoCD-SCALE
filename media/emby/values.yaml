@@ -13,7 +13,6 @@ controllers:
         env:
           UID: '1001'
           GID: '1002'
-          GIDLIST: '107,44'
         
         resources:
           requests:
@@ -82,8 +81,6 @@ persistence:
 
 defaultPodOptions:
   securityContext:
-    runAsUser: 1001
-    runAsGroup: 1002
     fsGroup: 1002
     fsGroupChangePolicy: "OnRootMismatch"
     supplementalGroups:
