@@ -33,14 +33,14 @@ service:
     ports:
       http:
         enabled: true
-        port: 8096
+        port: 32800
         protocol: TCP
-        nodePort: 8096
+        nodePort: 32800
       https:
         enabled: true
-        port: 8920
+        port: 32900
         protocol: TCP
-        nodePort: 8920
+        nodePort: 32900
     externalTrafficPolicy: Local
 
 ingress:
