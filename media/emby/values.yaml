@@ -56,7 +56,7 @@ persistence:
   transcode:
     enabled: true
     storageClass: argo-zfspv-fast
-    size: 100Gi
+    size: 300Gi
     accessMode: ReadWriteOnce
     retain: true
   data:
