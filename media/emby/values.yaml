@@ -28,11 +28,20 @@ controllers:
     
 service:
   main:
+    enabled: true
+    type: NodePort
     ports:
       http:
+        enabled: true
         port: 8096
+        protocol: TCP
+        nodePort: 8096
       https:
+        enabled: true
         port: 8920
+        protocol: TCP
+        nodePort: 8920
+    externalTrafficPolicy: Local
 
 ingress:
   main:
