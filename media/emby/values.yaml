@@ -2,7 +2,10 @@
 controllers:
   main:
     revisionHistoryLimit: 1
-
+    
+    pod:
+      runtimeClassName: nvidia
+      
     containers:
       main:
         image:
@@ -22,7 +25,7 @@ controllers:
           limits:
             nvidia.com/gpu: 1
             memory: 3072Mi
-
+    
 service:
   main:
     ports:
