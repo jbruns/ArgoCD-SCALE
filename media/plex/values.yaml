@@ -2,7 +2,10 @@
 controllers:
   main:
     revisionHistoryLimit: 1
-
+    
+    pod:
+      runtimeClassName: nvidia
+      
     containers:
       main:
         image:
