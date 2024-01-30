@@ -1,0 +1,48 @@
+# https://github.com/bjw-s/helm-charts/tree/main/charts/library/common
+controllers:
+  main:
+    revisionHistoryLimit: 1
+         
+    containers:
+      main:
+        image:
+          repository: nextpvr/nextpvr_amd64
+          tag: stable
+          pullPolicy: IfNotPresent
+              
+service:
+  main:
+    enabled: true
+    type: NodePort
+    ports:
+      http:
+        enabled: true
+        port: 8866
+        protocol: TCP
+        nodePort: 38866
+      nextpvr-udp:
+        enabled: true
+        port: 16891
+        protocol: UDP
+        nodePort: 16891
+    externalTrafficPolicy: Local
+
+persistence:
+  config:
+    enabled: true
+    storageClass: argo-zfspv-fast
+    size: 200Gi
+    accessMode: ReadWriteOnce
+    retain: true
+  recordings:
+    enabled: true
+    storageClass: argo-zfspv-slow
+    size: 500Gi
+    accessMode: ReadWriteOnce
+    retain: true
+  buffer:
+    enabled: true
+    storageClass: argo-zfspv-fast
+    size: 300Gi
+    accessMode: readWriteOnce
+    retain: true
