@@ -84,12 +84,6 @@ persistence:
     globalMounts:
       - path: /data
         readOnly: true
-  dvr:
-    enabled: true
-    type: hostPath
-    hostPath: /mnt/andromeda/media/dvr
-    globalMounts:
-      - path: /dvr
 
 defaultPodOptions:
   securityContext:
