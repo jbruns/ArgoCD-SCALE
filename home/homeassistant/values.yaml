@@ -7,7 +7,7 @@ controllers:
       main:
         image:
           repository: homeassistant/home-assistant
-          tag: 2024.1.5
+          tag: 2024.1.6
           pullPolicy: IfNotPresent
           
         env:
