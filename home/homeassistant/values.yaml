@@ -48,7 +48,7 @@ ingress:
       cert-manager.io/revision-history-limit: '1'
       traefik.ingress.kubernetes.io/router.entrypoints: websecure
     hosts:
-      - host: 'ha.{{ .Values.global.altDomainHome }}'
+      - host: 'ha-k3s.{{ .Values.global.altDomainHome }}'
         paths:
           - path: /
             pathType: Prefix
@@ -57,7 +57,7 @@ ingress:
     tls:
       - secretName: '{{ .Chart.Name }}-tls'
         hosts:
-          - 'ha.{{ .Values.global.altDomainHome }}'
+          - 'ha-k3s.{{ .Values.global.altDomainHome }}'
   
   codeserver:
     enabled: true

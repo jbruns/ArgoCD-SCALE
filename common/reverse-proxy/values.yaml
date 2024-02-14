@@ -21,14 +21,14 @@ instances:
         cert-manager.io/revision-history-limit: '1'
         traefik.ingress.kubernetes.io/router.entrypoints: websecure
       hosts:
-        - host: 'minio-console.wavebe.am'
+        - host: 'minio-console.{{ .Values.global.domain }}'
       paths:
         - path: /
           pathType: Prefix      
       tls:
         - secretName: 'reverse-proxy-minio-console-tls'
           hosts:
-            - 'minio-console.wavebe.am'
+            - 'minio-console.{{ .Values.global.domain }}'
 
   - name: minio
     enabled: true
@@ -40,11 +40,11 @@ instances:
         cert-manager.io/revision-history-limit: '1'
         traefik.ingress.kubernetes.io/router.entrypoints: websecure
       hosts:
-        - host: 'minio.wavebe.am'
+        - host: 'minio.{{ .Values.global.domain }}'
       paths:
         - path: /
           pathType: Prefix      
       tls:
         - secretName: 'reverse-proxy-minio-tls'
           hosts:
-            - 'minio.wavebe.am'
+            - 'minio.{{ .Values.global.domain }}'

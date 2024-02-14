@@ -8,7 +8,7 @@ spec:
     - web
     - websecure
   routes:
-    - match: Host(`ha.{{ .Values.global.altDomainHome }}`)
+    - match: Host(`ha-k3s.{{ .Values.global.altDomainHome }}`)
       kind: Rule
       services:
         - name: {{ include "bjw-s.common.lib.chart.names.fullname" . }}
