@@ -10,7 +10,7 @@ controllers:
       main:
         image:
           repository: emby/embyserver
-          tag: latest
+          tag: 4.8.1.0
           pullPolicy: IfNotPresent
           
         env:
