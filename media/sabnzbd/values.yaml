@@ -13,7 +13,7 @@ controllers:
       exporter:
         image:
           repository: ghcr.io/onedr0p/exportarr
-          tag: v1.6.1
+          tag: v2.0.0
           pullPolicy: IfNotPresent
         
         args:
