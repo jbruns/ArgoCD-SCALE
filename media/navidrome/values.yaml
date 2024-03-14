@@ -49,6 +49,7 @@ ingress:
           pathType: Prefix
           service:
             identifier: main
+            port: http
     tls:
       - secretName: '{{ .Chart.Name }}-tls'
         hosts:
