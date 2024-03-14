@@ -1,4 +1,4 @@
-<img src="https://camo.githubusercontent.com/5b298bf6b0596795602bd771c5bddbb963e83e0f/68747470733a2f2f692e696d6775722e636f6d2f7031527a586a512e706e67" align="left" width="144px" height="144px"/>
+<img src="https://raw.githubusercontent.com/jbruns/ArgoCD-SCALE/main/logo.png" align="left" width="144px" height="144px"/>
 
 # "HomeProd" - GitOps on Kubernetes
 _Maximum availability, minimum hassle. Managed by ArgoCD, maintained by Renovate._
@@ -23,7 +23,12 @@ Currently I only have a single node, which is running [TrueNAS SCALE](https://ww
 
 ## :handshake:&nbsp; Community
 
-Thanks to all the people who donate their time to the [k8s@home](https://github.com/k8s-at-home/) community.
-This repo would not exist if it wasn't for the shared knowledge.
+Thanks to all the people who donate their time to the [Home Operations](https://discord.com/invite/home-operations/) community.
+This repo would not exist if it wasn't for the excellent people there sharing what they know.
 
-Do you want to know more? It all starts with this [template](https://github.com/k8s-at-home/template-cluster-k3s/).
+I'd like to especially call out these community projects, which I rely on heavily:
+
+* [Common Library Chart](https://bjw-s.github.io/helm-charts/docs/common-library/)
+* [Container Images](https://github.com/onedr0p?tab=packages&repo_name=containers)
+
+_How do I get started with my own Kubernetes @ Home project?_ It all starts with this [template.](https://github.com/onedr0p/cluster-template)
