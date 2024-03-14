@@ -19,8 +19,20 @@ controllers:
           - secretRef:
               name: navidrome-env
 
+        probes:
+          liveness:
+            enabled: true
+          readiness:
+            enabled: true
+          startup:
+            enabled: true
+            spec:
+              failureThreshold: 30
+              periodSeconds: 5
+
 service:
   main:
+    controller: main
     ports:
       http:
         port: 4533
@@ -39,7 +51,8 @@ ingress:
         - path: /
           pathType: Prefix
           service:
-            name: main
+            identifier: main
+            port: http
     tls:
       - secretName: '{{ .Chart.Name }}-tls'
         hosts:
