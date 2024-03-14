@@ -1,12 +1,4 @@
----
-# yaml-language-server: $schema=https://raw.githubusercontent.com/bjw-s/helm-charts/app-template-3.0.2/charts/other/app-template/values.schema.json
-defaultPodOptions:
-  securityContext:
-    runAsUser: 1001
-    runAsGroup: 1002
-    fsGroup: 1002
-    fsGroupChangePolicy: "OnRootMismatch"
-
+# https://github.com/bjw-s/helm-charts/tree/main/charts/library/common
 controllers:
   main:
     revisionHistoryLimit: 1
@@ -27,20 +19,8 @@ controllers:
           - secretRef:
               name: navidrome-env
 
-        probes:
-          liveness:
-            enabled: true
-          readiness:
-            enabled: true
-          startup:
-            enabled: true
-            spec:
-              failureThreshold: 30
-              periodSeconds: 5
-
 service:
   main:
-    controller: navidrome
     ports:
       http:
         port: 4533
@@ -48,7 +28,7 @@ service:
 ingress:
   main:
     enabled: true
-    className: traefik
+    ingressClassName: traefik
     annotations:
       cert-manager.io/cluster-issuer: letsencrypt-production
       cert-manager.io/revision-history-limit: '1'
@@ -59,8 +39,7 @@ ingress:
         - path: /
           pathType: Prefix
           service:
-            identifier: main
-            port: http
+            name: main
     tls:
       - secretName: '{{ .Chart.Name }}-tls'
         hosts:
@@ -73,11 +52,16 @@ persistence:
     size: 10Gi
     accessMode: ReadWriteOnce
     retain: true
-    globalMounts:
-      - path: /config
   music:
     enabled: true
     type: hostPath
     hostPath: /mnt/andromeda/media/music/FLAC
     globalMounts: 
       - path: /music
+
+defaultPodOptions:
+  securityContext:
+    runAsUser: 1001
+    runAsGroup: 1002
+    fsGroup: 1002
+    fsGroupChangePolicy: "OnRootMismatch"
