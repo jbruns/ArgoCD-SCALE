@@ -1,4 +1,5 @@
-# https://github.com/bjw-s/helm-charts/tree/main/charts/library/common
+---
+# yaml-language-server: $schema=https://raw.githubusercontent.com/bjw-s/helm-charts/common-3.0.3/charts/library/common/values.schema.json
 controllers:
   main:
     revisionHistoryLimit: 1
@@ -28,6 +29,7 @@ controllers:
               name: sabnzbd-exportarr-env
 service:
   main:
+    controller: main
     ports:
       http:
         port: 8080
@@ -51,7 +53,8 @@ ingress:
       - path: /
         pathType: Prefix
         service:
-          name: main
+          identifier: main
+          port: http
     tls:
       - secretName: '{{ .Chart.Name }}-tls'
         hosts:
