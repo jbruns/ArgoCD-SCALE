@@ -30,13 +30,33 @@ controllers:
         probes:
           liveness:
             enabled: true
+            custom: true
+            type: TCP
+            spec:
+              initialDelaySeconds: 10
+              failureThreshold: 3
+              periodSeconds: 30
+              tcpSocket:
+                port: 32800
           readiness:
             enabled: true
+            custom: true
+            type: TCP
+            spec:
+              initialDelaySeconds: 10
+              failureThreshold: 3
+              periodSeconds: 30              
+              tcpSocket:
+                port: 32800
           startup:
             enabled: true
+            custom: true
+            type: TCP
             spec:
               failureThreshold: 30
               periodSeconds: 5
+              tcpSocket:
+                port: 32800
 
 service:
   main:
