@@ -1,4 +1,5 @@
-# https://github.com/bjw-s/helm-charts/tree/main/charts/library/common
+---
+# yaml-language-server: $schema=https://raw.githubusercontent.com/bjw-s/helm-charts/common-3.0.3/charts/library/common/values.schema.json
 controllers:
   main:
     revisionHistoryLimit: 1
@@ -9,9 +10,21 @@ controllers:
           repository: nextpvr/nextpvr_amd64
           tag: stable
           pullPolicy: IfNotPresent
-              
+
+        probes:
+          liveness:
+            enabled: true
+          readiness:
+            enabled: true
+          startup:
+            enabled: true
+            spec:
+              failureThreshold: 30
+              periodSeconds: 5
+
 service:
   main:
+    controller: main
     ports:
       http:
         port: 8866
@@ -30,7 +43,7 @@ ingress:
       - path: /
         pathType: Prefix
         service:
-          name: main
+          identifier: main
           port: http
     tls:
       - secretName: '{{ .Chart.Name }}-tls'
