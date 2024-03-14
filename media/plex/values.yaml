@@ -1,4 +1,5 @@
-# https://github.com/bjw-s/helm-charts/tree/main/charts/library/common
+---
+# yaml-language-server: $schema=https://raw.githubusercontent.com/bjw-s/helm-charts/common-3.0.3/charts/library/common/values.schema.json
 controllers:
   main:
     revisionHistoryLimit: 1
@@ -26,28 +27,42 @@ controllers:
           limits:
             nvidia.com/gpu: 1
             memory: 3072Mi
-
-      exporter:
-        image:
-          repository: ghcr.io/axsuul/plex-media-server-exporter
-          tag: 1.1.3
-          pullPolicy: IfNotPresent
         
-        env:
-          PLEX_ADDR: 'https://{{ .Chart.Name }}.{{ .Values.global.domain }}'
-
-        securityContext:
-          runAsUser: 0
-          runAsGroup: 0
-        
-        envFrom:
-          - secretRef:
-              name: plex-exporter-env
+        probes:
+          liveness:
+            enabled: true
+            custom: true
+            type: TCP
+            spec:
+              initialDelaySeconds: 10
+              failureThreshold: 3
+              periodSeconds: 30
+              tcpSocket:
+                port: 32400
+          readiness:
+            enabled: true
+            custom: true
+            type: TCP
+            spec:
+              initialDelaySeconds: 10
+              failureThreshold: 3
+              periodSeconds: 30              
+              tcpSocket:
+                port: 32400
+          startup:
+            enabled: true
+            custom: true
+            type: TCP
+            spec:
+              failureThreshold: 30
+              periodSeconds: 5
+              tcpSocket:
+                port: 32400
 
 # https://support.plex.tv/articles/201543147-what-network-ports-do-i-need-to-allow-through-my-firewall/
 service:
   main:
-    enabled: true
+    controller: main
     type: NodePort
     ports:
       http:
@@ -109,11 +124,6 @@ service:
         protocol: UDP
         nodePort: 32414
     externalTrafficPolicy: Local
-  exporter:
-    controller: main
-    ports:
-       http:
-         port: 9594
 
 ingress:
   main:
@@ -129,22 +139,12 @@ ingress:
       - path: /
         pathType: Prefix
         service:
-          name: main
+          identifier: main
+          port: http
     tls:
       - secretName: '{{ .Chart.Name }}-tls'
         hosts:
           - '{{ .Chart.Name }}.{{ .Values.global.domain }}'
-
-serviceMonitor:
-  exporter:
-    enabled: true
-    serviceName: '{{ .Chart.Name }}-exporter'
-    endpoints:
-      - port: http
-        scheme: http
-        path: /metrics
-        interval: 1m
-        scrapeTimeout: 10s
 
 persistence:
   config:
