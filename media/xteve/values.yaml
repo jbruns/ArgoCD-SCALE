@@ -17,11 +17,16 @@ controllers:
         probes:
           liveness:
             enabled: true
+            spec:
+              initialDelaySeconds: 30
           readiness:
             enabled: true
+            spec:
+              initialDelaySeconds: 30
           startup:
             enabled: true
             spec:
+              initialDelaySeconds: 30
               failureThreshold: 30
               periodSeconds: 5
         
