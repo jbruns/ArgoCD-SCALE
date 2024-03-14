@@ -1,4 +1,5 @@
-# https://github.com/bjw-s/helm-charts/tree/main/charts/library/common
+---
+# yaml-language-server: $schema=https://raw.githubusercontent.com/bjw-s/helm-charts/common-3.0.3/charts/library/common/values.schema.json
 controllers:
   main:
     revisionHistoryLimit: 1
@@ -16,10 +17,7 @@ controllers:
         probes:
           liveness:
             enabled: true
-            ## Set this to true if you wish to specify your own livenessProbe
             custom: true
-            ## The spec field contains the values for the default livenessProbe.
-            ## If you selected custom: true, this field holds the definition of the livenessProbe.
             spec:
               exec:
                 command:
@@ -52,6 +50,7 @@ controllers:
               name: radarr-exportarr-env
 service:
   main:
+    controller: main
     ports:
       http:
         port: 7878
@@ -75,7 +74,8 @@ ingress:
       - path: /
         pathType: Prefix
         service:
-          name: main
+          identifier: main
+          port: http
     tls:
       - secretName: '{{ .Chart.Name }}-tls'
         hosts:
