@@ -46,9 +46,10 @@ nextcloud:
         value: 172.17.0.0/16
     phpConfigs:
       zzz-maximums.ini: |-
-        upload_max_filesize=512M
-        post_max_size=550M
+        upload_max_filesize=6G
+        post_max_size=6G
         memory_limit=1G
+        max_execution_time=300
     configs:
       maintenance.config.php: |-
         <?php
