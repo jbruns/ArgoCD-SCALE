@@ -62,7 +62,7 @@ persistence:
   xtevehome:
     enabled: true
     storageClass: argo-zfspv-fast
-    size: 10Gi
+    size: 20Gi
     accessMode: ReadWriteOnce
     retain: true
     globalMounts:
