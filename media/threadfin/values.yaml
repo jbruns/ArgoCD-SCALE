@@ -14,14 +14,14 @@ controllers:
           tag: 1.0.24-nvidia
           pullPolicy: IfNotPresent
       
-      guide2go:
-        image:
-          repository: chuchodavids/guide2go
-          tag: stable
-          pullPolicy: IfNotPresent
+#      guide2go:
+#        image:
+#          repository: chuchodavids/guide2go
+#          tag: stable
+#          pullPolicy: IfNotPresent
         
-        env:
-          TZ: '{{ .Values.global.TZ }}'
+#        env:
+#          TZ: '{{ .Values.global.TZ }}'
         
 service:
   main:
