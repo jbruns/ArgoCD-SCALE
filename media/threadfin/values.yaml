@@ -1,4 +1,5 @@
-# https://github.com/bjw-s/helm-charts/tree/main/charts/library/common
+---
+# yaml-language-server: $schema=https://raw.githubusercontent.com/bjw-s/helm-charts/common-3.0.3/charts/library/common/values.schema.json
 controllers:
   main:
     revisionHistoryLimit: 1
@@ -6,8 +7,8 @@ controllers:
     containers:
       main:
         image:
-          repository: alturismo/xteve_guide2go
-          tag: latest
+          repository: fyb3roptik/threadfin
+          tag: 1.0.24-nvidia
           pullPolicy: IfNotPresent
 
         env:
@@ -16,7 +17,7 @@ controllers:
       guide2go:
         image:
           repository: chuchodavids/guide2go
-          tag: stable # https://hub.docker.com/r/chuchodavids/guide2go/tags .. named versions not present
+          tag: stable
           pullPolicy: IfNotPresent
         
         env:
@@ -24,6 +25,7 @@ controllers:
         
 service:
   main:
+    controller: main
     ports:
       http:
         port: 34400
@@ -31,7 +33,7 @@ service:
 ingress:
   main:
     enabled: true
-    ingressClassName: traefik
+    className: traefik
     annotations:
       cert-manager.io/cluster-issuer: letsencrypt-production
       cert-manager.io/revision-history-limit: '1'
@@ -42,27 +44,24 @@ ingress:
         - path: /
           pathType: Prefix
           service:
-            name: main
+            identifier: main
+            port: http
     tls:
       - secretName: '{{ .Chart.Name }}-tls'
         hosts:
           - '{{ .Chart.Name }}.brush{{ .Values.global.altDomainRe }}'
 
 persistence:
-  xtevehome:
+  config:
     enabled: true
     storageClass: argo-zfspv-fast
     size: 10Gi
     accessMode: ReadWriteOnce
     retain: true
     globalMounts:
-      - path: /root/.xteve
-  config:
-    enabled: true
-    storageClass: argo-zfspv-fast
-    size: 1Gi
-    accessMode: ReadWriteOnce
-    retain: true
+      - path: /home/threadfin/conf
   buffertmp:
     enabled: true
     type: emptyDir
+    globalMounts:
+      - path: /buffertmp
