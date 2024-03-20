@@ -13,16 +13,30 @@ controllers:
           repository: fyb3roptik/threadfin
           tag: 1.0.24-nvidia
           pullPolicy: IfNotPresent
+
+        env:
+          TZ: '{{ .Values.global.TZ }}'
+  
+  guide2go:
+    enabled: true
+    type: cronjob
+    cronjob:
+       schedule: "0 4 * * *"
+    containers:
+      main:
+        image:
+          repository: chuchodavids/guide2go
+          tag: stable
+          pullPolicy: IfNotPresent
+        
+        command:
+        - guide2go
+        - --config
+        - /home/threadfin/conf/guide2go/WA63873-DITV819.yaml
+
+        env:
+          TZ: '{{ .Values.global.TZ }}'
       
-#      guide2go:
-#        image:
-#          repository: chuchodavids/guide2go
-#          tag: stable
-#          pullPolicy: IfNotPresent
-        
-#        env:
-#          TZ: '{{ .Values.global.TZ }}'
-        
 service:
   main:
     controller: main
@@ -55,7 +69,7 @@ persistence:
   config:
     enabled: true
     storageClass: argo-zfspv-fast
-    size: 10Gi
+    size: 20Gi
     accessMode: ReadWriteOnce
     retain: true
     globalMounts:
