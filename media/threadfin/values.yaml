@@ -6,7 +6,12 @@ controllers:
 
     pod:
       runtimeClassName: nvidia
-
+      securityContext: # shift from root, match guide2go default
+        runAsUser: 12345
+        runAsGroup: 23456
+        fsGroup: 23456
+        fsGroupChangePolicy: "OnRootMismatch"
+        
     containers:
       main:
         image:
@@ -16,7 +21,8 @@ controllers:
 
         env:
           TZ: '{{ .Values.global.TZ }}'
-  
+        
+        
   guide2go:
     enabled: true
     type: cronjob
