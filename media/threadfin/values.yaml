@@ -37,6 +37,7 @@ controllers:
         env:
           TZ: '{{ .Values.global.TZ }}'
       
+
 service:
   main:
     controller: main
