@@ -11,7 +11,7 @@ controllers:
       main:
         image:
           repository: fyb3roptik/threadfin
-          tag: 1.0.24-nvidia
+          tag: 1.0.26-nvidia
           pullPolicy: IfNotPresent
 
         env:
