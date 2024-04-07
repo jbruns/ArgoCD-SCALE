@@ -35,7 +35,7 @@ controllers:
       exporter:
         image:
           repository: ghcr.io/onedr0p/exportarr
-          tag: v2.0.0
+          tag: v2.0.1
           pullPolicy: IfNotPresent
         
         args:
