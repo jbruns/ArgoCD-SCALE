@@ -12,9 +12,8 @@ argo-cd:
         traefik.ingress.kubernetes.io/router.priority: "10"
         cert-manager.io/cluster-issuer: letsencrypt-production
         cert-manager.io/revision-history-limit: '1'
-      hosts:
-        - argocd.wavebe.am
+      hostname: argocd.wavebe.am
       tls:
-        - secretName: argocd-tls
+        - secretName: argocd-server-tls
           hosts:
             - argocd.wavebe.am
