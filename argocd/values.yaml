@@ -1,9 +1,16 @@
 # https://github.com/argoproj/argo-helm/blob/master/charts/argo-cd/values.yaml
-argo-cd:
+# domain names are overridden due to derivation from Values.global.domain
+argo-cd: 
+  configs:
+    params:
+      # traefik terminates TLS at edge
+      server.insecure: true
+    cm:
+      url: 'https://argocd.wavebe.am'
+
   server:
-    extraArgs:
-      # traefik terminates TLS from edge
-      - --insecure
+    certificate:
+      domain: argocd.wavebe.am
     ingress:
       enabled: true
       ingressClassName: traefik
@@ -12,8 +19,12 @@ argo-cd:
         traefik.ingress.kubernetes.io/router.priority: "10"
         cert-manager.io/cluster-issuer: letsencrypt-production
         cert-manager.io/revision-history-limit: '1'
+      tls: true
       hostname: argocd.wavebe.am
-      tls:
-        - secretName: argocd-server-tls
-          hosts:
-            - argocd.wavebe.am
+
+  notifications:
+    argocdUrl: 'https://argocd.wavebe.am'
+  
+  applicationSet:
+    certificate:
+      domain: argocd.wavebe.am
