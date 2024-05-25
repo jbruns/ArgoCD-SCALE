@@ -1,0 +1,25 @@
+open-webui:
+  ollama:
+    # https://github.com/otwld/ollama-helm/#helm-values
+    ollama:
+      gpu:
+        enabled: true
+      models:
+        - llama3
+    runtimeClassName: nvidia
+    persistentVolume:
+      enabled: true
+
+  ingress:
+    enabled: true
+    class: traefik
+    annotations:
+      cert-manager.io/cluster-issuer: letsencrypt-production
+      cert-manager.io/revision-history-limit: '1'
+      traefik.ingress.kubernetes.io/router.entrypoints: websecure
+    host: openwebui.wavebe.am
+    tls: true
+    existingSecret: open-webui-tls
+
+  persistence:
+    storageClass: argo-zfspv-fast
