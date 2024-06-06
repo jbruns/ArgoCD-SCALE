@@ -4,4 +4,4 @@ version: 1.0.0
 dependencies:
 - name: mariadb
   repository: https://charts.bitnami.com/bitnami
-  version: 18.2.1
+  version: 18.2.2
