@@ -19,7 +19,7 @@ fi
 
 # Install ArgoCD using helm
 helm dependency update argocd
-helm upgrade --install argocd argo/argocd -n argocd --create-namespace --wait --timeout 120s --values globalValues.yaml
+helm upgrade --install argocd argocd -n argocd --create-namespace --wait --timeout 120s --values globalValues.yaml
 
 # Set the ArgoCD admin password
 kubectl patch secret -n argocd argocd-secret -p '{"stringData": { "admin.password": "'$(htpasswd -bnBC 10 "" ${adminpassword} | tr -d ':\n')'"}}'
