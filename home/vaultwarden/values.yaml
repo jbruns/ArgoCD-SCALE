@@ -7,7 +7,7 @@ controllers:
       main:
         image:
           repository: docker.io/vaultwarden/server
-          tag: 1.30.5
+          tag: 1.31.0
           pullPolicy: IfNotPresent
 
         env:
