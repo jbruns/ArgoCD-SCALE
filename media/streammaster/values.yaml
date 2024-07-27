@@ -51,8 +51,6 @@ persistence:
     size: 20Gi
     accessMode: ReadWriteOnce
     retain: true
-    globalMounts:
-      - path: /root/.streammaster
 
 defaultPodOptions:
   securityContext:
