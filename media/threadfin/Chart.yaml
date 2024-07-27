@@ -1,7 +1,0 @@
-name: threadfin
-apiVersion: v2
-version: 3.0.0
-dependencies:
-- name: common
-  version: 3.2.1
-  repository: https://bjw-s.github.io/helm-charts/
