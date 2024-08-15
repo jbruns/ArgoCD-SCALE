@@ -9,6 +9,8 @@ open-webui:
     runtimeClassName: nvidia
     persistentVolume:
       enabled: true
+      size: 120Gi
+      storageClass: argo-zfspv-fast
 
   ingress:
     enabled: true
