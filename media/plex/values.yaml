@@ -11,7 +11,7 @@ controllers:
       main:
         image:
           repository: ghcr.io/onedr0p/plex
-          tag: 1.40.2.8395-c67dce28e
+          tag: 1.40.5.8854-f36c552fd
           pullPolicy: IfNotPresent
           
         env:
