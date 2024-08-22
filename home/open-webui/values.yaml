@@ -1,12 +1,16 @@
 open-webui:
+
   ollama:
     # https://github.com/otwld/ollama-helm/#helm-values
     ollama:
       gpu:
         enabled: true
-      models:
-        - llama3
+    
     runtimeClassName: nvidia
+    
+    service:
+      type: NodePort
+    
     persistentVolume:
       enabled: true
       size: 120Gi
