@@ -32,7 +32,7 @@ velero:
           s3ForcePathStyle: true
           s3Url: http://minio-snsd.ix-minio-snsd:9001
           publicUrl: https://minio.wavebe.am
-      - name: talosMigration
+      - name: talos-migration
         provider: aws
         bucket: catzbvmegafa
         credential:
@@ -56,7 +56,7 @@ velero:
           # https://github.com/openebs/velero-plugin/pull/55
           multiPartChunkSize: 100Mi
           restApiTimeout: 90s
-      - name: talosMigration
+      - name: talos-migration
         provider: openebs.io/cstor-blockstore
         credential:
           name: velero-s3-key
