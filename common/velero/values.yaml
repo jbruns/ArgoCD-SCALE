@@ -32,6 +32,16 @@ velero:
           s3ForcePathStyle: true
           s3Url: http://minio-snsd.ix-minio-snsd:9001
           publicUrl: https://minio.wavebe.am
+      - name: talosMigration
+        provider: aws
+        bucket: catzbvmegafa
+        credential:
+          name: velero-s3-key
+          key: default
+        config:
+          region: minio
+          s3ForcePathStyle: true
+          s3Url: https://minio.wavebe.am
     volumeSnapshotLocation:
       - name: default
         provider: openebs.io/zfspv-blockstore
@@ -43,6 +53,21 @@ velero:
           s3ForcePathStyle: true
           s3Url: http://minio-snsd.ix-minio-snsd:9001
           bucket: nobesitiatwa
+          # https://github.com/openebs/velero-plugin/pull/55
+          multiPartChunkSize: 100Mi
+          restApiTimeout: 90s
+      - name: talosMigration
+        provider: openebs.io/cstor-blockstore
+        credential:
+          name: velero-s3-key
+          key: default
+        config:
+          namespace: argo-common
+          provider: aws
+          bucket: catzbvmegafa
+          region: minio
+          s3ForcePathStyle: true
+          s3Url: https://minio.wavebe.am
           # https://github.com/openebs/velero-plugin/pull/55
           multiPartChunkSize: 100Mi
           restApiTimeout: 90s
