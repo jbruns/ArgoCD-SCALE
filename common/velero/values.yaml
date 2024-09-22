@@ -35,9 +35,6 @@ velero:
       - name: talos-migration
         provider: aws
         bucket: catzbvmegafa
-        credential:
-          name: velero-s3-key
-          key: default
         config:
           region: minio
           s3ForcePathStyle: true
@@ -58,9 +55,6 @@ velero:
           restApiTimeout: 90s
       - name: talos-migration
         provider: openebs.io/cstor-blockstore
-        credential:
-          name: velero-s3-key
-          key: default
         config:
           namespace: argo-common
           provider: aws
