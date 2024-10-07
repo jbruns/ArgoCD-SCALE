@@ -8,7 +8,7 @@ controllers:
       main:
         image:
           repository: ghcr.io/onedr0p/radarr
-          tag: 5.10.4
+          tag: 5.11.0
           pullPolicy: IfNotPresent
 
         env:
