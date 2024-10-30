@@ -8,7 +8,7 @@ controllers:
       main:
         image:
           repository: ghcr.io/onedr0p/tautulli
-          tag: 2.14.5
+          tag: 2.14.6
           pullPolicy: IfNotPresent
 
         env:
