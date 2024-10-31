@@ -96,10 +96,16 @@ persistence:
     hostPath: /mnt/andromeda/media/nzbdl
     globalMounts:
       - path: /nzbdl
+  data:
+    enabled: true
+    type: hostPath
+    hostPath: /mnt/andromeda/media
+    globalMounts:
+      - path: /data
 
 defaultPodOptions:
   securityContext:
-    runAsUser: 1001
+    runAsUser: 4003
     runAsGroup: 1002
     fsGroup: 1002
     fsGroupChangePolicy: "OnRootMismatch"
