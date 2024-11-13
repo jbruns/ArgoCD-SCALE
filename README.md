@@ -1,3 +1,14 @@
+# Archived
+All good things must come to an end, I suppose. 
+
+iXsystems [shifted gears](https://forums.truenas.com/t/the-future-of-electric-eel-and-apps/5409) from including k3s in TrueNAS SCALE, to just making it a Docker[-compose] host. I think that's likely for the better, and while it was an amazing opportunity to learn more about Kubernetes and GitOps principles, the resulting level of complication is a *little* extreme when you consider a single-node, at-home use case. That point aside - I was quite pleased with acheiving wife (and kids!) approved Kubernetes back in 2021, running all the way to when I finally took the upgrade to `SCALE-current` in Nov 2024.
+
+Before accepting the move to Docker Compose, I did make an attempt to largely move this repository over to [Talos Linux](https://github.com/jbruns/ArgoCD-Talos). But, again, the cons in overhead and extra steps just didn't make a lot of sense in my environment.
+
+If any of this repo's content is helpful to you, great! If you are looking for ready-made Helm charts to run on top of Talos or your Kubernetes distribution of choice, see [TrueCharts](https://truecharts.org). Otherwise, the common chart and container images I reference below are a great start to your journey.
+
+<br>
+
 <img src="https://raw.githubusercontent.com/jbruns/ArgoCD-SCALE/main/logo.png" align="left" width="144px" height="144px"/>
 
 # "HomeProd" - GitOps on Kubernetes
